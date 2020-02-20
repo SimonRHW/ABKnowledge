@@ -1,0 +1,4 @@
+rootProject.name='ABKnowledge'
+include ':app'
+include ':sloglibrary'
+include ':basecore'
