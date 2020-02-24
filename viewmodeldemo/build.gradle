@@ -1,7 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
-apply from: "$project.rootDir/jacoco.gradle"
 
 static def versionTime() {
     return new Date().format("yyyyMMdd", TimeZone.getTimeZone("UTC"))
@@ -11,7 +10,7 @@ android {
     compileSdkVersion build_versions.compile_sdk
     buildToolsVersion build_versions.build_tools
     defaultConfig {
-        applicationId "com.simon.basic.knowledge"
+        applicationId "com.simon.basic.viewmodel"
         minSdkVersion build_versions.min_sdk
         targetSdkVersion build_versions.target_sdk
 
@@ -40,7 +39,6 @@ android {
             outputFileName = applicationId +"_"+ variant.buildType.name + "_v" + defaultConfig.versionName + "_" + versionTime() + ".apk"
         }
     }
-
     buildTypes {
         release {
             minifyEnabled false
@@ -52,7 +50,6 @@ android {
         debug {
             signingConfig signingConfigs.debug
             debuggable true
-            testCoverageEnabled true
         }
     }
 
@@ -64,21 +61,6 @@ android {
             dimension "default"
 //            manifestPlaceholders = [
 //            ]
-        }
-    }
-
-    testOptions {
-        unitTests {
-            compileSdkVersion build_versions.compile_sdk
-            includeAndroidResources = true
-            returnDefaultValues = true
-        }
-        unitTests.all {
-            jacoco {
-                includeNoLocationClasses = true
-            }
-            systemProperty 'robolectric.enabledSdks',build_versions.compile_sdk
-            jvmArgs '-noverify'
         }
     }
 
@@ -118,4 +100,5 @@ dependencies {
     androidTestImplementation deps.espresso.core
     androidTestImplementation deps.espresso.contrib
     androidTestImplementation deps.arch_core.testing
+
 }

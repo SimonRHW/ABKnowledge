@@ -29,6 +29,7 @@ dependencies {
     implementation deps.app_compat
     implementation deps.core_ktx
     implementation deps.lifecycle.runtime
+    implementation deps.lifecycle.extensions
     implementation deps.lifecycle.viewmodel_ktx
     implementation deps.lifecycle.livedata_ktx
     implementation deps.activity.activity_ktx

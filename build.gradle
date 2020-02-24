@@ -2,14 +2,49 @@
 
 buildscript {
     apply from: 'versions.gradle'
+    ext {
+        kotlin_version = '1.3.61'
+    }
     addRepos(repositories)
     dependencies {
         classpath deps.android_gradle_plugin
         classpath deps.kotlin.plugin
         classpath deps.kotlin.allopen
-
+        classpath deps.jacoco
+        classpath deps.sonar
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
+    }
+}
+apply plugin: "org.sonarqube"
+
+sonarqube {
+    properties {
+        property 'sonar.projectName', 'ABKnowledge'
+        property "sonar.projectKey", "com.simonren.basic.knowledge"
+        property "sonar.sourceEncoding", "UTF-8"
+        property "sonar.exclusions", [
+                '**/ui/*'
+        ]
+    }
+}
+
+project(":basecore") {
+    sonarqube {
+        skipProject = true
+    }
+}
+
+subprojects {
+    sonarqube {
+        properties {
+            property "sonar.sources", [
+                    "src/main/java"
+            ]
+            property "sonar.tests", "src/test/unit/java"
+            property "sonar.core.codeCoveragePlugin", "jacoco"
+            property "sonar.coverage.jacoco.xmlReportPaths", "${project.buildDir}/jacocoReport/jacocoTestProdDebugUnitTestReport/jacocoTestProdDebugUnitTestReport.xml"
+        }
     }
 }
 

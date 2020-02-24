@@ -64,6 +64,8 @@ versions.transition = "1.3.0"
 versions.truth = "1.0.1"
 versions.work = "2.2.0"
 versions.xlog = "1.0.7"
+versions.sonar = "2.7.1"
+versions.jacoco = "0.1.4"
 ext.versions = versions
 
 def build_versions = [:]
@@ -155,6 +157,7 @@ lifecycle.java8 = "androidx.lifecycle:lifecycle-common-java8:$versions.lifecycle
 lifecycle.compiler = "androidx.lifecycle:lifecycle-compiler:$versions.lifecycle"
 lifecycle.viewmodel_ktx = "androidx.lifecycle:lifecycle-viewmodel-ktx:$versions.lifecycle"
 lifecycle.livedata_ktx = "androidx.lifecycle:lifecycle-livedata-ktx:$versions.lifecycle"
+lifecycle.extensions = "androidx.lifecycle:lifecycle-extensions:$versions.lifecycle"
 deps.lifecycle = lifecycle
 
 deps.material = "com.google.android.material:material:$versions.material"
@@ -211,6 +214,9 @@ deps.transition = "androidx.transition:transition:$versions.transition"
 
 deps.truth = "com.google.truth:truth:$versions.truth"
 
+deps.sonar = "org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:$versions.sonar"
+deps.jacoco = "com.dicedmelon.gradle:jacoco-android:$versions.jacoco"
+
 def work = [:]
 work.runtime = "androidx.work:work-runtime:$versions.work"
 work.testing = "androidx.work:work-testing:$versions.work"
@@ -225,6 +231,7 @@ static def addRepos(RepositoryHandler handler) {
     handler.jcenter()
     handler.maven { url 'https://maven.aliyun.com/repository/google' }
     handler.maven { url 'https://maven.aliyun.com/repository/jcenter' }
+    handler.maven { url "https://plugins.gradle.org/m2/" }
     handler.maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
 }
 
