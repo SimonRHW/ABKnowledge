@@ -14,11 +14,12 @@ class LogManager() {
         private lateinit var XLOG_PUBLIC_KEY: String;
         private var CACHE_DAYS: Int = 7;
         private lateinit var Name_Prefix: String;
+        private var isShowLog: Boolean = false;
     }
 
     open fun initLog(
         context: Context,
-        isDebug: Boolean
+        isDebug: Boolean = isShowLog
     ) {
         initLog(context, isDebug, "", "", 7, "")
     }
@@ -38,6 +39,7 @@ class LogManager() {
         }
         LOG_PATH = if (logPath.isNullOrEmpty()) {
             Environment.getExternalStorageDirectory().toString() + File.separator + Environment.DIRECTORY_DOWNLOADS + File.separator + "SLOG";
+
         } else {
             logPath
         }

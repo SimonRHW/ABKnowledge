@@ -38,12 +38,4 @@ dependencies {
     implementation deps.xlog
 
     testImplementation deps.junit
-    testImplementation deps.arch_core.testing
-
-    androidTestImplementation deps.atsl.runner
-    androidTestImplementation deps.atsl.rules
-    androidTestImplementation deps.atsl.ext_junit
-    androidTestImplementation deps.espresso.core
-    androidTestImplementation deps.espresso.contrib
-    androidTestImplementation deps.arch_core.testing
 }
