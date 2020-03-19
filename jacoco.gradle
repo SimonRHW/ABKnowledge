@@ -5,7 +5,7 @@ jacoco {
     reportsDir = file("$buildDir/JacocoReport")
 }
 
-task jacocoTestReport(type: JacocoReport, dependsOn: 'testArmonlyDebugUnitTest', overwrite: true) {
+task jacocoTestReport(type: JacocoReport, dependsOn: 'testProdDebugUnitTest', overwrite: true) {
     group = "reporting"
     reports {
         xml.enabled = true
