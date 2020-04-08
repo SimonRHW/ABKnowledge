@@ -15,6 +15,11 @@ android {
         consumerProguardFiles 'consumer-rules.pro'
     }
 
+    compileOptions {
+        sourceCompatibility javaVersion
+        targetCompatibility javaVersion
+    }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -26,6 +31,7 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation project(path: ':slog')
     implementation deps.app_compat
     implementation deps.core_ktx
     implementation deps.lifecycle.runtime

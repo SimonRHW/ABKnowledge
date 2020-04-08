@@ -1,4 +1,4 @@
-package com.simonren.contentprovide.basic.provider
+package com.simon.basic.knowledge.provider
 
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
@@ -20,7 +20,7 @@ class BasicDbOpenHelper(
                 "phone TEXT, " +
                 "gender INT, " +
                 ")")
-        private val INSERT_BASIC_TABLE = "insert into" + BASIC_TABLE +"("
+        private val INSERT_BASIC_TABLE = "insert into$BASIC_TABLE("
     }
 
     override fun onCreate(db: SQLiteDatabase?) {

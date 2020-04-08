@@ -1,13 +1,14 @@
-package com.simonren.contentprovide.basic.provider
+package com.simon.basic.knowledge.provider
 
 import android.content.ContentProvider
 import android.content.ContentValues
 import android.database.Cursor
 import android.net.Uri
+import com.simon.basic.knowledge.provider.BasicDbOpenHelper
 
 class BasicProvider : ContentProvider() {
 
-    private lateinit var  basicDbOpenHelper: BasicDbOpenHelper
+    private lateinit var basicDbOpenHelper: BasicDbOpenHelper
 
 
     /**
