@@ -1,11 +1,11 @@
-package com.simon.basic.knowledge
+package com.simon.basic.knowledge.global
 
 import android.app.Application
 import android.os.Environment
 import com.simon.basic.log.LogManager
 import java.io.File
 
-class MyApplication : Application() {
+class ABKApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
