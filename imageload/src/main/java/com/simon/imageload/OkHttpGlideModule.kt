@@ -1,4 +1,4 @@
-package com.jidouauto.travel.framework.glide
+package com.simon.imageload
 
 import android.content.Context
 import android.util.Log
