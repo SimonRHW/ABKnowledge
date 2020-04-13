@@ -6,5 +6,10 @@ package com.simon.basic.core
  * @desc
  */
 interface DataConverter<T> {
+    /**
+     * Gets data.
+     *
+     * @return 业务数据模型 data
+     */
     fun convert(): T?
 }

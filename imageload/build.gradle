@@ -35,5 +35,9 @@ dependencies {
     implementation deps.kotlin.stdlib
     implementation deps.app_compat
     implementation deps.core_ktx
+    implementation deps.glide.runtime
+    annotationProcessor  deps.glide.compiler
+    implementation deps.glide.integration
     testImplementation 'junit:junit:4.12'
+    implementation project(path: ':netcore')
 }

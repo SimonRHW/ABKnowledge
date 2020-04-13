@@ -8,7 +8,7 @@ import com.simon.basic.core.DataConverter
  * @desc
  */
 class DataResp<T : Any?> : MsgResp(), DataConverter<T> {
-    var data: T? = null
+    private var data: T? = null
     override fun convert(): T? {
         return data
     }

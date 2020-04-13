@@ -33,6 +33,10 @@ dependencies {
     implementation deps.kotlin.stdlib
     implementation deps.app_compat
     implementation deps.core_ktx
-
+    implementation deps.okhttp.runtime
+    implementation deps.okhttp.logging
+    implementation deps.retrofit.runtime
+    implementation deps.retrofit.gson
+    implementation deps.retrofit.rxjava
     testImplementation deps.junit
 }

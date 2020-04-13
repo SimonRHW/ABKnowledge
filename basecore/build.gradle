@@ -61,4 +61,6 @@ dependencies {
     androidTestImplementation deps.espresso.core
     androidTestImplementation deps.espresso.contrib
     androidTestImplementation deps.arch_core.testing
+    implementation project(path: ':imageload')
+    implementation project(path: ':netcore')
 }

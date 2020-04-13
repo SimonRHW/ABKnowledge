@@ -115,8 +115,6 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(':slog')
     implementation project(':basecore')
-    implementation project(':imageload')
-    implementation project(':netcore')
     implementation deps.app_compat
     implementation deps.material
     implementation deps.core_ktx
