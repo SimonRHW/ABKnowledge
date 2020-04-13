@@ -1,4 +1,4 @@
-package com.simon.basic.knowledge.contents
+package com.simon.basic.knowledge.features.contents
 
 import androidx.lifecycle.ViewModel
 

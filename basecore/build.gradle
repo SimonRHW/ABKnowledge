@@ -1,7 +1,7 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
-
+apply plugin: 'kotlin-kapt'
 android {
     compileSdkVersion build_versions.compile_sdk
 
@@ -14,7 +14,9 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles 'consumer-rules.pro'
     }
-
+    dataBinding {
+        enabled = true
+    }
     compileOptions {
         sourceCompatibility javaVersion
         targetCompatibility javaVersion
@@ -41,6 +43,14 @@ dependencies {
     implementation deps.activity.activity_ktx
 
     implementation deps.kotlin.stdlib
+
+    api deps.gson
+    api deps.zxing
+    api deps.rx_android
+    api deps.rxjava2
+    api deps.retrofit.runtime
+    api deps.retrofit.gson
+    api deps.retrofit.rxjava
 
     testImplementation deps.junit
     testImplementation deps.arch_core.testing

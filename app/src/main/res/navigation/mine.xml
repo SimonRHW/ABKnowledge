@@ -23,7 +23,7 @@
 
     <fragment
         android:id="@+id/mineTab"
-        android:name="com.simon.basic.knowledge.mine.MineFragment"
+        android:name="com.simon.basic.knowledge.features.mine.MineFragment"
         android:label="@string/title_mine"
         tools:layout="@layout/mine_fragment" />
 </navigation>

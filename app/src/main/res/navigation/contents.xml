@@ -23,7 +23,7 @@
 
     <fragment
         android:id="@+id/contentsTab"
-        android:name="com.simon.basic.knowledge.contents.ContestsFragment"
+        android:name="com.simon.basic.knowledge.features.contents.ContestsFragment"
         android:label="@string/title_contents"
         tools:layout="@layout/contests_fragment">
     </fragment>

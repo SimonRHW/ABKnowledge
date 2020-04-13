@@ -1,4 +1,4 @@
-package com.simon.basic.basecore
+package com.simon.basic.core
 
 import org.junit.Test
 

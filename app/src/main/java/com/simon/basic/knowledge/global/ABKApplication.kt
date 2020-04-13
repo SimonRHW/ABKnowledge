@@ -13,7 +13,8 @@ class ABKApplication : Application() {
             context = this,
             isShowLog = true,
             cachePath = this.filesDir.toString() + "/xlog",
-            logPath = Environment.getExternalStorageDirectory().toString() + File.separator + Environment.DIRECTORY_DOWNLOADS + File.separator + "SLOG"
+            logPath = Environment.getExternalStorageDirectory()
+                .toString() + File.separator + Environment.DIRECTORY_DOWNLOADS + File.separator + "SLOG"
         )
     }
 

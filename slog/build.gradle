@@ -38,7 +38,7 @@ dependencies {
     implementation deps.kotlin.stdlib
     implementation deps.app_compat
     implementation deps.core_ktx
-    implementation deps.timber
+    api deps.timber
     implementation deps.xlog
 
     testImplementation deps.junit

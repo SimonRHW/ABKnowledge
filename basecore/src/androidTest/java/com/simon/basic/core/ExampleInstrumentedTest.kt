@@ -1,4 +1,4 @@
-package com.simon.basic.basecore
+package com.simon.basic.core
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

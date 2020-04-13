@@ -23,7 +23,7 @@
 
     <fragment
         android:id="@+id/homeTab"
-        android:name="com.simon.basic.knowledge.home.HomeFragment"
+        android:name="com.simon.basic.knowledge.features.home.HomeFragment"
         android:label="@string/title_home"
         tools:layout="@layout/home_fragment" />
 
