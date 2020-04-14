@@ -1,4 +1,4 @@
-package com.simon.basic.core
+package com.simon.basic.core.extensions
 
 /**
  * @author Simon

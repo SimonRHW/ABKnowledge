@@ -1,4 +1,4 @@
-package com.simon.basic.core
+package com.simon.basic.core.extensions
 
 import android.view.LayoutInflater
 import android.view.View

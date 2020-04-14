@@ -1,4 +1,4 @@
-package com.simon.basic.core.base
+package com.simon.basic.core.platform
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -10,15 +10,17 @@ import androidx.databinding.ViewDataBinding
  * @date 2020/4/12
  * @desc
  */
-abstract class BaseActivity<V : ViewDataBinding, M : BaseViewModel> : AppCompatActivity() {
+abstract class BaseActivity<V : ViewDataBinding, VM : BaseViewModel> : AppCompatActivity() {
     abstract fun layoutId(): Int
-    abstract fun obtainViewModel(): M
+    abstract fun obtainViewModel(): VM
+    abstract fun bind(bind: V, viewModel: VM)
     lateinit var mBinding: V
-    lateinit var mViewModel: M
+    lateinit var mViewModel: VM
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mBinding = DataBindingUtil.setContentView(this, layoutId())
-        mBinding.lifecycleOwner = this
         mViewModel = obtainViewModel()
+        mBinding.lifecycleOwner = this
+        bind(mBinding, mViewModel)
     }
 }

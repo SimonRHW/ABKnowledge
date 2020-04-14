@@ -1,8 +1,8 @@
-package com.simon.basic.core.base
+package com.simon.basic.core.platform
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.simon.basic.core.Failure
+import com.simon.basic.core.functional.Failure
 
 
 /**

@@ -1,4 +1,4 @@
-package com.simon.basic.core.base
+package com.simon.basic.core.platform
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -13,11 +13,12 @@ import androidx.fragment.app.Fragment
  * @date 2020/4/12
  * @desc
  */
-abstract class BaseFragment<V : ViewDataBinding, M : BaseViewModel> :Fragment() {
+abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel> : Fragment() {
     lateinit var mBinding: V
-    lateinit var mViewModel: M
+    lateinit var mViewModel: VM
     abstract fun layoutId(): Int
-    abstract fun obtainViewModel(): M
+    abstract fun obtainViewModel(): VM
+    abstract fun bind(bind: V, viewModel: VM)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -28,8 +29,9 @@ abstract class BaseFragment<V : ViewDataBinding, M : BaseViewModel> :Fragment() 
             container,
             false
         )
-        mBinding.lifecycleOwner = this
         mViewModel = obtainViewModel()
+        mBinding.lifecycleOwner = this
+        bind(mBinding, mViewModel)
         return mBinding.root
     }
 }
