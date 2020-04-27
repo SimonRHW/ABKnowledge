@@ -6,6 +6,7 @@ package com.simon.basic.core.functional
  * @desc 错误状态
  */
 sealed class Failure {
+
     object NetworkConnection : Failure()
     object ServerError : Failure()
 

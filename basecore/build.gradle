@@ -33,7 +33,7 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation project(path: ':slog')
+    implementation project(path: ':logLib')
     implementation deps.app_compat
     implementation deps.core_ktx
     implementation deps.lifecycle.runtime
@@ -61,6 +61,4 @@ dependencies {
     androidTestImplementation deps.espresso.core
     androidTestImplementation deps.espresso.contrib
     androidTestImplementation deps.arch_core.testing
-    implementation project(path: ':imageload')
-    implementation project(path: ':netcore')
 }

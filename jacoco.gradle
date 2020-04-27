@@ -1,8 +1,12 @@
-apply plugin: 'jacoco-android'
+apply plugin: 'jacoco'
 
 jacoco {
-    toolVersion = "0.8.4"
+    toolVersion = "$versions.jacoco"
     reportsDir = file("$buildDir/JacocoReport")
+}
+
+tasks.withType(Test) {
+    jacoco.includeNoLocationClasses = true
 }
 
 task jacocoTestReport(type: JacocoReport, dependsOn: 'testProdDebugUnitTest', overwrite: true) {

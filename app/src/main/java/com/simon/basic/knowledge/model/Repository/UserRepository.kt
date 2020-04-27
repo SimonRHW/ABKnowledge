@@ -1,4 +1,4 @@
-package com.simon.basic.knowledge.model.Repository
+package com.simon.basic.knowledge.model.repository
 
 import com.simon.basic.knowledge.model.UserDataSource
 

@@ -1,6 +1,6 @@
 rootProject.name='ABKnowledge'
 include ':app'
-include ':slog'
+include ':logLib'
 include ':basecore'
 include ':imageload'
 include ':netcore'

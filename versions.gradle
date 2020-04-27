@@ -23,7 +23,7 @@ ext.deps = [:]
 
 def versions = [:]
 versions.activity = '1.1.0'
-versions.android_gradle_plugin = '3.6.2'
+versions.android_gradle_plugin = '3.6.3'
 versions.annotations = "1.0.0"
 versions.apache_commons = "2.5"
 versions.appcompat = "1.2.0-alpha02"
@@ -69,7 +69,7 @@ versions.truth = "1.0.1"
 versions.work = "2.2.0"
 versions.xlog = "1.0.7"
 versions.sonar = "2.7.1"
-versions.jacoco = "0.1.4"
+versions.jacoco = "0.8.5"
 ext.versions = versions
 
 def build_versions = [:]
@@ -152,7 +152,7 @@ deps.hamcrest = "org.hamcrest:hamcrest-all:$versions.hamcrest"
 deps.junit = "junit:junit:$versions.junit"
 
 def kotlin = [:]
-kotlin.stdlib = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$versions.kotlin"
+kotlin.stdlib = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$versions.kotlin"
 kotlin.test = "org.jetbrains.kotlin:kotlin-test-junit:$versions.kotlin"
 kotlin.plugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:$versions.kotlin"
 kotlin.allopen = "org.jetbrains.kotlin:kotlin-allopen:$versions.kotlin"
@@ -230,7 +230,8 @@ deps.zxing = "com.google.zxing:core:$versions.zxing"
 deps.truth = "com.google.truth:truth:$versions.truth"
 
 deps.sonar = "org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:$versions.sonar"
-deps.jacoco = "com.dicedmelon.gradle:jacoco-android:$versions.jacoco"
+
+deps.jacoco = "org.jacoco:org.jacoco.core:$versions.jacoco"
 
 def work = [:]
 work.runtime = "androidx.work:work-runtime:$versions.work"

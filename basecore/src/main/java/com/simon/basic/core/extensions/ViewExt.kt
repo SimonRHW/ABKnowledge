@@ -22,3 +22,17 @@ fun View.invisible() { this.visibility = View.GONE }
 
 fun ViewGroup.inflate(@LayoutRes layoutRes: Int): View =
     LayoutInflater.from(context).inflate(layoutRes, this, false)
+
+var viewClickFlag = false
+
+var viewRunnable = Runnable { viewClickFlag = false }
+fun View.click(action: (view: View) -> Unit) {
+    setOnClickListener {
+        if (!viewClickFlag) {
+            viewClickFlag = true
+            action(it)
+        }
+        removeCallbacks(viewRunnable)
+        postDelayed(viewRunnable, 350)
+    }
+}

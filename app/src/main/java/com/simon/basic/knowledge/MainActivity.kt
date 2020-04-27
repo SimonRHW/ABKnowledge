@@ -1,20 +1,26 @@
 package com.simon.basic.knowledge
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.simon.basic.core.platform.BaseActivity
 import com.simon.basic.knowledge.utils.setupWithNavController
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
+
     private var currentNavController: LiveData<NavController>? = null
+
+    override fun layoutId(): Int {
+        return R.layout.main_activity
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.main_activity)
+        setContentView(layoutId())
         if (savedInstanceState == null) {
             setupBottomNavigationBar()
         }
