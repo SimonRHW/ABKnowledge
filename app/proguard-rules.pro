@@ -63,10 +63,6 @@
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
 
-###################################下面的不动######################################
-###################################下面的不动######################################
-###################################下面的不动######################################
-
 # 指定代码的压缩级别 0 - 7(指定代码进行迭代优化的次数，在Android里面默认是5，这条指令也只有在可以优化时起作用。)
 -optimizationpasses 5
 # 混淆时不会产生形形色色的类名(混淆时不使用大小写混合类名)
@@ -198,3 +194,14 @@
 
 ## 搜索
 -keep   class com.amap.api.services.**{*;}
+
+##arouter
+-keep public class com.alibaba.android.arouter.routes.**{*;}
+-keep public class com.alibaba.android.arouter.facade.**{*;}
+-keep class * implements com.alibaba.android.arouter.facade.template.ISyringe{*;}
+
+# 如果使用了 byType 的方式获取 Service，需添加下面规则，保护接口
+-keep interface * implements com.alibaba.android.arouter.facade.template.IProvider
+
+# 如果使用了 单类注入，即不定义接口实现 IProvider，需添加下面规则，保护实现
+# -keep class * implements com.alibaba.android.arouter.facade.template.IProvider

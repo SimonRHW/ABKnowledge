@@ -17,6 +17,12 @@ android {
         minSdkVersion build_versions.min_sdk
         targetSdkVersion build_versions.target_sdk
 
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [AROUTER_MODULE_NAME: project.getName()]
+            }
+        }
+
         versionCode project.VERSIONCODE as int
         versionName project.VERSIONNAME
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -135,6 +141,11 @@ dependencies {
     implementation deps.navigation.ui_ktx
 
     implementation deps.kotlin.stdlib
+
+    //ARouter
+    implementation deps.arouter.api
+    kapt deps.arouter.compiler
+
 
     testImplementation deps.junit
     testImplementation deps.arch_core.testing

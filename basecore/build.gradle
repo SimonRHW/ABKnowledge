@@ -48,9 +48,6 @@ dependencies {
     api deps.zxing
     api deps.rx_android
     api deps.rxjava2
-    api deps.retrofit.runtime
-    api deps.retrofit.gson
-    api deps.retrofit.rxjava
 
     testImplementation deps.junit
     testImplementation deps.arch_core.testing

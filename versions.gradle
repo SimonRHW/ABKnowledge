@@ -22,54 +22,86 @@
 ext.deps = [:]
 
 def versions = [:]
-versions.activity = '1.1.0'
 versions.android_gradle_plugin = '3.6.3'
+
+versions.activity = '1.1.0'
 versions.annotations = "1.0.0"
-versions.apache_commons = "2.5"
-versions.appcompat = "1.2.0-alpha02"
+versions.appcompat = "1.1.0"
 versions.arch_core = "2.1.0"
+versions.asynclayoutinflater = "1.1.0"
+
 versions.atsl_core = "1.2.0"
 versions.atsl_junit = "1.1.1"
 versions.atsl_rules = "1.2.0"
 versions.atsl_runner = "1.2.0"
+
 versions.benchmark = "1.0.0"
+versions.biometric = "1.0.1"
+versions.browser = "1.2.0"
+
+versions.cameraX = "1.1.0-beta03"
 versions.cardview = "1.0.0"
-versions.constraint_layout = "2.0.0-alpha2"
-versions.core_ktx = "1.1.0"
+versions.constraint_layout = "1.1.3"
+versions.coordinator_layout = "1.1.0"
+versions.core = "1.2.0"
+versions.customview = "1.0.0"
 versions.coroutines = "1.3.3"
+
+versions.drawerlayout = "1.0.0"
 versions.dagger = "2.16"
 versions.dexmaker = "2.2.0"
 versions.espresso = "3.2.0"
-versions.fragment = "1.2.1"
+
+versions.fragment = "1.2.4"
+
+versions.gson = "2.8.6"
 versions.glide = "4.11.0"
+
 versions.hamcrest = "1.3"
+
 versions.junit = "4.12"
+versions.jacoco = "0.8.5"
+
 versions.kotlin = "1.3.61"
+
 versions.lifecycle = "2.2.0"
-versions.material = "1.0.0"
+
+versions.material = "1.1.0"
+
 versions.mockito = "2.25.0"
 versions.mockito_all = "1.10.19"
 versions.mockito_android = "2.25.0"
 versions.mockwebserver = "3.8.1"
-versions.navigation = "2.3.0-alpha01"
-versions.paging = "2.1.1"
+
+versions.navigation = "2.2.0"
+
+versions.okhttp = "4.4.1"
+
+versions.paging = "2.1.2"
+
 versions.recyclerview = "1.0.0"
 versions.retrofit = "2.7.2"
-versions.okhttp = "4.4.1"
 versions.robolectric = "4.2"
 versions.room = "2.2.3"
 versions.rx_android = "2.1.1"
 versions.rxjava2 = "2.2.12"
+
+versions.sonar = "2.7.1"
+
 versions.timber = "4.7.1"
 versions.transition = "1.3.0"
 versions.truth = "1.0.1"
-versions.gson = "2.8.6"
-versions.zxing = "3.3.3"
 versions.truth = "1.0.1"
-versions.work = "2.2.0"
+
+versions.ViewPager2 = "1.0.0"
+
+versions.work = "2.3.4"
+versions.webkit = "1.2.0"
+
 versions.xlog = "1.0.7"
-versions.sonar = "2.7.1"
-versions.jacoco = "0.8.5"
+
+versions.zxing = "3.3.3"
+
 ext.versions = versions
 
 def build_versions = [:]
@@ -86,12 +118,20 @@ def deps = [:]
 def activity = [:]
 activity.activity_ktx = "androidx.activity:activity-ktx:$versions.activity"
 deps.activity = activity
-
 deps.android_gradle_plugin = "com.android.tools.build:gradle:$versions.android_gradle_plugin"
-
 deps.annotations = "androidx.annotation:annotation:$versions.annotations"
-
 deps.app_compat = "androidx.appcompat:appcompat:$versions.appcompat"
+
+//View
+deps.cardview = "androidx.cardview:cardview:$versions.cardview"
+deps.constraint_layout = "androidx.constraintlayout:constraintlayout:$versions.constraint_layout"
+deps.coordinator_layout = "androidx.coordinatorlayout:coordinatorlayout:$versions.coordinator_layout"
+deps.customview = "androidx.customview:customview:$versions.customview"
+deps.drawerlayout = "androidx.drawerlayout:drawerlayout:$versions.drawerlayout"
+deps.recyclerview = "androidx.recyclerview:recyclerview:$versions.recyclerview"
+deps.viewpager2 = "androidx.viewpager2:viewpager2:$versions.viewpager2"
+
+deps.asynclayoutinflater = "androidx.asynclayoutinflater:asynclayoutinflater:$versions.asynclayoutinflater"
 
 def arch_core = [:]
 arch_core.runtime = "androidx.arch.core:core-runtime:$versions.arch_core"
@@ -108,11 +148,22 @@ deps.atsl = atsl
 deps.benchmark = "androidx.benchmark:benchmark-junit4:$versions.benchmark"
 deps.benchmark_gradle = "androidx.benchmark:benchmark-gradle-plugin:$versions.benchmark"
 
-deps.cardview = "androidx.cardview:cardview:$versions.cardview"
+deps.biometric = "androidx.biometric:biometric:$versions.biometric"
 
-deps.constraint_layout = "androidx.constraintlayout:constraintlayout:$versions.constraint_layout"
+deps.browser = "androidx.browser:browser:$versions.browser"
 
-deps.core_ktx = "androidx.core:core-ktx:$versions.core_ktx"
+def cameraX = [:]
+cameraX.camera2 = "androidx.camera:camera-camera2:$versions.cameraX "
+// If you want to additionally use the CameraX Lifecycle library
+cameraX.lifecycle = "androidx.camera:camera-lifecycle:$versions.cameraX"
+// If you want to additionally use the CameraX View class
+cameraX.view = "androidx.camera:camera-view:1.0.0-alpha10"
+// If you want to additionally use the CameraX Extensions library
+cameraX.extensions = "androidx.camera:camera-extensions:1.0.0-alpha10"
+
+// Java language implementation
+deps.core = "androidx.core:core:$versions.core"
+deps.core_ktx = "androidx.core:core-ktx:$versions.core"
 
 def coroutines = [:]
 coroutines.android = "org.jetbrains.kotlinx:kotlinx-coroutines-android:$versions.coroutines"
@@ -159,11 +210,24 @@ kotlin.allopen = "org.jetbrains.kotlin:kotlin-allopen:$versions.kotlin"
 deps.kotlin = kotlin
 
 def lifecycle = [:]
-lifecycle.runtime = "androidx.lifecycle:lifecycle-runtime:$versions.lifecycle"
-lifecycle.java8 = "androidx.lifecycle:lifecycle-common-java8:$versions.lifecycle"
-lifecycle.compiler = "androidx.lifecycle:lifecycle-compiler:$versions.lifecycle"
+// ViewModel
 lifecycle.viewmodel_ktx = "androidx.lifecycle:lifecycle-viewmodel-ktx:$versions.lifecycle"
+// LiveData
 lifecycle.livedata_ktx = "androidx.lifecycle:lifecycle-livedata-ktx:$versions.lifecycle"
+// Saved state module for ViewModel
+lifecycle.viewmodel_ktx_savedstate = "androidx.lifecycle:lifecycle-viewmodel-savedstate:$versions.lifecycle"
+// Annotation processor
+lifecycle.compiler = "androidx.lifecycle:lifecycle-compiler:$versions.lifecycle"
+// alternately - if using Java8, use the following instead of lifecycle-compiler
+lifecycle.java8 = "androidx.lifecycle:lifecycle-common-java8:$versions.lifecycle"
+// optional - helpers for implementing LifecycleOwner in a Service
+lifecycle.service = "androidx.lifecycle:lifecycle-service:$versions.lifecycle"
+// optional - ProcessLifecycleOwner provides a lifecycle for the whole application process
+lifecycle.process = "androidx.lifecycle:lifecycle-process:$versions.lifecycle"
+// optional - ReactiveStreams support for LiveData
+lifecycle.reactivestreams = "androidx.lifecycle:lifecycle-reactivestreams-ktx:$versions.lifecycle"
+
+lifecycle.runtime = "androidx.lifecycle:lifecycle-runtime:$versions.lifecycle"
 lifecycle.extensions = "androidx.lifecycle:lifecycle-extensions:$versions.lifecycle"
 deps.lifecycle = lifecycle
 
@@ -189,8 +253,6 @@ navigation.safe_args_plugin = "androidx.navigation:navigation-safe-args-gradle-p
 deps.navigation = navigation
 
 deps.paging_ktx = "androidx.paging:paging-runtime-ktx:$versions.paging"
-
-deps.recyclerview = "androidx.recyclerview:recyclerview:$versions.recyclerview"
 
 def okhttp = [:]
 okhttp.runtime = "com.squareup.okhttp3:okhttp:$versions.okhttp"
@@ -233,12 +295,20 @@ deps.sonar = "org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:$versions.s
 
 deps.jacoco = "org.jacoco:org.jacoco.core:$versions.jacoco"
 
+deps.webkit =  "androidx.webkit:webkit:$versions.webkit"
+
 def work = [:]
 work.runtime = "androidx.work:work-runtime:$versions.work"
 work.testing = "androidx.work:work-testing:$versions.work"
 work.firebase = "androidx.work:work-firebase:$versions.work"
 work.runtime_ktx = "androidx.work:work-runtime-ktx:$versions.work"
 deps.work = work
+
+def arouter = [:]
+arouter.api = "com.alibaba:arouter-api:1.5.0"
+arouter.compiler = "com.alibaba:arouter-compiler:1.2.2"
+arouter.register = "com.alibaba:arouter-register:1.0.2"
+deps.arouter = arouter
 
 ext.deps = deps
 
