@@ -21,6 +21,8 @@
  **/
 ext.deps = [:]
 
+ext.all = "${all}".toBoolean()
+
 def versions = [:]
 versions.android_gradle_plugin = '3.6.3'
 
@@ -295,7 +297,7 @@ deps.sonar = "org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:$versions.s
 
 deps.jacoco = "org.jacoco:org.jacoco.core:$versions.jacoco"
 
-deps.webkit =  "androidx.webkit:webkit:$versions.webkit"
+deps.webkit = "androidx.webkit:webkit:$versions.webkit"
 
 def work = [:]
 work.runtime = "androidx.work:work-runtime:$versions.work"
@@ -315,10 +317,13 @@ ext.deps = deps
 static def addRepos(RepositoryHandler handler) {
     handler.google()
     handler.jcenter()
+    handler.maven { url "https://plugins.gradle.org/m2/" }
     handler.maven { url 'https://maven.aliyun.com/repository/google' }
     handler.maven { url 'https://maven.aliyun.com/repository/jcenter' }
+    handler.maven { url 'https://maven.aliyun.com/repository/public' }
+    handler.maven { url 'https://maven.aliyun.com/repository/central' }
+    handler.maven { url 'https://maven.aliyun.com/repository/gradle-plugin' }
     handler.maven { url 'https://mirrors.huaweicloud.com/repository/maven/' }
-    handler.maven { url "https://plugins.gradle.org/m2/" }
     handler.maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
 }
 

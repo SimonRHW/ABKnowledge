@@ -122,8 +122,13 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(':logLib')
     implementation project(':basecore')
-    implementation project(path: ':imageload')
+    implementation project(path: ':imagecore')
     implementation project(path: ':netcore')
+
+    if (rootProject.ext.all) {
+        implementation project(':module-news')
+    }
+
     implementation deps.app_compat
     implementation deps.material
     implementation deps.core_ktx

@@ -26,6 +26,7 @@ fun ViewGroup.inflate(@LayoutRes layoutRes: Int): View =
 var viewClickFlag = false
 
 var viewRunnable = Runnable { viewClickFlag = false }
+
 fun View.click(action: (view: View) -> Unit) {
     setOnClickListener {
         if (!viewClickFlag) {
