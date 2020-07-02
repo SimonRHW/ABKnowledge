@@ -136,6 +136,11 @@
     public static <fields>;
 }
 
+#通过ProGuard在打包阶段清除Log日志
+-assumenoexternalsideeffects class android.util.Log{
+        public static *** d(...);
+}
+
 # The support library contains references to newer platform versions.
 # Don't warn about those in case this app is linking against an older
 # platform version.  We know about them, and they are safe.
