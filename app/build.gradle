@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'dagger.hilt.android.plugin'
 apply from: "$project.rootDir/jacoco.gradle"
 
 static def versionTime() {
@@ -151,6 +152,9 @@ dependencies {
     implementation deps.arouter.api
     kapt deps.arouter.compiler
 
+    //Hilt
+    implementation deps.hilt.runtime
+    kapt deps.hilt.compiler
 
     testImplementation deps.junit
     testImplementation deps.arch_core.testing
