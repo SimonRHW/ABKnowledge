@@ -91,6 +91,7 @@ versions.rx_android = "2.1.1"
 versions.rxjava2 = "2.2.12"
 
 versions.sonar = "2.7.1"
+versions.swagger = "1.5.15"
 
 versions.timber = "4.7.1"
 versions.transition = "1.3.0"
@@ -289,6 +290,8 @@ deps.room = room
 deps.rx_android = "io.reactivex.rxjava2:rxandroid:$versions.rx_android"
 
 deps.rxjava2 = "io.reactivex.rxjava2:rxjava:$versions.rxjava2"
+
+deps.swagger = "io.swagger:swagger-annotations:$versions.swagger"
 
 deps.timber = "com.jakewharton.timber:timber:$versions.timber"
 
