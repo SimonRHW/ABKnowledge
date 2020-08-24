@@ -1,0 +1,27 @@
+apply plugin: 'groovy'
+apply plugin: 'maven'
+
+dependencies {
+    implementation gradleApi()//gradle sdk
+
+    implementation deps.android_gradle_plugin
+    implementation deps.android_gradle_plugin_api
+
+    //ASM依赖
+    implementation deps.asm.runtime
+    implementation deps.asm.util
+    implementation deps.asm.commons
+}
+
+repositories {
+    addRepos(repositories)
+}
+
+uploadArchives {
+    repositories.mavenDeployer {
+        repository(url: uri('../repo'))
+        pom.groupId = 'com.simon.asm.core'
+        pom.artifactId = 'asm_plugin'
+        pom.version = '1.0.0'
+    }
+}

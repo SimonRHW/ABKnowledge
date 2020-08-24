@@ -20,7 +20,15 @@ android.enableJetifier=true
 # Kotlin code style for this project: "official" or "obsolete":
 kotlin.code.style=official
 
-full=true
+all=false
+
+KEY_ALIAS=xxx
+KEY_PASSWORD=xxx
+STORE_FILE=D\:\\key\\xxx.jks
+STORE_PASSWORD=xxx
+
+VERSIONCODE=1
+VERSIONNAME=1.0.0
 
 systemProp.sonar.host.url=http\://127.0.0.1\:9000
 systemProp.sonar.login=建议使用令牌可以不配置password
@@ -35,11 +43,3 @@ systemProp.http.nonProxyHosts=192.168.*
 systemProp.https.proxyHost=127.0.0.1
 systemProp.https.proxyPort=1080
 systemProp.https.nonProxyHosts=192.168.*
-
-KEY_ALIAS=xxx
-KEY_PASSWORD=xxx
-STORE_FILE=D\:\\key\\xxx.jks
-STORE_PASSWORD=xxx
-
-VERSIONCODE=1
-VERSIONNAME=1.0.0

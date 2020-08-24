@@ -26,6 +26,8 @@ ext.all = "${all}".toBoolean()
 def versions = [:]
 versions.android_gradle_plugin = '4.0.1'
 
+versions.asm = '8.0'
+
 versions.activity = '1.1.0'
 versions.annotations = "1.0.0"
 versions.appcompat = "1.1.0"
@@ -120,11 +122,22 @@ ext.javaVersion = JavaVersion.VERSION_1_8
 
 def deps = [:]
 
+//ASM依赖
+def asm = [:]
+asm.runtime = "org.ow2.asm:asm:$versions.asm"
+asm.util = "org.ow2.asm:asm-util:$versions.asm"
+asm.commons = "org.ow2.asm:asm-commons:$versions.asm"
+deps.asm = asm
+
 def activity = [:]
 activity.activity_ktx = "androidx.activity:activity-ktx:$versions.activity"
 deps.activity = activity
+
 deps.android_gradle_plugin = "com.android.tools.build:gradle:$versions.android_gradle_plugin"
+deps.android_gradle_plugin_api = "com.android.tools.build:gradle-api:$versions.android_gradle_plugin"
+
 deps.annotations = "androidx.annotation:annotation:$versions.annotations"
+
 deps.app_compat = "androidx.appcompat:appcompat:$versions.appcompat"
 
 //View
@@ -340,6 +353,7 @@ static def addRepos(RepositoryHandler handler) {
 //    handler.maven { url 'https://maven.aliyun.com/repository/grails-core' }
     handler.maven { url 'https://mirrors.huaweicloud.com/repository/maven/' }
     handler.maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
+    handler.maven { url "../ABKnowledge/repo" }
 }
 
 ext.addRepos = this.&addRepos
