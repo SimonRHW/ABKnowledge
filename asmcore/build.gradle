@@ -17,6 +17,7 @@ repositories {
     addRepos(repositories)
 }
 
+
 uploadArchives {
     repositories.mavenDeployer {
         repository(url: uri('../repo'))

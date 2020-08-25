@@ -19,6 +19,7 @@ public class AsmMethodVisitor extends MethodVisitor {
         super(ASM7, methodVisitor);
         this.className = className;
         this.methodName = methodName;
+        System.out.println("AsmMethodVisitor visit className-------" + className + ", methodName is " + methodName);
     }
 
     /**
@@ -27,7 +28,7 @@ public class AsmMethodVisitor extends MethodVisitor {
     @Override
     public void visitCode() {
         super.visitCode();
-        System.out.println("MethodVisitor --- visitCode --- enter");
+        System.out.println("AsmMethodVisitor --- visitCode --- enter");
         mv.visitLdcInsn("TAG");
         mv.visitLdcInsn(className + "---->" + methodName);
         mv.visitMethodInsn(Opcodes.INVOKESTATIC, "android/util/Log", "i", "(Ljava/lang/String;Ljava/lang/String;)I", false);

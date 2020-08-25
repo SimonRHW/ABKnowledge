@@ -35,6 +35,7 @@ public class AsmTransform extends Transform {
     Project project;
 
     public AsmTransform(Project project) {
+        System.out.println("===========AsmTransform  init  ============");
         this.project = project;
     }
 
@@ -54,7 +55,7 @@ public class AsmTransform extends Transform {
      */
     @Override
     public Set<QualifiedContent.ContentType> getInputTypes() {
-        return null;
+        return TransformManager.CONTENT_CLASS;
     }
 
     /**

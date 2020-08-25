@@ -3,8 +3,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'dagger.hilt.android.plugin'
-//apply plugin: 'plugin.AsmPlugin'
-
+apply plugin: 'simon.asm.plugin'
 apply from: "$project.rootDir/jacoco.gradle"
 
 
@@ -87,11 +86,14 @@ android {
     productFlavors {
         prod {
             dimension "default"
-//            manifestPlaceholders = [
-//            ]
+            applicationId 'com.simon.basic.knowledge'
+            manifestPlaceholders = [
+                    APP_NAME            : "@string/app_name",
+                    APP_ICON            : "@mipmap/ic_launcher",
+                    SHARED_USER_ID_VALUE: "com.simon"
+            ]
         }
     }
-
     testOptions {
         unitTests {
             compileSdkVersion build_versions.compile_sdk
@@ -105,6 +107,7 @@ android {
             systemProperty 'robolectric.enabledSdks', build_versions.compile_sdk
             jvmArgs '-noverify'
         }
+
     }
 
     compileOptions {
