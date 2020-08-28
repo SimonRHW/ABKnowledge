@@ -2,10 +2,9 @@ package com.simon.basic.core
 
 import android.app.Application
 import android.content.res.Configuration
-import androidx.annotation.NonNull
+import com.simon.basic.core.platform.AppStatusManager
 import com.simon.basic.core.util.ProcessUtil
-import kotlin.collections.ArrayList
-import kotlin.collections.HashMap
+import com.simon.log.LoggerManager
 
 /**
  * @author Simon
@@ -28,16 +27,19 @@ abstract class LogicApplication : Application() {
         instantiateLogic()
         if (null != mLogicList && mLogicList!!.size > 0) {
             for (priorityLogicWrapper in mLogicList!!) {
-                if (priorityLogicWrapper.instance != null) {
-                    //找到当前进程的BaseApplicationLogic实例后，执行其onCreate()方法
-                    priorityLogicWrapper.instance!!.onCreate()
-                }
+                //找到当前进程的BaseApplicationLogic实例后，执行其onCreate()方法
+                priorityLogicWrapper.logicClass.onCreate()
             }
         }
     }
 
     private fun init() {
         mLogicClassMap = HashMap()
+        LoggerManager.getInstance(this)
+            .setLogStrategy(LoggerManager.LogStrategy.CONSOLE)
+            .showLog(true)
+            .setLogLevel(0)
+        AppStatusManager.instance.init(this)
     }
 
     /**
@@ -65,9 +67,8 @@ abstract class LogicApplication : Application() {
     protected fun registerApplicationLogic(
         processName: String,
         priority: Int,
-        @NonNull logicClass: Class<out BaseLogic?>
+        logicClass: Logic
     ): Boolean {
-        val result = false
         var tempList = mLogicClassMap[processName]
         if (null == tempList) {
             tempList = ArrayList()
@@ -75,38 +76,24 @@ abstract class LogicApplication : Application() {
         }
         if (tempList.size > 0) {
             for (priorityLogicWrapper in tempList) {
-                if (logicClass.name == priorityLogicWrapper.logicClass!!.name) {
-                    throw RuntimeException(logicClass.name + " has registered.")
+                if (logicClass == priorityLogicWrapper.logicClass) {
+                    throw RuntimeException("$logicClass has registered.")
                 }
             }
         }
         val priorityLogicWrapper = PriorityLogicWrapper(priority, logicClass)
         tempList.add(priorityLogicWrapper)
         //tempList更新，则mLogicClassMap中的value也跟着更新了，不用再调用mLogicClassMap.put方法
-        return result
+        return true
     }
 
     /**
-     * 取得mLogicList中的PriorityLogicWrapper对象，并按优先级顺序初始化BaseLogic对象
+     * 取得mLogicList中的PriorityLogicWrapper对象，并按优先级顺序排序Logic对象进行初始化
      */
     private fun instantiateLogic() {
         if (null != mLogicList && mLogicList!!.size > 0) {
             if (null != mLogicList && mLogicList!!.size > 0) {
                 mLogicList!!.sort() //根据进程优先级，按顺序初始化
-                for (priorityLogicWrapper in mLogicList!!) {
-                    try {
-                        //调用Class.newInstance()，会创建这个Class的实例，但是不会执行Android中这个类相关的生命周期
-                        priorityLogicWrapper.instance =
-                            priorityLogicWrapper.logicClass!!.newInstance()
-                    } catch (e: InstantiationException) {
-                        e.printStackTrace()
-                    } catch (e: IllegalAccessException) {
-                        e.printStackTrace()
-                    }
-                    if (null != priorityLogicWrapper.instance) {
-                        priorityLogicWrapper.instance!!.setApplication(this)
-                    }
-                }
             }
         }
     }
@@ -116,9 +103,7 @@ abstract class LogicApplication : Application() {
         super.onTerminate()
         if (null != mLogicList && mLogicList!!.size > 0) {
             for (priorityLogicWrapper in mLogicList!!) {
-                if (priorityLogicWrapper.instance != null) {
-                    priorityLogicWrapper.instance!!.onTerminate()
-                }
+                priorityLogicWrapper.logicClass.onTerminate()
             }
         }
     }
@@ -127,9 +112,7 @@ abstract class LogicApplication : Application() {
         super.onLowMemory()
         if (null != mLogicList && mLogicList!!.size > 0) {
             for (priorityLogicWrapper in mLogicList!!) {
-                if (priorityLogicWrapper.instance != null) {
-                    priorityLogicWrapper.instance!!.onLowMemory()
-                }
+                priorityLogicWrapper.logicClass.onLowMemory()
             }
         }
     }
@@ -138,9 +121,7 @@ abstract class LogicApplication : Application() {
         super.onTrimMemory(level)
         if (null != mLogicList && mLogicList!!.size > 0) {
             for (priorityLogicWrapper in mLogicList!!) {
-                if (priorityLogicWrapper.instance != null) {
-                    priorityLogicWrapper.instance!!.onTrimMemory(level)
-                }
+                priorityLogicWrapper.logicClass.onTrimMemory(level)
             }
         }
     }
@@ -149,9 +130,7 @@ abstract class LogicApplication : Application() {
         super.onConfigurationChanged(newConfig)
         if (null != mLogicList && mLogicList!!.size > 0) {
             for (priorityLogicWrapper in mLogicList!!) {
-                if (priorityLogicWrapper.instance != null) {
-                    priorityLogicWrapper.instance!!.onConfigurationChanged(newConfig)
-                }
+                priorityLogicWrapper.logicClass.onConfigurationChanged(newConfig)
             }
         }
     }

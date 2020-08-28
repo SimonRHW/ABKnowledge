@@ -1,13 +1,14 @@
 package com.simon.basic.knowledge.features.home
 
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProviders
+import com.alibaba.android.arouter.launcher.ARouter
 import com.simon.basic.knowledge.R
+import kotlinx.android.synthetic.main.home_fragment.*
 
 class HomeFragment : Fragment() {
 
@@ -28,6 +29,11 @@ class HomeFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(HomeViewModel::class.java)
         // TODO: Use the ViewModel
+
+        btnNews.setOnClickListener(View.OnClickListener {
+            // 这个页面主动指定了Group名
+            ARouter.getInstance().build("/module/news_home").navigation()
+        })
     }
 
 }

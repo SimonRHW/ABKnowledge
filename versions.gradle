@@ -21,7 +21,10 @@
  **/
 ext.deps = [:]
 
-ext.all = "${all}".toBoolean()
+ext.newsRunAlone = "${homeRunAlone}".toBoolean()
+ext.homeRunAlone = "${homeRunAlone}".toBoolean()
+ext.contentRunAlone = "${contentRunAlone}".toBoolean()
+ext.mineRunAlone = "${mineRunAlone}".toBoolean()
 
 def versions = [:]
 versions.android_gradle_plugin = '4.0.1'

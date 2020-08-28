@@ -1,22 +1,16 @@
-package com.simon.basic.core
+package com.simon.news
 
 import android.content.res.Configuration
-import androidx.annotation.NonNull
+import com.simon.basic.core.Logic
+import com.simon.basic.core.LogicApplication
 import com.simon.log.Logger
 
 /**
  * @author Simon
- * @date 2020/5/10
+ * @date 2020/8/28
  * @desc
  */
-class BaseLogic : ILogic {
-
-    private var mApplication: LogicApplication? = null
-
-    fun setApplication(@NonNull application: LogicApplication) {
-        this.mApplication = application
-        Logger.debug("setApplication() called with :LogicApplication = $application")
-    }
+class NewsLogic(override var mApplication: LogicApplication) : Logic {
 
     override fun onCreate() {
         Logger.debug("onCreate() called")

@@ -81,7 +81,7 @@ public class AsmTransform extends Transform {
      */
     @Override
     public boolean isIncremental() {
-        return true;
+        return false;
     }
 
     @Override
@@ -92,24 +92,30 @@ public class AsmTransform extends Transform {
 
         //OutputProvider管理输出路径，如果消费型输入为空，你会发现OutputProvider == null
         TransformOutputProvider outputProvider = transformInvocation.getOutputProvider();
-
+        if (outputProvider != null) {
+            outputProvider.deleteAll();
+        }
         for (TransformInput input : inputs) {
             for (JarInput jarInput : input.getJarInputs()) {
-                File dest = outputProvider.getContentLocation(
-                        jarInput.getFile().getAbsolutePath(),
-                        jarInput.getContentTypes(),
-                        jarInput.getScopes(),
-                        Format.JAR);
-                //将修改过的字节码copy到dest，就可以实现编译期间干预字节码的目的了
-                FileUtils.copyFile(jarInput.getFile(), dest);
+                if (outputProvider != null) {
+                    File dest = outputProvider.getContentLocation(
+                            jarInput.getFile().getAbsolutePath(),
+                            jarInput.getContentTypes(),
+                            jarInput.getScopes(),
+                            Format.JAR);
+                    //将修改过的字节码copy到dest，就可以实现编译期间干预字节码的目的了
+                    FileUtils.copyFile(jarInput.getFile(), dest);
+                }
             }
             for (DirectoryInput directoryInput : input.getDirectoryInputs()) {
-                File dest = outputProvider.getContentLocation(directoryInput.getName(),
-                        directoryInput.getContentTypes(), directoryInput.getScopes(),
-                        Format.DIRECTORY);
-                //将修改过的字节码copy到dest，就可以实现编译期间干预字节码的目的了
-                //FileUtils.copyDirectory(directoryInput.getFile(), dest)
-                transformDir(directoryInput.getFile(), dest);
+                if (outputProvider != null) {
+                    File dest = outputProvider.getContentLocation(directoryInput.getName(),
+                            directoryInput.getContentTypes(), directoryInput.getScopes(),
+                            Format.DIRECTORY);
+                    //将修改过的字节码copy到dest，就可以实现编译期间干预字节码的目的了
+                    //FileUtils.copyDirectory(directoryInput.getFile(), dest)
+                    transformDir(directoryInput.getFile(), dest);
+                }
             }
         }
 

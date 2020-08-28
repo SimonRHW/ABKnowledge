@@ -1,3 +1,5 @@
+import java.text.SimpleDateFormat
+
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
@@ -6,6 +8,11 @@ apply plugin: 'dagger.hilt.android.plugin'
 apply plugin: 'simon.asm.plugin'
 apply from: "$project.rootDir/jacoco.gradle"
 
+kapt {
+    arguments {
+        arg("AROUTER_MODULE_NAME", project.getName())
+    }
+}
 
 android {
 
@@ -16,29 +23,39 @@ android {
         minSdkVersion build_versions.min_sdk
         targetSdkVersion build_versions.target_sdk
 
-        javaCompileOptions {
-            annotationProcessorOptions {
-                arguments = [AROUTER_MODULE_NAME: project.getName()]
-            }
-        }
-
         versionCode project.VERSIONCODE as int
         versionName project.VERSIONNAME
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-
         ndk {
             abiFilters "armeabi", "armeabi-v7a", "arm64-v8a", "x86", "x86_64"
         }
+        buildConfigField("String", "GIT_VERSION", "\"${getGitVersion()}\"")
     }
 
-    dataBinding {
-        enabled = true
+    // The default value for each feature is shown below. You can change the value to
+    // override the default behavior.
+    buildFeatures {
+        // Determines whether to generate a BuildConfig class.
+        //buildConfig = true
+        // Determines whether to support View Binding.
+        // Note that the viewBinding.enabled property is now deprecated.
+        viewBinding = true
+        // Determines whether to support Data Binding.
+        // Note that the dataBinding.enabled property is now deprecated.
+        dataBinding = true
+        // Determines whether to generate binder classes for your AIDL files.
+        //aidl = true
+        // Determines whether to support RenderScript.
+        //renderScript = true
+        // Determines whether to support injecting custom variables into the module’s R class.
+        //resValues = true
+        // Determines whether to support shader AOT compilation.
+        //shaders = true
     }
 
     androidExtensions {
         experimental = true
     }
-
 
     signingConfigs {
         release {
@@ -62,6 +79,14 @@ android {
     }
 
     buildTypes {
+
+        debug {
+            signingConfig signingConfigs.debug
+            debuggable true
+            applicationIdSuffix ".debug"
+            testCoverageEnabled true
+        }
+
         release {
             debuggable false
             //混淆
@@ -73,27 +98,41 @@ android {
             signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
-        debug {
-            signingConfig signingConfigs.debug
-            debuggable true
-            testCoverageEnabled true
-        }
     }
 
     flavorDimensions "default"
 
     // If you need to add more flavors, consider using flavor dimensions.
     productFlavors {
-        prod {
+
+        //联测、开发环境
+        dev {
             dimension "default"
             applicationId 'com.simon.basic.knowledge'
+            buildConfigField("String", "host", "\"https://dev.com/\"")
             manifestPlaceholders = [
                     APP_NAME            : "@string/app_name",
                     APP_ICON            : "@mipmap/ic_launcher",
                     SHARED_USER_ID_VALUE: "com.simon"
             ]
         }
+
+//        //测试环境
+//        qa {
+//            buildConfigField("String", "host", "\"https://qa.com/\"")
+//        }
+//
+//        //预发布环境
+//        approval {
+//            buildConfigField("String", "host", "\"https://approval.com/\"")
+//        }
+//
+//        //线上生产环境
+//        live {
+//            buildConfigField("String", "host", "\"https://live.com/\"")
+//        }
     }
+
     testOptions {
         unitTests {
             compileSdkVersion build_versions.compile_sdk
@@ -128,8 +167,8 @@ dependencies {
     implementation project(path: ':imagecore')
     implementation project(path: ':netcore')
 
-    if (rootProject.ext.all) {
-        implementation project(':module-news')
+    if (!rootProject.ext.newsRunAlone) {
+        implementation project(path: ':module-news')
     }
 
     implementation deps.app_compat
@@ -152,6 +191,7 @@ dependencies {
 
     //ARouter
     implementation deps.arouter.api
+
     kapt deps.arouter.compiler
 
     //Hilt
@@ -171,4 +211,13 @@ dependencies {
 
 static def versionTime() {
     return new Date().format("yyyyMMdd", TimeZone.getTimeZone("UTC"))
+}
+
+static String getDate() {
+    Date date = new Date()
+    return new SimpleDateFormat("MMddHHmm", Locale.CHINA).format(date)
+}
+
+def getGitVersion() {
+    return 'git rev-parse --short HEAD'.execute().text.trim()
 }
