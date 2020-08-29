@@ -6,5 +6,8 @@ package com.simon.basic.core.platform
  * @desc
  */
 interface IDelegate {
+    /**
+     *  对widget 进行初始化操作
+     */
     fun initWidget()
 }
