@@ -1,7 +1,6 @@
 package com.simon.basic.core
 
 import android.content.res.Configuration
-import androidx.annotation.NonNull
 
 /**
  * @author Simon
@@ -11,10 +10,6 @@ import androidx.annotation.NonNull
 interface Logic {
 
     var mApplication: LogicApplication
-
-    fun setApplication(@NonNull application: LogicApplication) {
-        this.mApplication = application
-    }
 
     fun onCreate()
 

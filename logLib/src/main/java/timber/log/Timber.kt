@@ -233,6 +233,8 @@ class Timber private constructor() {
                 .first { it.className !in fqcnIgnore }
                 .let(::createStackElementTag)
 
+        var globalTag: String? = null
+
         /**
          * Extract the tag which should be used for the message from the `element`. By default
          * this will use the class name without any anonymous class suffixes (e.g., `Foo$1`
@@ -248,9 +250,18 @@ class Timber private constructor() {
             }
             // Tag length limit was removed in API 24.
             return if (tag.length <= MAX_TAG_LENGTH || Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                tag
+                if (globalTag.isNullOrEmpty()) {
+                    tag
+                } else {
+                    "$globalTag: $tag"
+                }
+
             } else {
-                tag.substring(0, MAX_TAG_LENGTH)
+                if (globalTag.isNullOrEmpty()) {
+                    tag.substring(0, MAX_TAG_LENGTH)
+                } else {
+                    "$globalTag: ${tag.substring(0, MAX_TAG_LENGTH)}"
+                }
             }
         }
 
@@ -278,7 +289,7 @@ class Timber private constructor() {
                 var newline = message.indexOf('\n', i)
                 newline = if (newline != -1) newline else length
                 do {
-                    val end = Math.min(newline, i + MAX_LOG_LENGTH)
+                    val end = newline.coerceAtMost(i + MAX_LOG_LENGTH)
                     val part = message.substring(i, end)
                     if (priority == Log.ASSERT) {
                         Log.wtf(tag, part)

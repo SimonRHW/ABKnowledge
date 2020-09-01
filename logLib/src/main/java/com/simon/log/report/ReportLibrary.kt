@@ -3,7 +3,7 @@ package com.simon.log.report
 /**
  * @author Simon
  * @date 2020/5/1
- * @desc 将日志上传到服务端
+ * @desc 将日志实时上传到服务端
  */
 class ReportLibrary private constructor() {
 

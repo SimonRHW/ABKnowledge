@@ -36,7 +36,7 @@ class ReportLog private constructor(private var isShowLog: Boolean, private var 
     }
 
     /**
-     * 是否上报日志
+     * 是否实时上报日志
      */
     private fun canReport(): Boolean {
         return verifyHost() && isShowLog

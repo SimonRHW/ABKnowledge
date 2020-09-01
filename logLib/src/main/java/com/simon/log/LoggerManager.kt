@@ -30,15 +30,15 @@ class LoggerManager private constructor(
     private var logStrategy = LogStrategy.CONSOLE
 
     // TODO: 2020/7/2  这个开关的设置最好具有一定的灵活性，比如可以再加一层 System Property 的设置，
-    //  使用 System Property 的好处是一旦设置之后，即使重启 App，System Property 中的变量依旧是设置之后的值，
+    //  使用 System Property 的好处是一旦设置之后，即使重启App System Property 中的变量依旧是设置之后的值，
     //  与 Android 中的 SharedPreference 非常相似
-
     private var isShowLog: Boolean = false
     private var logServerHost = ""
     private var namePrefix = "Slog"
     private var cacheDays = 7
     private var logLevel = 2
     private var publicKey = ""
+    private var globalTag = ""
 
     /**
      * 设置log输出策略,本地存储策略需要设置logPath
@@ -48,14 +48,28 @@ class LoggerManager private constructor(
         return this
     }
 
+    /**
+     * 是否输出日志
+     */
     fun showLog(isShowLog: Boolean): LoggerManager {
         this.isShowLog = isShowLog
         return this
     }
 
 
+    /**
+     * 设置输出日志级别
+     */
     fun setLogLevel(logLevel: Int): LoggerManager {
         this.logLevel = logLevel
+        return this
+    }
+
+    /**
+     * 只对LogStrategy.CONSOLE 生效
+     */
+    fun setGlobalTag(globalTag: String): LoggerManager {
+        this.globalTag = globalTag
         return this
     }
 
@@ -83,7 +97,6 @@ class LoggerManager private constructor(
         return this
     }
 
-
     /**
      * 设置文件加密公钥
      */
@@ -103,7 +116,10 @@ class LoggerManager private constructor(
     internal fun provideLogImpl(): ILog {
         return when (logStrategy) {
             LogStrategy.CONSOLE -> {
-                ConsoleLog.getInstance(isShowLog = isShowLog)
+                ConsoleLog.getInstance(
+                    isShowLog = isShowLog,
+                    globalTag = globalTag
+                )
             }
             LogStrategy.LOCAL_STORAGE -> {
                 LocalStorageLog.getInstance(
@@ -128,17 +144,17 @@ class LoggerManager private constructor(
 
     enum class LogStrategy {
         /**
-         * 直接输出到终端
+         * 直接输出到终端，主要用于本地开发测试使用
          */
         CONSOLE,
 
         /**
-         * 进行本地存储 按需上传server端
+         * 将日志进行本地存储，可按需上传到server端
          */
         LOCAL_STORAGE,
 
         /**
-         * 直接输出到server端
+         * 实时发送到server端，例如车机在整车测试中不易连线debug，需要实时看数据交互
          */
         UPLOAD
     }

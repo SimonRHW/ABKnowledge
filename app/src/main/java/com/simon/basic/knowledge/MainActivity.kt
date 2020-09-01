@@ -75,5 +75,4 @@ class MainActivity : BaseActivity() {
         return currentNavController?.value?.navigateUp() ?: false
     }
 
-
 }

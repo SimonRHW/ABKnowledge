@@ -8,28 +8,35 @@ import timber.log.Timber
  * @date 2020/5/1
  * @desc:
  */
-class ConsoleLog private constructor(private var isShowLog: Boolean) : ILog {
+class ConsoleLog private constructor(
+    private var isShowLog: Boolean,
+    private var globalTag: String
+) : ILog {
 
     companion object {
         @Volatile
         private var instance: ConsoleLog? = null
 
         fun getInstance(
-            isShowLog: Boolean
+            isShowLog: Boolean,
+            globalTag: String
         ) =
             instance ?: synchronized(this) {
                 instance ?: ConsoleLog(
-                    isShowLog
+                    isShowLog,
+                    globalTag
                 ).also {
                     instance = it
-                    Timber.plant(Timber.DebugTree())
+                    val debugTree = Timber.DebugTree()
+                    debugTree.globalTag = globalTag
+                    Timber.plant(debugTree)
                 }
             }
     }
 
     override fun verbose(message: String?, vararg args: Any?) {
         if (isShowLog) {
-            Timber.v(message, args)
+            Timber.v(globalTag + message, args)
         }
     }
 

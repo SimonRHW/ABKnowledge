@@ -9,7 +9,9 @@ import com.simon.log.LoggerManager
 /**
  * @author Simon
  * @date 2020/5/10
- * @desc
+ * @desc 根据Logic优先级进行初始化的Application基类
+ * @see Logic
+ * @see PriorityLogicWrapper
  */
 abstract class LogicApplication : Application() {
 
@@ -37,6 +39,7 @@ abstract class LogicApplication : Application() {
         mLogicClassMap = HashMap()
         LoggerManager.getInstance(this)
             .setLogStrategy(LoggerManager.LogStrategy.CONSOLE)
+            .setGlobalTag("STAG")
             .showLog(true)
             .setLogLevel(0)
         AppStatusManager.instance.init(this)

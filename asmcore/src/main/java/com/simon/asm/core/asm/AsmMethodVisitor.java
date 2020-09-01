@@ -29,7 +29,7 @@ public class AsmMethodVisitor extends MethodVisitor {
     public void visitCode() {
         super.visitCode();
         System.out.println("AsmMethodVisitor --- visitCode --- enter");
-        mv.visitLdcInsn("TAG");
+        mv.visitLdcInsn("STAG");
         mv.visitLdcInsn(className + "---->" + methodName);
         mv.visitMethodInsn(Opcodes.INVOKESTATIC, "android/util/Log", "i", "(Ljava/lang/String;Ljava/lang/String;)I", false);
         mv.visitInsn(Opcodes.POP);

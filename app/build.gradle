@@ -83,7 +83,6 @@ android {
         debug {
             signingConfig signingConfigs.debug
             debuggable true
-            applicationIdSuffix ".debug"
             testCoverageEnabled true
         }
 
@@ -108,7 +107,7 @@ android {
         //联测、开发环境
         dev {
             dimension "default"
-            applicationId 'com.simon.basic.knowledge'
+            //applicationIdSuffix ".dev"
             buildConfigField("String", "host", "\"https://dev.com/\"")
             manifestPlaceholders = [
                     APP_NAME            : "@string/app_name",
