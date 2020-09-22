@@ -12,6 +12,7 @@ import com.simon.basic.core.platform.IDelegate
  * @date 2020/5/1
  * @desc
  */
+@Suppress("UNCHECKED_CAST")
 abstract class PresenterFragment<P : IPresenter> : BaseFragment(), IView,
     IDelegate {
 
@@ -22,13 +23,20 @@ abstract class PresenterFragment<P : IPresenter> : BaseFragment(), IView,
         savedInstanceState: Bundle?
     ): View? {
         val rootView = inflater.inflate(layoutId(), container, false)
-        createPresenter().view = this
+        presenter = createPresenter() as P
+        presenter.attachView = this
         initWidget()
         return rootView
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onStart() {
+        super.onStart()
+        presenter.onStart()
+    }
+
+
+    override fun onDestroyView() {
+        super.onDestroyView()
         presenter.detachView()
     }
 }

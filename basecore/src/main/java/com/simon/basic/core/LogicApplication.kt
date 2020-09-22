@@ -1,6 +1,5 @@
 package com.simon.basic.core
 
-import android.app.Application
 import android.content.res.Configuration
 import com.simon.basic.core.platform.AppStatusManager
 import com.simon.basic.core.util.ProcessUtil
@@ -13,12 +12,16 @@ import com.simon.log.LoggerManager
  * @see Logic
  * @see PriorityLogicWrapper
  */
-abstract class LogicApplication : Application() {
+abstract class LogicApplication : BaseApplication() {
 
-    //mLogicList只持有当前进程的PriorityLogicWrapper对象
+    /**
+     *  mLogicList只持有当前进程的PriorityLogicWrapper对象
+     */
     private var mLogicList: ArrayList<PriorityLogicWrapper>? = null
 
-    //mLogicClassMap持有所有进程的PriorityLogicWrapper数组对象
+    /**
+     * mLogicClassMap持有所有进程的PriorityLogicWrapper数组对象
+     */
     private lateinit var mLogicClassMap: HashMap<String, ArrayList<PriorityLogicWrapper>>
 
     override fun onCreate() {
@@ -91,7 +94,8 @@ abstract class LogicApplication : Application() {
     }
 
     /**
-     * 取得mLogicList中的PriorityLogicWrapper对象，并按优先级顺序排序Logic对象进行初始化
+     * 取得mLogicList中的PriorityLogicWrapper对象，
+     * 并按优先级顺序排序Logic对象进行初始化
      */
     private fun instantiateLogic() {
         if (null != mLogicList && mLogicList!!.size > 0) {
@@ -101,7 +105,6 @@ abstract class LogicApplication : Application() {
         }
     }
 
-    //Application生命周期的处理，下面方法都类似
     override fun onTerminate() {
         super.onTerminate()
         if (null != mLogicList && mLogicList!!.size > 0) {

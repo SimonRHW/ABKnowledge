@@ -7,10 +7,12 @@ package com.simon.basic.core.mvp
  */
 interface IPresenter {
 
-    var view: IView?
+    var attachView: IView?
+
+    fun onStart()
 
     fun detachView() {
-        view = null
+        attachView = null
     }
 
 }

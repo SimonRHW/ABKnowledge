@@ -21,7 +21,7 @@
  **/
 ext.deps = [:]
 
-ext.newsRunAlone = "${homeRunAlone}".toBoolean()
+ext.newsRunAlone = "${newsRunAlone}".toBoolean()
 ext.homeRunAlone = "${homeRunAlone}".toBoolean()
 ext.contentRunAlone = "${contentRunAlone}".toBoolean()
 ext.mineRunAlone = "${mineRunAlone}".toBoolean()
@@ -75,7 +75,7 @@ versions.kotlin = "1.3.61"
 
 versions.lifecycle = "2.2.0"
 
-versions.material = "1.1.0"
+versions.material = "1.2.1"
 
 versions.mockito = "2.25.0"
 versions.mockito_all = "1.10.19"

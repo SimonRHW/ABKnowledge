@@ -10,6 +10,7 @@ import com.simon.basic.core.platform.IDelegate
  * @desc
  */
 
+@Suppress("UNCHECKED_CAST")
 abstract class PresenterActivity<P : IPresenter> : BaseActivity(), IView,
     IDelegate {
 
@@ -18,8 +19,14 @@ abstract class PresenterActivity<P : IPresenter> : BaseActivity(), IView,
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(layoutId())
-        createPresenter().view = this
+        presenter = createPresenter() as P
+        presenter.attachView = this
         initWidget()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        presenter.onStart()
     }
 
     override fun onDestroy() {

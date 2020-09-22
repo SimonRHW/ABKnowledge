@@ -29,6 +29,11 @@ android {
 
     }
 
+    buildFeatures {
+        viewBinding = true
+        dataBinding = true
+    }
+
     sourceSets {
         main {
             if (rootProject.ext.newsRunAlone) {
@@ -61,8 +66,8 @@ dependencies {
 
     implementation project(':logLib')
     implementation project(':basecore')
-    implementation project(path: ':imagecore')
-    implementation project(path: ':netcore')
+    implementation project(':imagecore')
+    implementation project(':netcore')
 
     //ARouter
     implementation deps.arouter.api
