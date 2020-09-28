@@ -17,12 +17,12 @@ class ABKApplication : LogicApplication() {
 
         registerApplicationLogic(
             ProcessUtil.getProcessName(this, ProcessUtil.getMyProcessId())!!,
-            1000,
+            10,
             ABKLogic(this)
         )
         registerApplicationLogic(
             ProcessUtil.getProcessName(this, ProcessUtil.getMyProcessId())!!,
-            100,
+            0,
             NewsLogic(this)
         )
     }

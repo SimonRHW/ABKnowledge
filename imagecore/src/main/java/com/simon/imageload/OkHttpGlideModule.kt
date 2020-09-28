@@ -15,6 +15,7 @@ import java.io.InputStream
 
 @GlideModule
 class OkHttpGlideModule : AppGlideModule() {
+
     override fun registerComponents(context: Context, glide: Glide, registry: Registry) {
         reRegisterClient(registry)
     }

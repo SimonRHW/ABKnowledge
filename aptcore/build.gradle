@@ -1,4 +1,7 @@
+apply plugin: 'groovy'
+apply plugin: 'maven'
 apply plugin: 'java'
+apply plugin: 'kotlin'
 
 compileJava {
     sourceCompatibility = '1.8'
@@ -6,12 +9,17 @@ compileJava {
 }
 
 dependencies {
-
     annotationProcessor 'com.google.auto.service:auto-service:1.0-rc7'
     implementation 'com.squareup:javapoet:1.11.1'
     implementation 'org.apache.commons:commons-lang3:3.6'
     implementation 'org.apache.commons:commons-collections4:4.1'
 }
 
-//apply from: '../install.gradle'
-//apply from: '../bintray.gradle'
+uploadArchives {
+    repositories.mavenDeployer {
+        repository(url: uri('../repo'))
+        pom.groupId = 'com.simon.apt.core'
+        pom.artifactId = 'compiler'
+        pom.version = '1.0.0'
+    }
+}

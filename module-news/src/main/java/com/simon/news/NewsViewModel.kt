@@ -1,5 +1,6 @@
 package com.simon.news
 
+import androidx.databinding.ObservableField
 import com.simon.basic.core.mvvm.BaseViewModel
 
 /**
@@ -9,5 +10,6 @@ import com.simon.basic.core.mvvm.BaseViewModel
  */
 class NewsViewModel : BaseViewModel() {
 
+    val text = ObservableField("init")
 
 }

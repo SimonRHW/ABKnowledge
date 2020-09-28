@@ -9,19 +9,19 @@ import com.simon.news.databinding.ActivityNewsBinding
 class NewsActivity : ViewModelActivity<ActivityNewsBinding, NewsViewModel>() {
 
     override fun obtainViewModel(): NewsViewModel {
-        TODO("Not yet implemented")
+        return NewsViewModel()
     }
 
     override fun layoutId(): Int {
-        TODO("Not yet implemented")
-    }
-
-    override fun initWidget() {
-        TODO("Not yet implemented")
+        return R.layout.activity_news
     }
 
     override fun bind(bind: ActivityNewsBinding, viewModel: NewsViewModel) {
-        TODO("Not yet implemented")
+        bind.vm = viewModel
+    }
+
+    override fun initWidget() {
+
     }
 
 }
