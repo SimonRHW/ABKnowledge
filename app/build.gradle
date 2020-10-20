@@ -6,6 +6,8 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'dagger.hilt.android.plugin'
 apply plugin: 'simon.asm.plugin'
+apply plugin: 'com.google.gms.google-services'
+apply plugin: 'com.google.firebase.crashlytics'
 apply from: "$project.rootDir/jacoco.gradle"
 
 kapt {
@@ -163,8 +165,8 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(':logLib')
     implementation project(':basecore')
-    implementation project(path: ':imagecore')
-    implementation project(path: ':netcore')
+    implementation project(':imagecore')
+    implementation project(':netcore')
 
     if (!rootProject.ext.newsRunAlone) {
         implementation project(path: ':module-news')
@@ -190,12 +192,16 @@ dependencies {
 
     //ARouter
     implementation deps.arouter.api
-
     kapt deps.arouter.compiler
 
     //Hilt
     implementation deps.hilt.runtime
     kapt deps.hilt.compiler
+
+    // Firebase Analytics & Crash reporting
+    implementation 'com.google.firebase:firebase-core:17.5.1'
+    implementation 'com.google.firebase:firebase-crashlytics:17.2.2'
+    implementation 'com.google.firebase:firebase-analytics:17.6.0'
 
     testImplementation deps.junit
     testImplementation deps.arch_core.testing
@@ -217,6 +223,6 @@ static String getDate() {
     return new SimpleDateFormat("MMddHHmm", Locale.CHINA).format(date)
 }
 
-def getGitVersion() {
+static def getGitVersion() {
     return 'git rev-parse --short HEAD'.execute().text.trim()
 }
