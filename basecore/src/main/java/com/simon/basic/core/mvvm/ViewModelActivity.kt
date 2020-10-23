@@ -13,7 +13,15 @@ import com.simon.basic.core.platform.IDelegate
  */
 abstract class ViewModelActivity<V : ViewDataBinding, VM : BaseViewModel> : BaseActivity(),
     IDelegate {
+
+    /**
+     * 提供view 所使用的ViewModel
+     */
     abstract fun obtainViewModel(): VM
+
+    /**
+     * 进行数据帮绑定
+     */
     abstract fun bind(bind: V, viewModel: VM)
     lateinit var mBinding: V
     lateinit var mViewModel: VM
