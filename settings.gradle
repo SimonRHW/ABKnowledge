@@ -8,12 +8,14 @@ gradleEnterprise {
         termsOfServiceAgree = 'yes'
     }
 }
-rootProject.name='ABKnowledge'
 include ':app'
 include ':logLib'
 include ':basecore'
 include ':imagecore'
 include ':netcore'
+include ':modulemanager'
 include ':module-news'
+include ':module-animation'
 include ':asmcore'
 include ':aptcore'
+rootProject.name='ABKnowledge'

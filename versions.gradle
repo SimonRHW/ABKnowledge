@@ -24,6 +24,7 @@ ext.newsRunAlone = "${newsRunAlone}".toBoolean()
 ext.homeRunAlone = "${homeRunAlone}".toBoolean()
 ext.contentRunAlone = "${contentRunAlone}".toBoolean()
 ext.mineRunAlone = "${mineRunAlone}".toBoolean()
+ext.animationRunAlone = "${animationRunAlone}".toBoolean()
 
 def versions = [:]
 versions.android_gradle_plugin = '4.0.1'

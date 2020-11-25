@@ -167,9 +167,14 @@ dependencies {
     implementation project(':basecore')
     implementation project(':imagecore')
     implementation project(':netcore')
+    implementation project(':modulemanager')
 
     if (!rootProject.ext.newsRunAlone) {
         implementation project(path: ':module-news')
+    }
+
+    if (!rootProject.ext.animationRunAlone) {
+        implementation project(path: ':module-animation')
     }
 
     implementation deps.app_compat
@@ -188,6 +193,7 @@ dependencies {
     implementation deps.navigation.fragment_ktx
     implementation deps.navigation.ui_ktx
 
+    //Kotlin
     implementation deps.kotlin.stdlib
 
     //ARouter
@@ -199,9 +205,9 @@ dependencies {
     kapt deps.hilt.compiler
 
     // Firebase Analytics & Crash reporting
-    implementation 'com.google.firebase:firebase-core:17.5.1'
+    implementation 'com.google.firebase:firebase-core:18.0.0'
     implementation 'com.google.firebase:firebase-crashlytics:17.2.2'
-    implementation 'com.google.firebase:firebase-analytics:17.6.0'
+    implementation 'com.google.firebase:firebase-analytics:18.0.0'
 
     testImplementation deps.junit
     testImplementation deps.arch_core.testing

@@ -4,6 +4,7 @@ import com.alibaba.android.arouter.launcher.ARouter
 import com.simon.basic.core.LogicApplication
 import com.simon.basic.core.util.ProcessUtil
 import com.simon.news.NewsLogic
+import com.simon.animation.AnimationLogic
 
 class ABKApplication : LogicApplication() {
 
@@ -24,6 +25,12 @@ class ABKApplication : LogicApplication() {
             ProcessUtil.getProcessName(this, ProcessUtil.getMyProcessId())!!,
             0,
             NewsLogic(this)
+        )
+
+        registerApplicationLogic(
+            ProcessUtil.getProcessName(this, ProcessUtil.getMyProcessId())!!,
+            0,
+            AnimationLogic(this)
         )
     }
 

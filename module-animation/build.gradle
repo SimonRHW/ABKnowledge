@@ -1,4 +1,4 @@
-if (rootProject.ext.newsRunAlone) {
+if (rootProject.ext.animationRunAlone) {
     apply plugin: 'com.android.application'
 } else {
     apply plugin: 'com.android.library'
@@ -36,7 +36,7 @@ android {
 
     sourceSets {
         main {
-            if (rootProject.ext.newsRunAlone) {
+            if (rootProject.ext.animationRunAlone) {
                 manifest.srcFile 'src/main/java/alone/AndroidManifest.xml'
                 java {
                     exclude 'src/main/component'
@@ -70,9 +70,11 @@ dependencies {
     implementation project(':netcore')
     implementation project(':modulemanager')
 
+    //Kotlin
+    implementation deps.kotlin.stdlib
+
     //ARouter
     implementation deps.arouter.api
-
     kapt deps.arouter.compiler
 
     //Hilt

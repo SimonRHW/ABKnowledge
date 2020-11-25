@@ -1,4 +1,4 @@
-package com.simon.basic.knowledge.features.home
+package com.simon.basic.knowledge.features.contents
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,31 +9,31 @@ import androidx.lifecycle.ViewModelProviders
 import com.alibaba.android.arouter.launcher.ARouter
 import com.simon.basic.knowledge.R
 import com.simon.module.manager.ModuleRouteManager
-import kotlinx.android.synthetic.main.home_fragment.*
+import kotlinx.android.synthetic.main.contests_fragment.*
 
-class HomeFragment : Fragment() {
+class ContentFragment : Fragment() {
 
     companion object {
-        fun newInstance() = HomeFragment()
+        fun newInstance() = ContentFragment()
     }
 
-    private lateinit var viewModel: HomeViewModel
+    private lateinit var viewModel: ContentViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.home_fragment, container, false)
+        return inflater.inflate(R.layout.contests_fragment, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(HomeViewModel::class.java)
+        viewModel = ViewModelProviders.of(this).get(ContentViewModel::class.java)
         // TODO: Use the ViewModel
 
-        btnNews.setOnClickListener(View.OnClickListener {
+        btnAnimation.setOnClickListener(View.OnClickListener {
             // 这个页面主动指定了Group名
-            ARouter.getInstance().build(ModuleRouteManager.NEWS_HOME_ROUTE).navigation()
+            ARouter.getInstance().build(ModuleRouteManager.ANIMATION_HOME_ROUTE).navigation()
         })
     }
 
