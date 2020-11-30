@@ -32,6 +32,9 @@ android {
             abiFilters "armeabi", "armeabi-v7a", "arm64-v8a", "x86", "x86_64"
         }
         buildConfigField("String", "GIT_VERSION", "\"${getGitVersion()}\"")
+        manifestPlaceholders = [
+                SHARED_USER_ID_VALUE: "com.simon"
+        ]
     }
 
     // The default value for each feature is shown below. You can change the value to
@@ -46,7 +49,7 @@ android {
         // Note that the dataBinding.enabled property is now deprecated.
         dataBinding = true
         // Determines whether to generate binder classes for your AIDL files.
-        //aidl = true
+        // aidl = true
         // Determines whether to support RenderScript.
         //renderScript = true
         // Determines whether to support injecting custom variables into the module’s R class.
@@ -75,8 +78,10 @@ android {
     }
 
     android.applicationVariants.all { variant ->
-        variant.outputs.all {
-            outputFileName = applicationId + "_" + variant.buildType.name + "_v" + defaultConfig.versionName + "_" + versionTime() + ".apk"
+        variant.outputs.all { output ->
+            outputFileName = variant.productFlavors[0].name + "_" +
+                    applicationId + "_" + variant.buildType.name + "_v" +
+                    defaultConfig.versionName + "_" + versionTime() + ".apk"
         }
     }
 
@@ -101,37 +106,52 @@ android {
         }
     }
 
-    flavorDimensions "default"
+    flavorDimensions('platform', 'environment')
 
     // If you need to add more flavors, consider using flavor dimensions.
     productFlavors {
 
-        //联测、开发环境
-        dev {
-            dimension "default"
-            //applicationIdSuffix ".dev"
-            buildConfigField("String", "host", "\"https://dev.com/\"")
+        //普通版
+        general {
+            dimension "platform"
             manifestPlaceholders = [
-                    APP_NAME            : "@string/app_name",
-                    APP_ICON            : "@mipmap/ic_launcher",
-                    SHARED_USER_ID_VALUE: "com.simon"
+                    APP_NAME: "@string/app_name",
+                    APP_ICON: "@mipmap/ic_launcher",
             ]
         }
 
-//        //测试环境
-//        qa {
-//            buildConfigField("String", "host", "\"https://qa.com/\"")
-//        }
-//
-//        //预发布环境
-//        approval {
-//            buildConfigField("String", "host", "\"https://approval.com/\"")
-//        }
-//
-//        //线上生产环境
-//        live {
-//            buildConfigField("String", "host", "\"https://live.com/\"")
-//        }
+        //特别版
+        special {
+            dimension "platform"
+            manifestPlaceholders = [
+                    APP_NAME: "@string/app_name",
+                    APP_ICON: "@mipmap/ic_launcher",
+            ]
+        }
+
+        //联测、开发环境
+        dev {
+            dimension "environment"
+            buildConfigField("String", "host", "\"https://dev.com/\"")
+        }
+
+        //测试环境
+        qa {
+            dimension "environment"
+            buildConfigField("String", "host", "\"https://qa.com/\"")
+        }
+
+        //预发布环境
+        approval {
+            dimension "environment"
+            buildConfigField("String", "host", "\"https://approval.com/\"")
+        }
+
+        //线上生产环境
+        live {
+            dimension "environment"
+            buildConfigField("String", "host", "\"https://live.com/\"")
+        }
     }
 
     testOptions {
@@ -159,7 +179,19 @@ android {
         jvmTarget = rootProject.ext.javaVersion
     }
 
+    lintOptions {
+        abortOnError false
+        disable 'GoogleAppIndexingWarning'
+    }
+
 }
+
+//repositories {
+//    //与 implementation fileTree(dir: 'libs', include: ['*.jar']) 互斥 ，不同平台进行不同版本lib集成
+//    flatDir {
+//        dirs "libs"
+//    }
+//}
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -206,7 +238,7 @@ dependencies {
 
     // Firebase Analytics & Crash reporting
     implementation 'com.google.firebase:firebase-core:18.0.0'
-    implementation 'com.google.firebase:firebase-crashlytics:17.2.2'
+    implementation 'com.google.firebase:firebase-crashlytics:17.3.0'
     implementation 'com.google.firebase:firebase-analytics:18.0.0'
 
     testImplementation deps.junit

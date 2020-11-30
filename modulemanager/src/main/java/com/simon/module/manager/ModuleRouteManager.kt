@@ -7,7 +7,7 @@ package com.simon.module.manager
  */
 object ModuleRouteManager {
 
-    const val NEWS_HOME_ROUTE = "/module/news_home"
-    const val ANIMATION_HOME_ROUTE = "/module/animation_home"
+    const val NEWS_HOME_ROUTE = "/module_news/news_home"
+    const val ANIMATION_HOME_ROUTE = "/module_animation/animation_home"
 
 }

@@ -72,7 +72,6 @@ dependencies {
 
     //ARouter
     implementation deps.arouter.api
-
     kapt deps.arouter.compiler
 
     //Hilt
