@@ -136,21 +136,21 @@ android {
         }
 
         //测试环境
-        qa {
+        uat {
             dimension "environment"
-            buildConfigField("String", "host", "\"https://qa.com/\"")
+            buildConfigField("String", "host", "\"https://uat.com/\"")
         }
 
         //预发布环境
-        approval {
+        beta {
             dimension "environment"
-            buildConfigField("String", "host", "\"https://approval.com/\"")
+            buildConfigField("String", "host", "\"https://beta.com/\"")
         }
 
-        //线上生产环境
-        live {
+        //生产环境
+        production {
             dimension "environment"
-            buildConfigField("String", "host", "\"https://live.com/\"")
+            buildConfigField("String", "host", "\"https://production.com/\"")
         }
     }
 
