@@ -2,9 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.simon.animation">
 
-    <application android:name="com.simon.animation.AnimationApplication"
+    <application
+        android:name="com.simon.animation.AnimationApplication"
         android:theme="@style/AppTheme">
-        <activity android:name=".AnimationActivity">
+        <activity
+            android:name=".AnimationActivity"
+            android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
