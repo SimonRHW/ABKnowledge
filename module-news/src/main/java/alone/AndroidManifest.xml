@@ -5,7 +5,7 @@
         android:name="alone.com.simon.news.NewsApplication"
         android:theme="@style/AppTheme">
         <activity
-            android:name="com.simon.news.NewsActivity"
+            android:name="com.simon.news.features.NewsActivity"
             android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -12,6 +12,8 @@ import retrofit2.converter.gson.GsonConverterFactory
  */
 abstract class AbstractNetworkManager {
 
+
+
     @Volatile
     private var mOkHttpClient: OkHttpClient? = null
 
@@ -34,7 +36,6 @@ abstract class AbstractNetworkManager {
         return createRequest(cls, getBaseUrl())
     }
 
-    /* access modifiers changed from: protected */
     open fun <T> createRequest(cls: Class<T>, baseUrl: String): T {
         return Retrofit.Builder().baseUrl(baseUrl).client(getClient())
             .addConverterFactory(GsonConverterFactory.create()).build().create(cls)

@@ -4,6 +4,7 @@ package com.simon.news
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.simon.news.features.NewsViewModel
 
 /**
  * @author Simon

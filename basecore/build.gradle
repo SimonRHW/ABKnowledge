@@ -36,15 +36,15 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(path: ':logLib')
-    implementation deps.app_compat
-    implementation deps.core_ktx
-    implementation deps.lifecycle.runtime
-    implementation deps.lifecycle.extensions
-    implementation deps.lifecycle.viewmodel_ktx
-    implementation deps.lifecycle.livedata_ktx
-    implementation deps.activity.activity_ktx
+    api deps.app_compat
+    api deps.core_ktx
+    api deps.lifecycle.runtime
+    api deps.lifecycle.extensions
+    api deps.lifecycle.viewmodel_ktx
+    api deps.lifecycle.livedata_ktx
+    api deps.activity.activity_ktx
 
-    implementation deps.kotlin.stdlib
+    api deps.kotlin.stdlib
 
     api deps.gson
     api deps.zxing

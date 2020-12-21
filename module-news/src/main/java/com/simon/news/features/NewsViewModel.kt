@@ -1,4 +1,4 @@
-package com.simon.news
+package com.simon.news.features
 
 import androidx.databinding.ObservableField
 import com.simon.basic.core.mvvm.BaseViewModel
