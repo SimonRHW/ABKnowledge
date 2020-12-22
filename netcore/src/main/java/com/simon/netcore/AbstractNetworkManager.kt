@@ -2,6 +2,7 @@ package com.simon.netcore
 
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
 
@@ -38,6 +39,7 @@ abstract class AbstractNetworkManager {
 
     open fun <T> createRequest(cls: Class<T>, baseUrl: String): T {
         return Retrofit.Builder().baseUrl(baseUrl).client(getClient())
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .addConverterFactory(GsonConverterFactory.create()).build().create(cls)
     }
 

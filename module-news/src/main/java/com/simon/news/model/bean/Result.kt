@@ -1,11 +1,11 @@
 package com.simon.news.model.bean
 
-data class JHData<T>(
-    val `data`: List<T>,
+data class Result(
+    val `data`: List<Data>,
     val stat: String
 )
 
-data class News(
+data class Data(
     val author_name: String,
     val category: String,
     val date: String,
