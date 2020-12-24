@@ -34,7 +34,7 @@ dependencies {
     implementation project(path: ':logLib')
     implementation project(path: ':netcore')
     implementation deps.kotlin.stdlib
-    implementation deps.glide.runtime
+    api deps.glide.runtime
     annotationProcessor  deps.glide.compiler
     implementation deps.glide.integration
 

@@ -4,6 +4,7 @@ import com.simon.news.model.bean.Data
 import com.simon.news.network.JHApi
 import com.simon.news.network.RequestManager
 import io.reactivex.Single
+import io.reactivex.schedulers.Schedulers
 
 interface NewsDataSource {
     fun getNewsList(type: String): Single<List<Data>>
@@ -19,6 +20,7 @@ class RemoteNewsDataSourceImpl() : NewsDataSource {
             .getNewsList(params)
             .map { it.convert() }
             .map { it.data }
+            .subscribeOn(Schedulers.io())
     }
 
 }

@@ -79,6 +79,7 @@ dependencies {
     kapt deps.hilt.compiler
 
     implementation deps.app_compat
+    implementation deps.recyclerview
     implementation deps.material
     implementation deps.core_ktx
     implementation deps.constraint_layout
