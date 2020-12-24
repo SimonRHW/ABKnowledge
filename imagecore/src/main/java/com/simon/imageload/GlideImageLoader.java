@@ -21,6 +21,10 @@ public class GlideImageLoader {
     private ImageView mImageView;
     private ProgressBar mProgressBar;
 
+    public GlideImageLoader(ImageView imageView) {
+        this(imageView, null);
+    }
+
     public GlideImageLoader(ImageView imageView, ProgressBar progressBar) {
         mImageView = imageView;
         mProgressBar = progressBar;
