@@ -23,7 +23,7 @@ abstract class PresenterFragment<P : IPresenter> : BaseFragment(), IView,
         savedInstanceState: Bundle?
     ): View? {
         val rootView = inflater.inflate(layoutId(), container, false)
-        presenter = createPresenter() as P
+        presenter = providerPresenter() as P
         presenter.attachView = this
         initWidget()
         return rootView

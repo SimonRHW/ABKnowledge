@@ -21,6 +21,8 @@
 ext.deps = [:]
 
 ext.newsRunAlone = "${newsRunAlone}".toBoolean()
+ext.accountRunAlone = "${accountRunAlone}".toBoolean()
+ext.newFeaturesRunAlone = "${newFeaturesRunAlone}".toBoolean()
 ext.homeRunAlone = "${homeRunAlone}".toBoolean()
 ext.contentRunAlone = "${contentRunAlone}".toBoolean()
 ext.mineRunAlone = "${mineRunAlone}".toBoolean()

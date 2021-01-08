@@ -6,5 +6,5 @@ package com.simon.basic.core.mvp
  * @desc
  */
 interface IView {
-    fun createPresenter(): IPresenter
+    fun providerPresenter(): IPresenter
 }

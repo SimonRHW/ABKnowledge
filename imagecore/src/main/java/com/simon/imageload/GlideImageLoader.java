@@ -18,8 +18,8 @@ import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOption
 
 public class GlideImageLoader {
 
-    private ImageView mImageView;
-    private ProgressBar mProgressBar;
+    private final ImageView mImageView;
+    private final ProgressBar mProgressBar;
 
     public GlideImageLoader(ImageView imageView) {
         this(imageView, null);
@@ -32,9 +32,7 @@ public class GlideImageLoader {
 
     public void load(final String url, RequestOptions options) {
         if (url == null || options == null) return;
-
         onConnecting();
-
         //set Listener & start
         ProgressAppGlideModule.expect(url, new ProgressAppGlideModule.UIonProgressListener() {
             @Override
@@ -45,7 +43,7 @@ public class GlideImageLoader {
             }
 
             @Override
-            public float getGranualityPercentage() {
+            public float getGranularityPercentage() {
                 return 1.0f;
             }
         });

@@ -1,2 +1,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.simon.netcore" />
+    package="com.simon.netcore" >
+    <!-- 网络链接 -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!-- 获取网络状态 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!-- 读写sd卡 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <!-- 写sd卡 -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+</manifest>

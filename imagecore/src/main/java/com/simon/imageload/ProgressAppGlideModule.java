@@ -11,6 +11,8 @@ import com.bumptech.glide.integration.okhttp3.OkHttpUrlLoader;
 import com.bumptech.glide.load.model.GlideUrl;
 import com.bumptech.glide.module.AppGlideModule;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
@@ -33,12 +35,13 @@ import okio.Source;
 public class ProgressAppGlideModule extends AppGlideModule {
 
     @Override
-    public void registerComponents(Context context, Glide glide, Registry registry) {
+    public void registerComponents(@NotNull Context context, @NotNull Glide glide, @NotNull Registry registry) {
         super.registerComponents(context, glide, registry);
         OkHttpClient client = new OkHttpClient.Builder()
                 .addNetworkInterceptor(new Interceptor() {
+                    @NotNull
                     @Override
-                    public Response intercept(Chain chain) throws IOException {
+                    public Response intercept(@NotNull Chain chain) throws IOException {
                         Request request = chain.request();
                         Response response = chain.proceed(request);
                         ResponseProgressListener listener = new DispatchingProgressListener();
@@ -71,7 +74,7 @@ public class ProgressAppGlideModule extends AppGlideModule {
          *
          * @return in percentage (0.2 = call {@link #onProgress} around every 0.2 percent of progress)
          */
-        float getGranualityPercentage();
+        float getGranularityPercentage();
     }
 
     private static class DispatchingProgressListener implements ProgressAppGlideModule.ResponseProgressListener {
@@ -104,7 +107,7 @@ public class ProgressAppGlideModule extends AppGlideModule {
             if (contentLength <= bytesRead) {
                 forget(key);
             }
-            if (needsDispatch(key, bytesRead, contentLength, listener.getGranualityPercentage())) {
+            if (needsDispatch(key, bytesRead, contentLength, listener.getGranularityPercentage())) {
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
@@ -153,6 +156,7 @@ public class ProgressAppGlideModule extends AppGlideModule {
             return responseBody.contentLength();
         }
 
+        @NotNull
         @Override
         public BufferedSource source() {
             if (bufferedSource == null) {
@@ -166,7 +170,7 @@ public class ProgressAppGlideModule extends AppGlideModule {
                 long totalBytesRead = 0L;
 
                 @Override
-                public long read(Buffer sink, long byteCount) throws IOException {
+                public long read(@NotNull Buffer sink, long byteCount) throws IOException {
                     long bytesRead = super.read(sink, byteCount);
                     long fullLength = responseBody.contentLength();
                     if (bytesRead == -1) { // this source is exhausted

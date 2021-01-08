@@ -10,9 +10,9 @@ compileJava {
 
 dependencies {
     annotationProcessor 'com.google.auto.service:auto-service:1.0-rc7'
-    implementation 'com.squareup:javapoet:1.11.1'
-    implementation 'org.apache.commons:commons-lang3:3.6'
-    implementation 'org.apache.commons:commons-collections4:4.1'
+    implementation 'com.squareup:javapoet:1.13.0'
+    implementation 'org.apache.commons:commons-lang3:3.11'
+    implementation 'org.apache.commons:commons-collections4:4.4'
 }
 
 uploadArchives {

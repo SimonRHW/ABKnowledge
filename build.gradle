@@ -4,6 +4,8 @@ buildscript {
     apply from: 'versions.gradle'
     ext {
         kotlin_version = '1.4.10'
+        versions.kotlin = '1.4.21'
+        versions.kotlin = '1.4.21'
         versions.kotlin = '1.4.10'
         versions.kotlin = '1.4.10'
     }

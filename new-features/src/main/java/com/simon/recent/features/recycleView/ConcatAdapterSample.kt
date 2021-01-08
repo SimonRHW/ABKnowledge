@@ -1,4 +1,4 @@
-package com.simon.news.features
+package com.simon.recent.features.recycleView
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -9,11 +9,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Priority
 import com.bumptech.glide.request.RequestOptions
 import com.simon.imageload.GlideImageLoader
-import com.simon.news.R
+import com.simon.recent.features.R
 import kotlinx.android.synthetic.main.animal_concat_row.view.*
 import kotlinx.android.synthetic.main.animals_row.view.*
 import kotlinx.android.synthetic.main.breeds_row.view.*
 
+data class Animal(val name: String, val image: String)
+
+data class Breed(val name: String)
 
 abstract class BaseViewHolder<T>(itemView: View) : RecyclerView.ViewHolder(itemView) {
     abstract fun bind(item: T, position: Int)
@@ -69,7 +72,6 @@ class AnimalAdapter(private val context: Context) :
                 .placeholder(R.drawable.placeholder)
                 .error(R.drawable.ic_pic_error)
                 .priority(Priority.HIGH)
-
             GlideImageLoader(
                 itemView.animal_image,
                 null
@@ -80,7 +82,7 @@ class AnimalAdapter(private val context: Context) :
 }
 
 class DogBreedAdapter(
-    val context: Context
+    private val context: Context
 ) : RecyclerView.Adapter<BaseViewHolder<*>>() {
 
     private var dogBreedList = mutableListOf<Breed>()
@@ -145,9 +147,3 @@ class BaseGridConcatAdapter(
         }
     }
 }
-
-
-data class Animal(val name: String, val image: String)
-
-
-data class Breed(val name: String)

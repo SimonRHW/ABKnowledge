@@ -19,7 +19,7 @@ abstract class PresenterActivity<P : IPresenter> : BaseActivity(), IView,
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(layoutId())
-        presenter = createPresenter() as P
+        presenter = providerPresenter() as P
         presenter.attachView = this
         initWidget()
     }

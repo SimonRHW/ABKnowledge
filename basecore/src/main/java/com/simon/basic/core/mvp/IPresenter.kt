@@ -9,7 +9,9 @@ interface IPresenter {
 
     var attachView: IView?
 
-    fun onStart()
+    fun subscribe()
+
+    fun unsubscribe()
 
     fun detachView() {
         attachView = null
