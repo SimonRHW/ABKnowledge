@@ -4,6 +4,8 @@ import android.content.Context
 import com.simon.log.console.ConsoleLog
 import com.simon.log.local.LocalStorageLog
 import com.simon.log.report.ReportLog
+import com.tencent.mars.xlog.Xlog
+import java.io.File
 
 /**
  * @author Simon
@@ -11,34 +13,34 @@ import com.simon.log.report.ReportLog
  * @desc log配置管理
  */
 class LoggerManager private constructor(
-    private var context: Context,
-    private var logPath: String
-) {
+    private val context: Context,
+    private val isShowLog: Boolean
+){
     companion object {
         @Volatile
         private var instance: LoggerManager? = null
 
-        fun getInstance(context: Context, logPath: String = "") =
+        fun getInstance(context: Context, isShowLog: Boolean = true) =
             instance ?: synchronized(this) {
-                instance ?: LoggerManager(context.applicationContext, logPath).also {
+                instance ?: LoggerManager(context, isShowLog).also {
                     Logger.setLogManager(it)
+                    it.initLocalLogParam()
                     instance = it
                 }
             }
     }
 
     private var logStrategy = LogStrategy.CONSOLE
-
-    // TODO: 2020/7/2  这个开关的设置最好具有一定的灵活性，比如可以再加一层 System Property 的设置，
-    //  使用 System Property 的好处是一旦设置之后，即使重启App System Property 中的变量依旧是设置之后的值，
-    //  与 Android 中的 SharedPreference 非常相似
-    private var isShowLog: Boolean = false
-    private var logServerHost = ""
+    private var logLevel = 1
+    private var globalTag = ""
+    private var logFileDir = ""
+    private var cacheDir = ""
     private var namePrefix = "Slog"
     private var cacheDays = 7
-    private var logLevel = 2
-    private var publicKey = ""
-    private var globalTag = ""
+    private var logServerHost = ""
+
+    @Volatile
+    private var localStorageLogInit = false
 
     /**
      * 设置log输出策略,本地存储策略需要设置logPath
@@ -47,15 +49,6 @@ class LoggerManager private constructor(
         logStrategy = strategy
         return this
     }
-
-    /**
-     * 是否输出日志
-     */
-    fun showLog(isShowLog: Boolean): LoggerManager {
-        this.isShowLog = isShowLog
-        return this
-    }
-
 
     /**
      * 设置输出日志级别
@@ -74,38 +67,6 @@ class LoggerManager private constructor(
     }
 
     /**
-     * 设置本地存储日志路径
-     */
-    fun setLogPath(logPath: String): LoggerManager {
-        this.logPath = logPath
-        return this
-    }
-
-    /**
-     * 设置本地存储文件前缀名
-     */
-    fun setLogNamePrefix(namePrefix: String): LoggerManager {
-        this.namePrefix = namePrefix
-        return this
-    }
-
-    /**
-     * 设置本地存储文件保存天数
-     */
-    fun setLogCacheDays(cacheDays: Int): LoggerManager {
-        this.cacheDays = cacheDays
-        return this
-    }
-
-    /**
-     * 设置文件加密公钥
-     */
-    fun setLogPublicKey(publicKey: String): LoggerManager {
-        this.publicKey = publicKey
-        return this
-    }
-
-    /**
      * 设置上报日志的Server Host
      */
     fun setLogServerHost(logServerHost: String): LoggerManager {
@@ -118,18 +79,15 @@ class LoggerManager private constructor(
             LogStrategy.CONSOLE -> {
                 ConsoleLog.getInstance(
                     isShowLog = isShowLog,
-                    globalTag = globalTag
+                    globalTag = globalTag,
+                    logLevel = logLevel
                 )
             }
             LogStrategy.LOCAL_STORAGE -> {
                 LocalStorageLog.getInstance(
-                    context = context,
                     isShowLog = isShowLog,
-                    logPath = logPath,
-                    namePrefix = namePrefix,
-                    cacheDays = cacheDays,
-                    logLevel = logLevel,
-                    publicKey = publicKey
+                    globalTag = globalTag,
+                    logLevel = logLevel
                 )
             }
             LogStrategy.UPLOAD -> {
@@ -158,4 +116,42 @@ class LoggerManager private constructor(
          */
         UPLOAD
     }
+
+    private fun initLocalLogParam() {
+        if (localStorageLogInit) {
+            return
+        }
+        if (logFileDir.isEmpty()) {
+            logFileDir = context.filesDir.absolutePath + File.separator + "log"
+        }
+        if (cacheDir.isEmpty()) {
+            cacheDir = context.filesDir.absolutePath + File.separator + "cacheLog"
+        }
+        System.loadLibrary("c++_shared")
+        System.loadLibrary("marsxlog")
+        com.tencent.mars.xlog.Log.setLogImp(Xlog())
+        if (isShowLog) {
+            com.tencent.mars.xlog.Log.setConsoleLogOpen(true)
+            com.tencent.mars.xlog.Log.appenderOpen(
+                BaseLog.LEVEL_ALL,
+                Xlog.AppednerModeAsync,
+                cacheDir,
+                logFileDir,
+                namePrefix,
+                cacheDays
+            )
+        } else {
+            com.tencent.mars.xlog.Log.setConsoleLogOpen(false)
+            com.tencent.mars.xlog.Log.appenderOpen(
+                BaseLog.LEVEL_INFO,
+                Xlog.AppednerModeAsync,
+                cacheDir,
+                logFileDir,
+                namePrefix,
+                cacheDays
+            )
+        }
+        localStorageLogInit = true
+    }
+
 }

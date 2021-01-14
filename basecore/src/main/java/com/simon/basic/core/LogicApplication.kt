@@ -43,7 +43,6 @@ abstract class LogicApplication : BaseApplication() {
         LoggerManager.getInstance(this)
             .setLogStrategy(LoggerManager.LogStrategy.CONSOLE)
             .setGlobalTag("STAG")
-            .showLog(true)
             .setLogLevel(0)
         AppStatusManager.instance.init(this)
     }

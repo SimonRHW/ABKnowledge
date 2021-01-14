@@ -33,6 +33,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <meta-data
+            android:name="CHANNEL"
+            android:value="${CHANNEL}" />
     </application>
 
 </manifest>

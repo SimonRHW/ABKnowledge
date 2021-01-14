@@ -106,7 +106,7 @@ android {
         }
     }
 
-    flavorDimensions('platform', 'environment')
+    flavorDimensions('platform', 'environment', 'channel')
 
     // If you need to add more flavors, consider using flavor dimensions.
     productFlavors {
@@ -151,6 +151,27 @@ android {
         production {
             dimension "environment"
             buildConfigField("String", "host", "\"https://production.com/\"")
+        }
+
+        xiaomi {
+            dimension "channel"
+            manifestPlaceholders = [CHANNEL: "xiaomi"]
+        }
+        huawei {
+            dimension "channel"
+            manifestPlaceholders = [CHANNEL: "huawei"]
+        }
+        oppo {
+            dimension "channel"
+            manifestPlaceholders = [CHANNEL: "oppo"]
+        }
+        vivo {
+            dimension "channel"
+            manifestPlaceholders = [CHANNEL: "vivo"]
+        }
+        yingyongbao {
+            dimension "channel"
+            manifestPlaceholders = [CHANNEL: "yingyongbao"]
         }
     }
 

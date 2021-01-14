@@ -23,7 +23,7 @@ class AppStatusManager private constructor() : ActivityLifecycleCallbacks {
         /**
          * 缓存需要监听应用状态的页面
          */
-        private val CALL_BACK_CACHE: MutableSet<BackGroundCallback> = HashSet()
+        private val appBackgroundObserverSet: MutableSet<AppBackgroundObserver> = HashSet()
 
         val instance: AppStatusManager
             get() = Holder.INSTANCE
@@ -33,16 +33,8 @@ class AppStatusManager private constructor() : ActivityLifecycleCallbacks {
      * @return App 是否在前台
      * @see .isAppBackground
      */
-    /**
-     * 是否在前台
-     */
     private var isAppForeground = false
 
-    /**
-     * 静态内部类的优点是：外部类加载时并不需要立即加载内部类，内部类不被加载则不去初始化INSTANCE，故而不占内存。
-     * 即当AppStatusManager第一次被加载时，Holder，只有当getInstance()方法第一次被调用时，才会去初始化INSTANCE
-     * 第一次调用getInstance()方法会导致虚拟机加载Holder类，这种方法不仅能确保线程安全，也能保证单例的唯一性，同时也延迟了单例的实例化。
-     */
     private object Holder {
         val INSTANCE = AppStatusManager()
     }
@@ -84,9 +76,9 @@ class AppStatusManager private constructor() : ActivityLifecycleCallbacks {
         if (activityCount == 0) {
             isAppForeground = false
             Logger.info("onActivityStopped: App进入后台")
-            if (CALL_BACK_CACHE.isNotEmpty()) {
-                for (backGroundCallback in CALL_BACK_CACHE) {
-                    backGroundCallback.onAppStatusChange()
+            if (appBackgroundObserverSet.isNotEmpty()) {
+                for (backgroundObserver in appBackgroundObserverSet) {
+                    backgroundObserver.intoBackgroundStatus()
                 }
             }
         }
@@ -107,6 +99,7 @@ class AppStatusManager private constructor() : ActivityLifecycleCallbacks {
     /**
      * @return App 是否在后台
      * @see .isAppForeground
+     *
      */
     val isAppBackground: Boolean
         get() = !isAppForeground
@@ -115,22 +108,22 @@ class AppStatusManager private constructor() : ActivityLifecycleCallbacks {
      * 获取当前显示的activity
      * @return 当前resume的activity
      */
-    val currentActivity: Activity?
+    val currentResumeActivity: Activity?
         get() = mCurrentActivity!!.get()
 
-    fun addObserver(observer: BackGroundCallback) {
-        CALL_BACK_CACHE.add(observer)
+    fun addObserver(observer: AppBackgroundObserver) {
+        appBackgroundObserverSet.add(observer)
     }
 
-    fun removeObserver(observer: BackGroundCallback) {
-        CALL_BACK_CACHE.remove(observer)
+    fun removeObserver(observer: AppBackgroundObserver) {
+        appBackgroundObserverSet.remove(observer)
     }
 
-    interface BackGroundCallback {
+    interface AppBackgroundObserver {
         /**
-         * 应用前后台状态变更回调
+         * 应用进入后台状态变更回调
          */
-        fun onAppStatusChange()
+        fun intoBackgroundStatus()
     }
 
 }

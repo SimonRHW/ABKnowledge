@@ -1,7 +1,6 @@
 package com.simon.basic.core.helper
 
 import java.util.concurrent.LinkedBlockingQueue
-import java.util.concurrent.ThreadFactory
 import java.util.concurrent.ThreadPoolExecutor
 import java.util.concurrent.TimeUnit
 
@@ -38,8 +37,8 @@ object ExecutorHelper {
                             3,
                             60,
                             TimeUnit.SECONDS,
-                            LinkedBlockingQueue<Runnable>(),
-                            ThreadFactory { runnable -> Thread(runnable, "LocalLoadDataTask") })
+                            LinkedBlockingQueue<Runnable>()
+                        ) { runnable -> Thread(runnable, "LocalLoadDataTask") }
                     threadPoolExecutor.allowCoreThreadTimeOut(true)
                     sLocalExecutor = threadPoolExecutor
                 }
@@ -59,8 +58,8 @@ object ExecutorHelper {
                             1,
                             60,
                             TimeUnit.SECONDS,
-                            LinkedBlockingQueue<Runnable>(),
-                            ThreadFactory { runnable -> Thread(runnable, "SerialLoadDataTask") })
+                            LinkedBlockingQueue<Runnable>()
+                        ) { runnable -> Thread(runnable, "SerialLoadDataTask") }
                     threadPoolExecutor.allowCoreThreadTimeOut(true)
                     sSerialExecutor = threadPoolExecutor
                 }
@@ -80,13 +79,8 @@ object ExecutorHelper {
                             3,
                             60,
                             TimeUnit.SECONDS,
-                            LinkedBlockingQueue<Runnable>(),
-                            ThreadFactory { runnable ->
-                                Thread(
-                                    runnable,
-                                    "ShortOnlineLoadDataTask"
-                                )
-                            })
+                            LinkedBlockingQueue<Runnable>()
+                        ) { runnable ->Thread(runnable,"ShortOnlineLoadDataTask")}
                     threadPoolExecutor.allowCoreThreadTimeOut(true)
                     sSmallOnlineTaskExecutor = threadPoolExecutor
                 }
@@ -106,13 +100,8 @@ object ExecutorHelper {
                             5,
                             60,
                             TimeUnit.SECONDS,
-                            LinkedBlockingQueue<Runnable>(),
-                            ThreadFactory { runnable ->
-                                Thread(
-                                    runnable,
-                                    "LongOnlineLoadDataTask"
-                                )
-                            })
+                            LinkedBlockingQueue<Runnable>()
+                        ) { runnable ->Thread(runnable,"LongOnlineLoadDataTask")}
                     threadPoolExecutor.allowCoreThreadTimeOut(true)
                     sBigOnlineTaskExecutor = threadPoolExecutor
                 }
