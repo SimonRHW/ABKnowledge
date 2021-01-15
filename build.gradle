@@ -4,9 +4,6 @@ buildscript {
     apply from: 'versions.gradle'
     ext {
         kotlin_version = '1.4.10'
-        versions.kotlin = '1.4.21'
-        versions.kotlin = '1.4.21'
-        versions.kotlin = '1.4.10'
         versions.kotlin = '1.4.10'
     }
     addRepos(repositories)
@@ -18,8 +15,8 @@ buildscript {
         //代码质量扫描
         classpath deps.jacoco
         classpath deps.sonar
-        //加载自定义插件
-        classpath 'com.simon.asm.core:asm_plugin:1.0.0'
+//        //加载自定义插件
+//        classpath 'com.simon.asm.core:asm_plugin:1.0.0'
         //Firebase Analytics & Crash reporting
         classpath 'com.google.gms:google-services:4.3.4'
         classpath 'com.google.firebase:firebase-crashlytics-gradle:2.4.1'
@@ -35,7 +32,7 @@ sonarqube {
         property "sonar.projectKey", "com.simonren.basic.knowledge"
         property "sonar.sourceEncoding", "UTF-8"
         property "sonar.exclusions", [
-                '**/ui/*'
+                '**/view/*'
         ]
     }
 }

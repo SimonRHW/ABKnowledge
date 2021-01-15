@@ -26,7 +26,6 @@ abstract class PresenterActivity<P : IPresenter> : BaseActivity(), IView,
 
     override fun onStart() {
         super.onStart()
-        presenter.onStart()
     }
 
     override fun onDestroy() {

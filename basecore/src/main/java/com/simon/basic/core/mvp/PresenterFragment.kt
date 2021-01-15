@@ -29,12 +29,6 @@ abstract class PresenterFragment<P : IPresenter> : BaseFragment(), IView,
         return rootView
     }
 
-    override fun onStart() {
-        super.onStart()
-        presenter.onStart()
-    }
-
-
     override fun onDestroyView() {
         super.onDestroyView()
         presenter.detachView()

@@ -5,7 +5,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'dagger.hilt.android.plugin'
-apply plugin: 'simon.asm.plugin'
+//apply plugin: 'simon.asm.plugin'
 apply plugin: 'com.google.gms.google-services'
 apply plugin: 'com.google.firebase.crashlytics'
 apply from: "$project.rootDir/jacoco.gradle"
@@ -29,7 +29,7 @@ android {
         versionName project.VERSIONNAME
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         ndk {
-            abiFilters "armeabi", "armeabi-v7a", "arm64-v8a", "x86", "x86_64"
+            abiFilters "armeabi-v7a", "arm64-v8a", "x86", "x86_64"
         }
         buildConfigField("String", "GIT_VERSION", "\"${getGitVersion()}\"")
         manifestPlaceholders = [
@@ -61,7 +61,11 @@ android {
     androidExtensions {
         experimental = true
     }
-
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
     signingConfigs {
         release {
             keyAlias project.KEY_ALIAS
@@ -86,7 +90,6 @@ android {
     }
 
     buildTypes {
-
         debug {
             signingConfig signingConfigs.debug
             debuggable true
@@ -120,7 +123,7 @@ android {
             ]
         }
 
-        //特别版
+        //特殊版
         special {
             dimension "platform"
             manifestPlaceholders = [
@@ -207,15 +210,15 @@ android {
 
 }
 
-//repositories {
-//    //与 implementation fileTree(dir: 'libs', include: ['*.jar']) 互斥 ，不同平台进行不同版本lib集成
-//    flatDir {
-//        dirs "libs"
-//    }
-//}
+repositories {
+    //与 implementation fileTree(dir: 'libs', include: ['*.jar']) 互斥 ，不同平台进行不同版本lib集成
+    flatDir {
+        dirs "libs"
+    }
+}
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(include: ['*.jar', '*.aar'], dir: 'libs')
     implementation project(':logLib')
     implementation project(':basecore')
     implementation project(':imagecore')
@@ -270,8 +273,7 @@ static def versionTime() {
 }
 
 static String getDate() {
-    Date date = new Date()
-    return new SimpleDateFormat("MMddHHmm", Locale.CHINA).format(date)
+    return new SimpleDateFormat("MMddHHmm", Locale.CHINA).format( Date())
 }
 
 static def getGitVersion() {
