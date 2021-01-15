@@ -77,6 +77,11 @@
 #(12)Gson的序列和反序列化，其实质上是使用反射获取类解析。
 #(13)使用注解的方式，哪里不想混淆就注解哪里。support-annotation中已经提供@Keep的注解，可以保持类不被混淆
 
+
+###################################下面的不动######################################
+###################################下面的不动######################################
+###################################下面的不动######################################
+
 # 指定代码的压缩级别 0 - 7(指定代码进行迭代优化的次数，在Android里面默认是5，这条指令也只有在可以优化时起作用。)
 -optimizationpasses 5
 # 混淆时不会产生形形色色的类名(混淆时不使用大小写混合类名)
@@ -131,6 +136,9 @@
    public void *(android.view.View);
 }
 
+# fragment name
+-keep class * extends androidx.fragment.app.Fragment
+
 # For enumeration classes, see http://proguard.sourceforge.net/manual/examples.html#enumerations
 -keepclassmembers enum * {
     public static **[] values();
@@ -150,11 +158,6 @@
     public static <fields>;
 }
 
-#通过ProGuard在打包阶段清除Log日志
--assumenoexternalsideeffects class android.util.Log{
-        public static *** d(...);
-}
-
 # The support library contains references to newer platform versions.
 # Don't warn about those in case this app is linking against an older
 # platform version.  We know about them, and they are safe.
@@ -162,55 +165,117 @@
 
 # Understand the @Keep support annotation.
 -keep class android.support.annotation.Keep
+-keep class androidx.annotation.Keep
 
 -keep @android.support.annotation.Keep class * {*;}
+-keep @androidx.annotation.Keep class * {*;}
 
 -keepclasseswithmembers class * {
     @android.support.annotation.Keep <methods>;
+    @androidx.annotation.Keep <methods>;
 }
 
 -keepclasseswithmembers class * {
     @android.support.annotation.Keep <fields>;
+    @androidx.annotation.Keep <fields>;
 }
 
 -keepclasseswithmembers class * {
     @android.support.annotation.Keep <init>(...);
+    @androidx.annotation.Keep <init>(...);
 }
 
 ###################################上面的不动######################################
+###################################上面的不动######################################
+###################################上面的不动######################################
 
-# 第三方
-## ----------------------------------
 ##      glide
-## ----------------------------------
+##---------------Begin: proguard configuration for glide  ----------
 -keep public class * implements com.bumptech.glide.module.GlideModule
--keep class * extends com.bumptech.glide.module.AppGlideModule {
- <init>(...);
-}
+-keep public class * extends com.bumptech.glide.module.AppGlideModule
 -keep public enum com.bumptech.glide.load.ImageHeaderParser$** {
   **[] $VALUES;
   public *;
 }
+-dontwarn com.bumptech.glide.load.resource.bitmap.VideoDecoder
 
-## ----------------------------------
-##      应用内需要取消混淆的
-## ----------------------------------
-## bean
--keep class com.simon.basic.knowledge.bean.**{*;}
 
-##3D 地图 V5.0.0之后：
--keep   class com.amap.api.maps.**{*;}
--keep   class com.autonavi.**{*;}
--keep   class com.amap.api.trace.**{*;}
+##---------------Begin: proguard configuration for Gson  ----------
+# Gson uses generic type information stored in a class file when working with fields. Proguard
+# removes such information by default, so configure it to keep all of it.
+-keepattributes Signature
 
-##定位
--keep class com.amap.api.location.**{*;}
--keep class com.amap.api.fence.**{*;}
--keep class com.loc.**{*;}
--keep class com.autonavi.aps.amapapi.model.**{*;}
+# For using GSON @Expose annotation
+-keepattributes *Annotation*
 
-## 搜索
--keep   class com.amap.api.services.**{*;}
+# Gson specific classes
+-dontwarn sun.misc.**
+#-keep class com.google.gson.stream.** { *; }
+
+# Application classes that will be serialized/deserialized over Gson
+#-keep class com.google.gson.examples.android.model.** { <fields>; }
+
+# Prevent proguard from stripping interface information from TypeAdapter, TypeAdapterFactory,
+# JsonSerializer, JsonDeserializer instances (so they can be used in @JsonAdapter)
+-keep class * extends com.google.gson.TypeAdapter
+-keep class * implements com.google.gson.TypeAdapterFactory
+-keep class * implements com.google.gson.JsonSerializer
+-keep class * implements com.google.gson.JsonDeserializer
+
+# Prevent R8 from leaving Data object members always null
+-keepclassmembers,allowobfuscation class * {
+  @com.google.gson.annotations.SerializedName <fields>;
+}
+
+##---------------End: proguard configuration for Gson  ----------
+
+
+# JSR 305 annotations are for embedding nullability information.
+-dontwarn javax.annotation.**
+
+# A resource is loaded with a relative path so the package of this class must be preserved.
+-keepnames class okhttp3.internal.publicsuffix.PublicSuffixDatabase
+
+# Animal Sniffer compileOnly dependency to ensure APIs are compatible with older versions of Java.
+-dontwarn org.codehaus.mojo.animal_sniffer.*
+
+# OkHttp platform used only on JVM and when Conscrypt dependency is available.
+-dontwarn okhttp3.internal.platform.ConscryptPlatform
+-dontwarn org.conscrypt.ConscryptHostnameVerifier
+
+
+# Retrofit does reflection on generic parameters. InnerClasses is required to use Signature and
+# EnclosingMethod is required to use InnerClasses.
+-keepattributes Signature, InnerClasses, EnclosingMethod
+
+# Retrofit does reflection on method and parameter annotations.
+-keepattributes RuntimeVisibleAnnotations, RuntimeVisibleParameterAnnotations
+
+# Retain service method parameters when optimizing.
+-keepclassmembers,allowshrinking,allowobfuscation interface * {
+    @retrofit2.http.* <methods>;
+}
+
+# Ignore annotation used for build tooling.
+-dontwarn org.codehaus.mojo.animal_sniffer.IgnoreJRERequirement
+
+# Ignore JSR 305 annotations for embedding nullability information.
+-dontwarn javax.annotation.**
+
+# Guarded by a NoClassDefFoundError try/catch and only used when on the classpath.
+-dontwarn kotlin.Unit
+
+# Top-level functions that can only be used by Kotlin.
+-dontwarn retrofit2.KotlinExtensions
+-dontwarn retrofit2.KotlinExtensions$*
+
+# With R8 full mode, it sees no subtypes of Retrofit interfaces since they are created with a Proxy
+# and replaces all potential values with null. Explicitly keeping the interfaces prevents this.
+-if interface * { @retrofit2.http.* <methods>; }
+-keep,allowobfuscation interface <1>
+
+# Animal Sniffer compileOnly dependency to ensure APIs are compatible with older versions of Java.
+-dontwarn org.codehaus.mojo.animal_sniffer.*
 
 ##arouter
 -keep public class com.alibaba.android.arouter.routes.**{*;}
