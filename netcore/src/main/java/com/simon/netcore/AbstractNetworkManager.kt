@@ -13,8 +13,6 @@ import retrofit2.converter.gson.GsonConverterFactory
  */
 abstract class AbstractNetworkManager {
 
-
-
     @Volatile
     private var mOkHttpClient: OkHttpClient? = null
 
