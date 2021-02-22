@@ -17,6 +17,18 @@ kapt {
     }
 }
 
+static def versionTime() {
+    return new Date().format("yyyyMMdd", TimeZone.getTimeZone("UTC"))
+}
+
+static String getDate() {
+    return new SimpleDateFormat("MMddHHmm", Locale.CHINA).format( Date())
+}
+
+static def getGitVersion() {
+    return 'git rev-parse --short HEAD'.execute().text.trim()
+}
+
 android {
 
     compileSdkVersion build_versions.compile_sdk
@@ -260,7 +272,7 @@ dependencies {
     // Firebase Analytics & Crash reporting
     implementation 'com.google.firebase:firebase-core:18.0.0'
     implementation 'com.google.firebase:firebase-crashlytics:17.3.0'
-    implementation 'com.google.firebase:firebase-analytics:18.0.0'
+    implementation 'com.google.firebase:firebase-analytics:18.0.1'
 
     testImplementation deps.junit
     testImplementation deps.arch_core.testing
@@ -271,16 +283,4 @@ dependencies {
     androidTestImplementation deps.espresso.core
     androidTestImplementation deps.espresso.contrib
     androidTestImplementation deps.arch_core.testing
-}
-
-static def versionTime() {
-    return new Date().format("yyyyMMdd", TimeZone.getTimeZone("UTC"))
-}
-
-static String getDate() {
-    return new SimpleDateFormat("MMddHHmm", Locale.CHINA).format( Date())
-}
-
-static def getGitVersion() {
-    return 'git rev-parse --short HEAD'.execute().text.trim()
 }

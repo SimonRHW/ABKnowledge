@@ -9,7 +9,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.simon.basic.core.platform.BaseActivity
 import com.simon.basic.knowledge.utils.setupWithNavController
 
-
 class MainActivity : BaseActivity() {
 
     private var currentNavController: LiveData<NavController>? = null
@@ -24,25 +23,6 @@ class MainActivity : BaseActivity() {
         if (savedInstanceState == null) {
             setupBottomNavigationBar()
         }
-    }
-
-    override fun onStart() {
-        super.onStart()
-    }
-    override fun onResume() {
-        super.onResume()
-    }
-
-    override fun onPause() {
-        super.onPause()
-    }
-
-    override fun onStop() {
-        super.onStop()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle?) {
