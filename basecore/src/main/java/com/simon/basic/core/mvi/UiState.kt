@@ -5,5 +5,4 @@ package com.simon.basic.core.mvi
  * @date 2020/7/19
  * @desc
  */
-interface IIntent {
-}
+interface UiState

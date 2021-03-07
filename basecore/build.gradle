@@ -45,6 +45,8 @@ dependencies {
     api deps.activity.activity_ktx
 
     api deps.kotlin.stdlib
+    api deps.coroutines.runtime
+    api deps.coroutines.android
 
     api deps.gson
     api deps.zxing
