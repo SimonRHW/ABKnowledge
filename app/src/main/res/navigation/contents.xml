@@ -25,6 +25,6 @@
         android:id="@+id/contentsTab"
         android:name="com.simon.basic.knowledge.features.contents.ContentFragment"
         android:label="@string/title_contents"
-        tools:layout="@layout/contests_fragment">
+        tools:layout="@layout/contents_fragment">
     </fragment>
 </navigation>

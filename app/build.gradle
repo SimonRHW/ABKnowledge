@@ -2,7 +2,7 @@ import java.text.SimpleDateFormat
 
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-parcelize'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'realm-android'
 apply plugin: 'dagger.hilt.android.plugin'
@@ -71,9 +71,6 @@ android {
         //shaders = true
     }
 
-    androidExtensions {
-        experimental = true
-    }
     sourceSets {
         main {
             jniLibs.srcDirs = ['libs']
@@ -270,9 +267,9 @@ dependencies {
     kapt deps.hilt.compiler
 
     // Firebase Analytics & Crash reporting
-    implementation 'com.google.firebase:firebase-core:18.0.0'
-    implementation 'com.google.firebase:firebase-crashlytics:17.3.0'
-    implementation 'com.google.firebase:firebase-analytics:18.0.1'
+    implementation 'com.google.firebase:firebase-core:18.0.2'
+    implementation 'com.google.firebase:firebase-crashlytics:17.4.1'
+    implementation 'com.google.firebase:firebase-analytics:18.0.2'
 
     testImplementation deps.junit
     testImplementation deps.arch_core.testing

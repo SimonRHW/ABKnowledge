@@ -11,12 +11,6 @@ import com.simon.basic.knowledge.R
 
 class MineFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = MineFragment()
-    }
-
-    private lateinit var viewModel: MineViewModel
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -26,8 +20,6 @@ class MineFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(MineViewModel::class.java)
-        // TODO: Use the ViewModel
     }
 
 }

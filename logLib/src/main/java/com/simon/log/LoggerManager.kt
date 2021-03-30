@@ -1,5 +1,6 @@
 package com.simon.log
 
+import android.annotation.SuppressLint
 import android.content.Context
 import com.simon.log.console.ConsoleLog
 import com.simon.log.local.LocalStorageLog
@@ -15,8 +16,9 @@ import java.io.File
 class LoggerManager private constructor(
     private val context: Context,
     private val isShowLog: Boolean
-){
+) {
     companion object {
+        @SuppressLint("StaticFieldLeak")
         @Volatile
         private var instance: LoggerManager? = null
 
@@ -112,7 +114,7 @@ class LoggerManager private constructor(
         LOCAL_STORAGE,
 
         /**
-         * 实时发送到server端，例如车机在整车测试中不易连线debug，需要实时看数据交互
+         * 实时发送到server端，例如车机在整车测试中不能Adb debug，需要实时看数据交互
          */
         UPLOAD
     }

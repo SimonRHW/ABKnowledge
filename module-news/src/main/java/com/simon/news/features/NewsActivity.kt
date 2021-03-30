@@ -8,7 +8,6 @@ import com.simon.module.manager.ModuleRouteManager
 import com.simon.news.R
 import com.simon.news.ViewModelFactory
 import com.simon.news.databinding.ActivityNewsBinding
-import kotlinx.android.synthetic.main.activity_news.*
 
 @Route(path = ModuleRouteManager.NEWS_HOME_ROUTE)
 class NewsActivity : ViewModelActivity<ActivityNewsBinding, NewsViewModel>() {
@@ -26,7 +25,7 @@ class NewsActivity : ViewModelActivity<ActivityNewsBinding, NewsViewModel>() {
     }
 
     override fun initWidget() {
-        recycleView.layoutManager = LinearLayoutManager(this@NewsActivity)
+        mBinding.recycleView.layoutManager = LinearLayoutManager(this@NewsActivity)
     }
 
     override fun onStart() {

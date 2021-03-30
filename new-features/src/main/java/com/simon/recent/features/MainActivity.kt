@@ -4,13 +4,14 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.simon.recent.features.databinding.ActivityMainBinding
 import com.simon.recent.features.recycleView.*
-import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        val binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         val animalAdapter = AnimalAdapter(this)
         animalAdapter.setAnimals(
             mutableListOf(
@@ -43,7 +44,7 @@ class MainActivity : AppCompatActivity() {
         )
         val concatAdapter =
             ConcatAdapter(breedAdapter, BaseGridConcatAdapter(this, animalAdapter, 4))
-        recycleView.layoutManager = LinearLayoutManager(this@MainActivity)
-        recycleView.adapter = concatAdapter
+        binding.recycleView.layoutManager = LinearLayoutManager(this@MainActivity)
+        binding.recycleView.adapter = concatAdapter
     }
 }

@@ -6,29 +6,28 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewbinding.ViewBinding
 import com.bumptech.glide.Priority
 import com.bumptech.glide.request.RequestOptions
 import com.simon.imageload.GlideImageLoader
 import com.simon.recent.features.R
-import kotlinx.android.synthetic.main.animal_concat_row.view.*
-import kotlinx.android.synthetic.main.animals_row.view.*
-import kotlinx.android.synthetic.main.breeds_row.view.*
+import com.simon.recent.features.databinding.AnimalConcatRowBinding
+import com.simon.recent.features.databinding.AnimalsRowBinding
+import com.simon.recent.features.databinding.BreedsRowBinding
 
 data class Animal(val name: String, val image: String)
 
 data class Breed(val name: String)
 
-abstract class BaseViewHolder<T>(itemView: View) : RecyclerView.ViewHolder(itemView) {
+abstract class BaseViewHolder<T>(binding: ViewBinding) : RecyclerView.ViewHolder(binding.root) {
     abstract fun bind(item: T, position: Int)
 }
 
-abstract class BaseConcatHolder<T>(itemView: View) : RecyclerView.ViewHolder(itemView) {
+abstract class BaseConcatHolder<T>(binding: ViewBinding) : RecyclerView.ViewHolder(binding.root) {
     abstract fun bind(adapter: T)
 }
 
-class AnimalAdapter(private val context: Context) :
-    RecyclerView.Adapter<BaseViewHolder<*>>() {
-
+class AnimalAdapter(private val context: Context) : RecyclerView.Adapter<BaseViewHolder<*>>() {
     private var animalList = mutableListOf<Animal>()
 
     companion object {
@@ -37,11 +36,11 @@ class AnimalAdapter(private val context: Context) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<*> {
         val itemWidth: Int = parent.width / ITEMS_PER_PAGE
-        val view = LayoutInflater.from(context).inflate(R.layout.animals_row, parent, false)
-        val layoutParams: ViewGroup.LayoutParams = view.layoutParams
+        val binding = AnimalsRowBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val layoutParams: ViewGroup.LayoutParams = binding.root.layoutParams
         layoutParams.width = itemWidth
-        view.layoutParams = layoutParams
-        return AnimalViewHolder(view)
+        binding.root.layoutParams = layoutParams
+        return AnimalViewHolder(binding)
     }
 
     override fun getItemCount(): Int {
@@ -65,7 +64,9 @@ class AnimalAdapter(private val context: Context) :
         }
     }
 
-    inner class AnimalViewHolder(itemView: View) : BaseViewHolder<Animal>(itemView) {
+    inner class AnimalViewHolder(private val binding: AnimalsRowBinding) :
+        BaseViewHolder<Animal>(binding) {
+
         override fun bind(item: Animal, position: Int) {
             val options: RequestOptions = RequestOptions()
                 .centerCrop()
@@ -73,10 +74,10 @@ class AnimalAdapter(private val context: Context) :
                 .error(R.drawable.ic_pic_error)
                 .priority(Priority.HIGH)
             GlideImageLoader(
-                itemView.animal_image,
+                binding.animalImage,
                 null
             ).load(item.image, options)
-            itemView.animal_name.text = item.name
+            binding.animalName.text = item.name
         }
     }
 }
@@ -89,7 +90,7 @@ class DogBreedAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<*> {
         return DogBreedViewHolder(
-            LayoutInflater.from(context).inflate(R.layout.breeds_row, parent, false)
+            BreedsRowBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         )
     }
 
@@ -112,9 +113,10 @@ class DogBreedAdapter(
         notifyDataSetChanged()
     }
 
-    inner class DogBreedViewHolder(itemView: View) : BaseViewHolder<Breed>(itemView) {
+    inner class DogBreedViewHolder(private val binding: BreedsRowBinding) :
+        BaseViewHolder<Breed>(binding) {
         override fun bind(item: Breed, position: Int) {
-            itemView.breed_name.text = item.name
+            binding.breedName.text = item.name
         }
     }
 }
@@ -123,13 +125,13 @@ class BaseGridConcatAdapter(
     private val context: Context,
     private val animalAdapter: AnimalAdapter,
     private val spanCount: Int
-) :
-    RecyclerView.Adapter<BaseConcatHolder<*>>() {
+) : RecyclerView.Adapter<BaseConcatHolder<*>>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseConcatHolder<*> {
-        val view = LayoutInflater.from(context).inflate(R.layout.animal_concat_row, parent, false)
-        view.rv_animal_concat.layoutManager = GridLayoutManager(context, spanCount)
-        return ConcatViewHolder(view)
+        val binding =
+            AnimalConcatRowBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        binding.rvAnimalConcat.layoutManager = GridLayoutManager(context, spanCount)
+        return ConcatViewHolder(binding)
     }
 
     override fun getItemCount(): Int = 1
@@ -141,9 +143,10 @@ class BaseGridConcatAdapter(
         }
     }
 
-    inner class ConcatViewHolder(itemView: View) : BaseConcatHolder<AnimalAdapter>(itemView) {
+    inner class ConcatViewHolder(private val binding: AnimalConcatRowBinding) :
+        BaseConcatHolder<AnimalAdapter>(binding) {
         override fun bind(adapter: AnimalAdapter) {
-            itemView.rv_animal_concat.adapter = adapter
+            binding.rvAnimalConcat.adapter = adapter
         }
     }
 }

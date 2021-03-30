@@ -1,8 +1,5 @@
 package com.simon.log.console
 
-
-
-
 import com.simon.log.BaseLog
 import timber.log.Timber
 
