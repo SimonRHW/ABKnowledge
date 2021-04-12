@@ -4,6 +4,7 @@ package com.simon.log.local
 import android.os.Build
 import com.simon.log.BaseLog
 import com.simon.log.Logger
+import com.simon.log.CollectionCrashLibrary
 
 import com.tencent.mars.xlog.Log
 import timber.log.Timber
@@ -34,11 +35,11 @@ open class LocalStorageTree constructor(
                     Log.LEVEL_INFO -> Log.i(tag, part)
                     Log.LEVEL_WARNING -> {
                         Log.w(tag, part)
-                        LocalStorageLibrary.logWarning(t)
+                        CollectionCrashLibrary.logWarning(t)
                     }
                     Log.LEVEL_ERROR -> {
                         Log.e(tag, part)
-                        LocalStorageLibrary.logError(t)
+                        CollectionCrashLibrary.logError(t)
                     }
                     Log.LEVEL_FATAL, Log.LEVEL_NONE -> return
                 }

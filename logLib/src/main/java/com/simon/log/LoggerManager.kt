@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import com.simon.log.console.ConsoleLog
 import com.simon.log.local.LocalStorageLog
+import com.simon.log.report.LogService
 import com.simon.log.report.ReportLog
 import com.tencent.mars.xlog.Xlog
 import java.io.File
@@ -24,7 +25,7 @@ class LoggerManager private constructor(
 
         fun getInstance(context: Context, isShowLog: Boolean = true) =
             instance ?: synchronized(this) {
-                instance ?: LoggerManager(context, isShowLog).also {
+                instance ?: LoggerManager(context.applicationContext, isShowLog).also {
                     Logger.setLogManager(it)
                     it.initLocalLogParam()
                     instance = it
@@ -40,6 +41,7 @@ class LoggerManager private constructor(
     private var namePrefix = "Slog"
     private var cacheDays = 7
     private var logServerHost = ""
+    private var logService: LogService? = null
 
     @Volatile
     private var localStorageLogInit = false
@@ -95,8 +97,8 @@ class LoggerManager private constructor(
             LogStrategy.UPLOAD -> {
                 ReportLog.getInstance(
                     isShowLog = isShowLog,
-                    host = logServerHost,
-                    logLevel = logLevel
+                    logLevel = logLevel,
+                    logService = logService
                 )
             }
         }
@@ -109,12 +111,12 @@ class LoggerManager private constructor(
         CONSOLE,
 
         /**
-         * 将日志进行本地存储，可按需上传到server端
+         * 将日志进行本地存储，可按需上传文件到server端
          */
         LOCAL_STORAGE,
 
         /**
-         * 实时发送到server端，例如车机在整车测试中不能Adb debug，需要实时看数据交互
+         * 实时发送message到server端，例如车机在整车测试中不能开启adb debug时，需要实时看数据交互
          */
         UPLOAD
     }

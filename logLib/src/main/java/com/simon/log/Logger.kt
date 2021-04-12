@@ -1,17 +1,21 @@
 package com.simon.log
 
+import android.annotation.SuppressLint
+
 /**
  * @author Simon
  * @date 2020/5/1
  * @desc
  */
 class Logger private constructor() {
+
     init {
         throw AssertionError()
     }
 
     companion object Log : ILog {
 
+        @SuppressLint("StaticFieldLeak")
         @Volatile
         private var instance: LoggerManager? = null
 

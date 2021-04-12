@@ -39,7 +39,6 @@ dependencies {
     api deps.app_compat
     api deps.core_ktx
     api deps.lifecycle.runtime
-    api deps.lifecycle.extensions
     api deps.lifecycle.viewmodel_ktx
     api deps.lifecycle.livedata_ktx
     api deps.activity.activity_ktx

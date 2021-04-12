@@ -68,14 +68,15 @@ versions.glide = "4.11.0"
 versions.glide = "4.11.0"
 
 versions.hamcrest = "1.3"
-versions.hilt = "2.28-alpha"
+versions.hilt = "2.33-beta"
+versions.hilt_androidx = "1.0.0-alpha01"
 
 versions.junit = "4.12"
 versions.jacoco = "0.8.5"
 
-versions.kotlin = "1.4.20"
+versions.kotlin = "1.4.32"
 
-versions.lifecycle = "2.2.0"
+versions.lifecycle = "2.3.1"
 
 versions.material = "1.2.1"
 
@@ -237,7 +238,21 @@ deps.hamcrest = "org.hamcrest:hamcrest-all:$versions.hamcrest"
 def hilt = [:]
 hilt.plugin = "com.google.dagger:hilt-android-gradle-plugin:$versions.hilt"
 hilt.runtime = "com.google.dagger:hilt-android:$versions.hilt"
-hilt.compiler = "com.google.dagger:hilt-android-compiler:$versions.hilt"
+hilt.compiler = "com.google.dagger:hilt-compiler:$versions.hilt"
+
+hilt.jetpack_navigation = "androidx.hilt:hilt-navigation-fragment:$versions.hilt_androidx "
+hilt.jetpack_work = "androidx.hilt:hilt-work:$versions.hilt_androidx"
+hilt.jetpack_androidx_compiler = "androidx.hilt:hilt-compiler:$versions.hilt_androidx"
+hilt.jetpack_lifecycle_viewmodel = "androidx.hilt:hilt-lifecycle-viewmodel:$versions.hilt_androidx"
+hilt.kapt_android_compiler = "androidx.hilt:hilt-compiler:$versions.hilt_androidx"
+
+// For Robolectric tests.
+hilt.test = "com.google.dagger:hilt-android-testing:$versions.hilt"
+hilt.kapt_test = "com.google.dagger:hilt-android-compiler:$versions.hilt"
+
+// For instrumented tests.
+hilt.android_test = "com.google.dagger:hilt-android-testing:$versions.hilt"
+hilt.kapt_android_test = "com.google.dagger:hilt-android-compiler:$versions.hilt"
 deps.hilt = hilt
 
 deps.jacoco = "org.jacoco:org.jacoco.core:$versions.jacoco"
@@ -256,8 +271,14 @@ def lifecycle = [:]
 lifecycle.viewmodel_ktx = "androidx.lifecycle:lifecycle-viewmodel-ktx:$versions.lifecycle"
 // LiveData
 lifecycle.livedata_ktx = "androidx.lifecycle:lifecycle-livedata-ktx:$versions.lifecycle"
+// Lifecycles only (without ViewModel or LiveData)
+lifecycle.runtime = "androidx.lifecycle:lifecycle-runtime-ktx:$versions.lifecycle"
 // Saved state module for ViewModel
 lifecycle.viewmodel_ktx_savedstate = "androidx.lifecycle:lifecycle-viewmodel-savedstate:$versions.lifecycle"
+// Annotation processor
+lifecycle.compiler = "androidx.lifecycle:lifecycle-compiler:$versions.lifecycle"
+// Jetpack Compose Integration for ViewModel
+lifecycle.viewmodel_compose = "androidx.lifecycle:lifecycle-viewmodel-compose:1.0.0-alpha04"
 // Annotation processor
 lifecycle.compiler = "androidx.lifecycle:lifecycle-compiler:$versions.lifecycle"
 // alternately - if using Java8, use the following instead of lifecycle-compiler
@@ -268,9 +289,6 @@ lifecycle.service = "androidx.lifecycle:lifecycle-service:$versions.lifecycle"
 lifecycle.process = "androidx.lifecycle:lifecycle-process:$versions.lifecycle"
 // optional - ReactiveStreams support for LiveData
 lifecycle.reactivestreams = "androidx.lifecycle:lifecycle-reactivestreams-ktx:$versions.lifecycle"
-
-lifecycle.runtime = "androidx.lifecycle:lifecycle-runtime:$versions.lifecycle"
-lifecycle.extensions = "androidx.lifecycle:lifecycle-extensions:$versions.lifecycle"
 deps.lifecycle = lifecycle
 
 deps.material = "com.google.android.material:material:$versions.material"

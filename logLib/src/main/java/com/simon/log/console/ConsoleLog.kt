@@ -9,8 +9,8 @@ import timber.log.Timber
  * @desc:
  */
 class ConsoleLog private constructor(
-    private var isShowLog: Boolean,
-    private var logLevel: Int
+    isShowLog: Boolean,
+    logLevel: Int
 ) : BaseLog(isShowLog,logLevel){
 
     companion object {

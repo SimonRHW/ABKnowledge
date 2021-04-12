@@ -23,9 +23,8 @@ class HomeFragment : Fragment() {
         return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         binding.btnNews.setOnClickListener(View.OnClickListener {
             // 这个页面主动指定了Group名
             ARouter.getInstance().build(ModuleRouteManager.NEWS_HOME_ROUTE).navigation()
