@@ -22,6 +22,14 @@ fun View.invisible() { this.visibility = View.INVISIBLE }
 
 fun View.gone() { this.visibility = View.GONE }
 
+fun View.isGone(flag: Boolean) {
+    if (flag) this.visibility = View.GONE else this.visibility = View.VISIBLE
+}
+
+fun View.isInvisible(flag: Boolean) {
+    if (flag) this.visibility = View.INVISIBLE else this.visibility = View.VISIBLE
+}
+
 fun ViewGroup.inflate(@LayoutRes layoutRes: Int): View =
     LayoutInflater.from(context).inflate(layoutRes, this, false)
 
