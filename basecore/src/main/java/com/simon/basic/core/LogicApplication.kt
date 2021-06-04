@@ -17,7 +17,7 @@ abstract class LogicApplication : BaseApplication() {
     /**
      *  mLogicList只持有当前进程的PriorityLogicWrapper对象
      */
-    private var mLogicList: ArrayList<PriorityLogicWrapper>? = null
+    private lateinit var mLogicList: ArrayList<PriorityLogicWrapper>
 
     /**
      * mLogicClassMap持有所有进程的PriorityLogicWrapper数组对象
@@ -30,14 +30,16 @@ abstract class LogicApplication : BaseApplication() {
         initializeLogic()
         dispatchLogic()
         instantiateLogic()
-        if (null != mLogicList && mLogicList!!.size > 0) {
-            for (priorityLogicWrapper in mLogicList!!) {
-                //找到当前进程的BaseApplicationLogic实例后，执行其onCreate()方法
+        if (mLogicList.isNotEmpty()) {
+            for (priorityLogicWrapper in mLogicList) {
                 priorityLogicWrapper.logicClass.onCreate()
             }
         }
     }
 
+    /**
+     * 初始化基础服务
+     */
     private fun init() {
         mLogicClassMap = HashMap()
         LoggerManager.getInstance(this)
@@ -49,7 +51,8 @@ abstract class LogicApplication : BaseApplication() {
 
     /**
      * 由LogicApplication的实现类，去实现这个方法，调用registerApplicationLogic()
-     * 注册所有进程的BaseApplicationLogic对象
+     * 注册所有进程的Logic对象
+     * @see Logic
      */
     protected abstract fun initializeLogic()
 
@@ -58,16 +61,23 @@ abstract class LogicApplication : BaseApplication() {
      */
     private fun dispatchLogic() {
         mLogicList = mLogicClassMap[ProcessUtil.getProcessName(this, ProcessUtil.getMyProcessId())]
+            ?: ArrayList()
     }
 
-    abstract fun needMultipleProcess(): Boolean
+    /**
+     * 取得mLogicList中的PriorityLogicWrapper对象，
+     * 并按优先级顺序排序Logic对象进行调用
+     */
+    private fun instantiateLogic() {
+        mLogicList.sort()
+    }
 
     /**
      * 添加所有来自不同进程的，不同的BaseLogic对象到HashMap中
      * @param processName 进程名
      * @param priority 优先级
-     * @param logicClass 继承BaseLogic的对象
-     * @return
+     * @param logicClass 继承Logic的对象
+     * @return   tempList更新，则mLogicClassMap中的value也跟着更新了，不用再调用mLogicClassMap.put方法
      */
     protected fun registerApplicationLogic(
         processName: String,
@@ -88,55 +98,34 @@ abstract class LogicApplication : BaseApplication() {
         }
         val priorityLogicWrapper = PriorityLogicWrapper(priority, logicClass)
         tempList.add(priorityLogicWrapper)
-        //tempList更新，则mLogicClassMap中的value也跟着更新了，不用再调用mLogicClassMap.put方法
         return true
-    }
-
-    /**
-     * 取得mLogicList中的PriorityLogicWrapper对象，
-     * 并按优先级顺序排序Logic对象进行初始化
-     */
-    private fun instantiateLogic() {
-        if (null != mLogicList && mLogicList!!.size > 0) {
-            if (null != mLogicList && mLogicList!!.size > 0) {
-                mLogicList!!.sort() //根据进程优先级，按顺序初始化
-            }
-        }
     }
 
     override fun onTerminate() {
         super.onTerminate()
-        if (null != mLogicList && mLogicList!!.size > 0) {
-            for (priorityLogicWrapper in mLogicList!!) {
-                priorityLogicWrapper.logicClass.onTerminate()
-            }
+        mLogicList.forEach {
+            it.logicClass.onTerminate()
         }
     }
 
     override fun onLowMemory() {
         super.onLowMemory()
-        if (null != mLogicList && mLogicList!!.size > 0) {
-            for (priorityLogicWrapper in mLogicList!!) {
-                priorityLogicWrapper.logicClass.onLowMemory()
-            }
+        mLogicList.forEach {
+            it.logicClass.onLowMemory()
         }
     }
 
     override fun onTrimMemory(level: Int) {
         super.onTrimMemory(level)
-        if (null != mLogicList && mLogicList!!.size > 0) {
-            for (priorityLogicWrapper in mLogicList!!) {
-                priorityLogicWrapper.logicClass.onTrimMemory(level)
-            }
+        mLogicList.forEach {
+            it.logicClass.onTrimMemory(level)
         }
     }
 
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
-        if (null != mLogicList && mLogicList!!.size > 0) {
-            for (priorityLogicWrapper in mLogicList!!) {
-                priorityLogicWrapper.logicClass.onConfigurationChanged(newConfig)
-            }
+        mLogicList.forEach {
+            it.logicClass.onConfigurationChanged(newConfig)
         }
     }
 }

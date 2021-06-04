@@ -10,7 +10,7 @@ import androidx.lifecycle.ViewModelStoreOwner
  */
 open class BaseApplication : Application(), ViewModelStoreOwner {
 
-    lateinit var mAppViewModelStore: ViewModelStore
+    private lateinit var mAppViewModelStore: ViewModelStore
 
     override fun onCreate() {
         super.onCreate()

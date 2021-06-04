@@ -12,16 +12,11 @@ import com.simon.news.NewsLogic
 class NewsApplication : LogicApplication() {
 
     override fun initializeLogic() {
-
         registerApplicationLogic(
             ProcessUtil.getProcessName(this, ProcessUtil.getMyProcessId())!!,
             0,
             NewsLogic(this)
         )
-    }
-
-    override fun needMultipleProcess(): Boolean {
-        return false
     }
 
 }
