@@ -2,6 +2,8 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-parcelize'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'dagger.hilt.android.plugin'
 android {
     compileSdkVersion build_versions.compile_sdk
 
@@ -51,6 +53,16 @@ dependencies {
     api deps.zxing
     api deps.rx_android
     api deps.rxjava2
+
+    //DI
+    implementation deps.dagger.runtime
+    implementation deps.dagger.android
+    implementation deps.dagger.android_support
+    kapt deps.dagger.compiler
+    kapt deps.dagger.android_support_compiler
+
+    implementation deps.hilt.runtime
+    kapt deps.hilt.android_compile
 
     testImplementation deps.junit
     testImplementation deps.arch_core.testing

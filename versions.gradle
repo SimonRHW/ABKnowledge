@@ -55,12 +55,15 @@ versions.coordinator_layout = "1.1.0"
 versions.core = "1.5.0"
 versions.customview = "1.0.0"
 versions.coroutines = "1.4.2"
+versions.chuckerteam="3.4.0"
 
 versions.datastore = "1.0.0-beta01"
 versions.drawerlayout = "1.1.1"
-versions.dagger = "2.16"
+versions.dagger = "2.37"
 versions.dexmaker = "2.2.0"
 versions.espresso = "3.2.0"
+versions.doraemonkit = "3.2.0"
+versions.dokit = "3.3.5"
 
 versions.fragment = "1.3.4"
 
@@ -69,8 +72,7 @@ versions.glide = "4.11.0"
 versions.glide = "4.11.0"
 
 versions.hamcrest = "1.3"
-versions.hilt = "2.33-beta"
-versions.hilt_androidx = "1.0.0-alpha01"
+versions.hilt = "2.37"
 
 versions.junit = "4.12"
 versions.jacoco = "0.8.5"
@@ -198,6 +200,11 @@ cameraX.extensions = "androidx.camera:camera-extensions:1.0.0-alpha10"
 deps.core = "androidx.core:core:$versions.core"
 deps.core_ktx = "androidx.core:core-ktx:$versions.core"
 
+def chuckerteam = [:]
+chuckerteam.runtime = "com.github.chuckerteam.chucker:library:${versions.chuckerteam}"
+chuckerteam.no_op = "com.github.chuckerteam.chucker:library-no-op:${versions.chuckerteam}"
+deps.chuckerteam = chuckerteam
+
 def coroutines = [:]
 coroutines.runtime = "org.jetbrains.kotlinx:kotlinx-coroutines-core:$versions.coroutines"
 coroutines.android = "org.jetbrains.kotlinx:kotlinx-coroutines-android:$versions.coroutines"
@@ -213,6 +220,25 @@ dagger.android_support_compiler = "com.google.dagger:dagger-android-processor:$v
 deps.dagger = dagger
 
 deps.dexmaker = "com.linkedin.dexmaker:dexmaker-mockito:$versions.dexmaker"
+
+def dokit = [:]
+//核心模块
+dokit.core = "io.github.didi.dokit:dokitx:${versions.dokit }"
+//文件同步模块
+dokit.ft = "io.github.didi.dokit:dokitx-ft:${versions.dokit }"
+//一机多控模块
+dokit.mc = "io.github.didi.dokit:dokitx-mc:${versions.dokit }"
+//weex模块
+dokit.weex = "io.github.didi.dokit:dokitx-weex:${versions.dokit }"
+//no-op 模块
+dokit.no_op = "io.github.didi.dokit:dokitx-no-op:${versions.dokit }"
+deps.dokit = dokit
+
+def doraemonkit = [:]
+doraemonkit.runtime = "com.didichuxing.doraemonkit:doraemonkit:${versions.doraemonkit}"
+doraemonkit.plugin = "com.didichuxing.doraemonkit:doraemonkit-plugin:${versions.doraemonkit}"
+doraemonkit.no_op = "com.didichuxing.doraemonkit:doraemonkit-no-op:${versions.doraemonkit}"
+deps.doraemonkit = doraemonkit
 
 def espresso = [:]
 espresso.core = "androidx.test.espresso:espresso-core:$versions.espresso"
@@ -239,13 +265,10 @@ deps.hamcrest = "org.hamcrest:hamcrest-all:$versions.hamcrest"
 def hilt = [:]
 hilt.plugin = "com.google.dagger:hilt-android-gradle-plugin:$versions.hilt"
 hilt.runtime = "com.google.dagger:hilt-android:$versions.hilt"
-hilt.compiler = "com.google.dagger:hilt-compiler:$versions.hilt"
-
-hilt.jetpack_navigation = "androidx.hilt:hilt-navigation-fragment:$versions.hilt_androidx "
-hilt.jetpack_work = "androidx.hilt:hilt-work:$versions.hilt_androidx"
-hilt.jetpack_androidx_compiler = "androidx.hilt:hilt-compiler:$versions.hilt_androidx"
-hilt.jetpack_lifecycle_viewmodel = "androidx.hilt:hilt-lifecycle-viewmodel:$versions.hilt_androidx"
-hilt.kapt_android_compiler = "androidx.hilt:hilt-compiler:$versions.hilt_androidx"
+hilt.android_compile = "com.google.dagger:hilt-android-compiler:$versions.hilt"
+//hilt 2.34版本已经移除已下使用，https://github.com/google/dagger/releases/tag/dagger-2.34
+//hilt.compile = 'androidx.hilt:hilt-compiler:1.0.0'
+//hilt.viewmodel  ='androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03'
 
 // For Robolectric tests.
 hilt.test = "com.google.dagger:hilt-android-testing:$versions.hilt"
@@ -377,8 +400,7 @@ deps.zxing = "com.google.zxing:core:$versions.zxing"
 ext.deps = deps
 
 static def addRepos(RepositoryHandler handler) {
-    handler.google()
-    handler.jcenter()
+    handler.mavenLocal()
     handler.maven { url "https://plugins.gradle.org/m2/" }
     handler.maven { url 'https://maven.aliyun.com/repository/google' }
     handler.maven { url 'https://maven.aliyun.com/repository/public' }
@@ -387,6 +409,9 @@ static def addRepos(RepositoryHandler handler) {
     handler.maven { url 'https://mirrors.huaweicloud.com/repository/maven/' }
     handler.maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
     handler.maven { url "../ABKnowledge/repo" }
+    handler.google()
+    handler.mavenCentral()
+    handler.jcenter()
 }
 
 ext.addRepos = this.&addRepos
