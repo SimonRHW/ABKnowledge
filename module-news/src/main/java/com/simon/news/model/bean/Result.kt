@@ -1,11 +1,11 @@
 package com.simon.news.model.bean
 
 data class Result(
-    val `data`: List<Data>,
+    val `data`: List<News>,
     val stat: String
 )
 
-data class Data(
+data class News(
     val author_name: String,
     val category: String,
     val date: String,

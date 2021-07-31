@@ -20,16 +20,14 @@
  **/
 ext.deps = [:]
 
-ext.newsRunAlone = "${newsRunAlone}".toBoolean()
 ext.accountRunAlone = "${accountRunAlone}".toBoolean()
-ext.newFeaturesRunAlone = "${newFeaturesRunAlone}".toBoolean()
-ext.homeRunAlone = "${homeRunAlone}".toBoolean()
-ext.contentRunAlone = "${contentRunAlone}".toBoolean()
-ext.mineRunAlone = "${mineRunAlone}".toBoolean()
 ext.animationRunAlone = "${animationRunAlone}".toBoolean()
+ext.mineRunAlone = "${mineRunAlone}".toBoolean()
+ext.newsRunAlone = "${newsRunAlone}".toBoolean()
+ext.recycleviewRunAlone = "${recycleviewRunAlone}".toBoolean()
 
 def versions = [:]
-versions.android_gradle_plugin = '4.2.1'
+versions.android_gradle_plugin = '4.2.2'
 
 versions.asm = '8.0'
 

@@ -35,6 +35,7 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+    api project(':resourceslibrary')
     //Kotlin
     implementation deps.kotlin.stdlib
 

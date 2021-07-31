@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.alibaba.android.arouter.launcher.ARouter
 import com.simon.basic.knowledge.databinding.ContentsFragmentBinding
-import com.simon.module.manager.ModuleRouteManager
+import com.simon.module.manager.Animation
 
 class ContentFragment : Fragment() {
 
@@ -27,7 +27,7 @@ class ContentFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.btnAnimation.setOnClickListener(View.OnClickListener {
             // 这个页面主动指定了Group名
-            ARouter.getInstance().build(ModuleRouteManager.ANIMATION_HOME_ROUTE).navigation()
+            ARouter.getInstance().build(Animation.HOME_ROUTE).navigation()
         })
     }
 

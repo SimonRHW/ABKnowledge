@@ -11,11 +11,10 @@ interface JHApi {
     companion object {
         const val JU_HE_HOST = "http://v.juhe.cn"
         const val JU_HE_NEWS_KEY = "55c467010983016e89b59eaa22edeef5"
-
         const val NEWS_URL = "/toutiao/index"
     }
 
-    // 获取路线详情
+    // 获取头条列表
     @GET(NEWS_URL)
     fun getNewsList(
         @QueryMap queryMap: HashMap<String, String>

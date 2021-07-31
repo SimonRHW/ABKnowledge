@@ -64,9 +64,9 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
+    implementation project(':core')
     implementation project(':logLib')
-    implementation project(':basecore')
-    implementation project(':imagecore')
+    implementation project(':imageLib')
     implementation project(':netcore')
     implementation project(':modulemanager')
 

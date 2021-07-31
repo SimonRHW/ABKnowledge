@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.alibaba.android.arouter.launcher.ARouter
 import com.simon.basic.knowledge.databinding.HomeFragmentBinding
-import com.simon.module.manager.ModuleRouteManager
+import com.simon.module.manager.News
 
 class HomeFragment : Fragment() {
 
@@ -27,7 +27,7 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.btnNews.setOnClickListener(View.OnClickListener {
             // 这个页面主动指定了Group名
-            ARouter.getInstance().build(ModuleRouteManager.NEWS_HOME_ROUTE).navigation()
+            ARouter.getInstance().build(News.HOME_ROUTE).navigation()
         })
     }
 

@@ -29,6 +29,23 @@ android {
         viewBinding = true
         dataBinding = true
     }
+    sourceSets {
+        main {
+            if (rootProject.ext.animationRunAlone) {
+                manifest.srcFile 'src/main/java/alone/AndroidManifest.xml'
+                java {
+                    exclude 'src/main/component'
+                    srcDir 'src/main/alone'
+                }
+            } else {
+                manifest.srcFile 'src/main/java/component/AndroidManifest.xml'
+                java {
+                    exclude 'src/main/alone'
+                    srcDir 'src/main/component'
+                }
+            }
+        }
+    }
 
     buildTypes {
         release {
@@ -48,9 +65,9 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
+    implementation project(':core')
     implementation project(':logLib')
-    implementation project(':basecore')
-    implementation project(':imagecore')
+    implementation project(':imageLib')
     implementation project(':netcore')
     implementation project(':modulemanager')
 

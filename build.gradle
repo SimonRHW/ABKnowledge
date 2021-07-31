@@ -2,6 +2,9 @@
 
 buildscript {
     apply from: 'versions.gradle'
+    ext {
+        versions.kotlin = '1.5.21'
+    }
     addRepos(repositories)
     dependencies {
         classpath deps.android_gradle_plugin
@@ -34,7 +37,7 @@ sonarqube {
     }
 }
 
-project(":basecore") {
+project(":core") {
     sonarqube {
         skipProject = true
     }
