@@ -7,7 +7,7 @@ import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.Transformations
 
 fun <T : Any?> Fragment.subscribe(liveData: LiveData<T>, func: (T) -> Unit) {
-    liveData.observe(this, {
+    liveData.observe(this.viewLifecycleOwner, {
         func(it)
     })
 }

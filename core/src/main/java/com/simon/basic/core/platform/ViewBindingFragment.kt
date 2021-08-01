@@ -24,7 +24,7 @@ abstract class ViewBindingFragment<V : ViewDataBinding> : BaseFragment() {
             container,
             false
         )
-        mBinding.lifecycleOwner = this
+        mBinding.lifecycleOwner = viewLifecycleOwner
         return mBinding.root
     }
 }
