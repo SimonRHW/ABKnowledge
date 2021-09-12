@@ -1,0 +1,103 @@
+{
+  "formatVersion": "1.1",
+  "component": {
+    "group": "com.simon.apt.core",
+    "module": "compiler",
+    "version": "1.0.0",
+    "attributes": {
+      "org.gradle.status": "release"
+    }
+  },
+  "createdBy": {
+    "gradle": {
+      "version": "7.0.2"
+    }
+  },
+  "variants": [
+    {
+      "name": "apiElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.version": 8,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-api",
+        "org.jetbrains.kotlin.localToProject": "public",
+        "org.jetbrains.kotlin.platform.type": "jvm"
+      },
+      "dependencies": [
+        {
+          "group": "org.jetbrains.kotlin",
+          "module": "kotlin-stdlib-jdk8",
+          "version": {
+            "requires": "1.5.30"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "compiler-1.0.0.jar",
+          "url": "compiler-1.0.0.jar",
+          "size": 1579,
+          "sha512": "8b47a45f4e06bdf9392194a855e6ed8420b18fb88e275c4ed107a5b13d7cacbc7f4637d71bbb8ffb81d35ac20bd0af3b2cce97aeff55b83fd25de43e15ef0c05",
+          "sha256": "6f9c50833a615a54dfde3875fd763c029a5285c300e7bc14ecd893a9ce85f563",
+          "sha1": "9ad01c697e3772844b6c788ef115f5d8002b6d6e",
+          "md5": "afe0e2873be72a5d54091d87acb1c9a3"
+        }
+      ]
+    },
+    {
+      "name": "runtimeElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.version": 8,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-runtime",
+        "org.jetbrains.kotlin.localToProject": "public",
+        "org.jetbrains.kotlin.platform.type": "jvm"
+      },
+      "dependencies": [
+        {
+          "group": "com.squareup",
+          "module": "javapoet",
+          "version": {
+            "requires": "1.13.0"
+          }
+        },
+        {
+          "group": "org.apache.commons",
+          "module": "commons-lang3",
+          "version": {
+            "requires": "3.11"
+          }
+        },
+        {
+          "group": "org.apache.commons",
+          "module": "commons-collections4",
+          "version": {
+            "requires": "4.4"
+          }
+        },
+        {
+          "group": "org.jetbrains.kotlin",
+          "module": "kotlin-stdlib-jdk8",
+          "version": {
+            "requires": "1.5.30"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "compiler-1.0.0.jar",
+          "url": "compiler-1.0.0.jar",
+          "size": 1579,
+          "sha512": "8b47a45f4e06bdf9392194a855e6ed8420b18fb88e275c4ed107a5b13d7cacbc7f4637d71bbb8ffb81d35ac20bd0af3b2cce97aeff55b83fd25de43e15ef0c05",
+          "sha256": "6f9c50833a615a54dfde3875fd763c029a5285c300e7bc14ecd893a9ce85f563",
+          "sha1": "9ad01c697e3772844b6c788ef115f5d8002b6d6e",
+          "md5": "afe0e2873be72a5d54091d87acb1c9a3"
+        }
+      ]
+    }
+  ]
+}

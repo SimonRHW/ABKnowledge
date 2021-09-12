@@ -29,6 +29,6 @@ abstract class ViewModelActivity<V : ViewDataBinding, VM : BaseViewModel> :
         super.onCreate(savedInstanceState)
         mViewModel = obtainViewModel()
         bind(mBinding, mViewModel)
-        initWidget()
+        processViewState()
     }
 }

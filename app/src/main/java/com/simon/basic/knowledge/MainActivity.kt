@@ -25,7 +25,7 @@ class MainActivity : BaseActivity() {
         }
     }
 
-    override fun onRestoreInstanceState(savedInstanceState: Bundle?) {
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
         setupBottomNavigationBar()
     }
@@ -35,16 +35,13 @@ class MainActivity : BaseActivity() {
      */
     private fun setupBottomNavigationBar() {
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_nav)
-
         val navGraphIds = listOf(R.navigation.home, R.navigation.contents, R.navigation.mine)
-
         val controller = bottomNavigationView.setupWithNavController(
             navGraphIds = navGraphIds,
             fragmentManager = supportFragmentManager,
             containerId = R.id.nav_host_container,
             intent = intent
         )
-
         controller.observe(this, Observer { navController ->
             setupActionBarWithNavController(navController)
         })

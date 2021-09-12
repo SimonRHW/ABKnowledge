@@ -17,6 +17,7 @@ class AppStatusManager private constructor() : ActivityLifecycleCallbacks {
 
     private var activityCount = 0
     private var mCurrentActivity: WeakReference<Activity>? = null
+    private lateinit var appActivityManager: AppActivityManager
 
     companion object {
 
@@ -25,8 +26,17 @@ class AppStatusManager private constructor() : ActivityLifecycleCallbacks {
          */
         private val appBackgroundObserverSet: MutableSet<AppBackgroundObserver> = HashSet()
 
+        private val appActivityManager: AppActivityManager? = null
+
         val instance: AppStatusManager
             get() = Holder.INSTANCE
+    }
+
+    interface AppBackgroundObserver {
+        /**
+         * 应用进入后台状态变更回调
+         */
+        fun intoBackgroundStatus()
     }
 
     /**
@@ -40,6 +50,7 @@ class AppStatusManager private constructor() : ActivityLifecycleCallbacks {
     }
 
     fun init(app: Application) {
+        appActivityManager = AppActivityManager()
         app.registerActivityLifecycleCallbacks(this)
     }
 
@@ -48,7 +59,7 @@ class AppStatusManager private constructor() : ActivityLifecycleCallbacks {
         savedInstanceState: Bundle?
     ) {
         Logger.info("onActivityCreated: current activity =" + activity.localClassName)
-        AppActivityManager.appManager.addActivity(activity)
+        appActivityManager.addActivity(activity)
     }
 
     override fun onActivityStarted(activity: Activity) {
@@ -65,7 +76,7 @@ class AppStatusManager private constructor() : ActivityLifecycleCallbacks {
     override fun onActivityPaused(activity: Activity) {
         Logger.info("onActivityPaused: current activity =" + activity.localClassName)
         if (mCurrentActivity != null) {
-            mCurrentActivity!!.clear()
+            mCurrentActivity?.clear()
             mCurrentActivity = null
         }
     }
@@ -84,16 +95,13 @@ class AppStatusManager private constructor() : ActivityLifecycleCallbacks {
         }
     }
 
-    override fun onActivitySaveInstanceState(
-        activity: Activity,
-        outState: Bundle?
-    ) {
+    override fun onActivitySaveInstanceState(activity: Activity, outState: Bundle) {
         Logger.info("onActivitySaveInstanceState: current activity =" + activity.localClassName)
     }
 
     override fun onActivityDestroyed(activity: Activity) {
         Logger.info("onActivityDestroyed: current activity =" + activity.localClassName)
-        AppActivityManager.appManager.removeActivity(activity)
+        appActivityManager.removeActivity(activity)
     }
 
     /**
@@ -109,7 +117,7 @@ class AppStatusManager private constructor() : ActivityLifecycleCallbacks {
      * @return 当前resume的activity
      */
     val currentResumeActivity: Activity?
-        get() = mCurrentActivity!!.get()
+        get() = mCurrentActivity?.get()
 
     fun addObserver(observer: AppBackgroundObserver) {
         appBackgroundObserverSet.add(observer)
@@ -119,11 +127,12 @@ class AppStatusManager private constructor() : ActivityLifecycleCallbacks {
         appBackgroundObserverSet.remove(observer)
     }
 
-    interface AppBackgroundObserver {
-        /**
-         * 应用进入后台状态变更回调
-         */
-        fun intoBackgroundStatus()
+    /**
+     * 退出应用程序
+     * @param isBackground 是否保持后台运行
+     */
+    fun appExit(isBackground: Boolean?) {
+        appActivityManager.appExit(isBackground)
     }
 
 }

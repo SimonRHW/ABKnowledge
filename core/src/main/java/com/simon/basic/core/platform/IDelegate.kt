@@ -7,7 +7,7 @@ package com.simon.basic.core.platform
  */
 interface IDelegate {
     /**
-     *  对widget 进行初始化操作
+     *  对view进行业务处理
      */
-    fun initWidget()
+    fun processViewState()
 }

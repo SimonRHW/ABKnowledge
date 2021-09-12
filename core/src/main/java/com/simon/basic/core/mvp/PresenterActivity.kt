@@ -10,8 +10,7 @@ import com.simon.basic.core.platform.IDelegate
  * @desc
  */
 
-abstract class PresenterActivity<P : IPresenter> : BaseActivity(), IView<P>,
-    IDelegate {
+abstract class PresenterActivity<P : IPresenter> : BaseActivity(), IView<P>, IDelegate {
 
     lateinit var presenter: P
 
@@ -20,7 +19,7 @@ abstract class PresenterActivity<P : IPresenter> : BaseActivity(), IView<P>,
         setContentView(layoutId())
         presenter = providerPresenter()
         presenter.attachView = this
-        initWidget()
+        processViewState()
     }
 
     override fun onStart() {

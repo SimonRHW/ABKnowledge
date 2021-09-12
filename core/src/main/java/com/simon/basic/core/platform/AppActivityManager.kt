@@ -10,24 +10,13 @@ import kotlin.system.exitProcess
  * @date 2020/4/12
  * @desc 在Application中用registerActivityLifecycleCallbacks进行Activity生命周期的栈管理
  */
-class AppActivityManager private constructor() {
-
-    companion object {
-        internal val appManager: AppActivityManager
-            get() = Holder.INSTANCE
-    }
+internal class AppActivityManager {
 
     /**
      * activity存储栈
      */
     private var sActivityStack: ArrayDeque<Activity>? = null
 
-    /**
-     * 单一实例
-     */
-    private object Holder {
-        val INSTANCE = AppActivityManager()
-    }
 
     /**
      * 添加Activity到堆栈

@@ -13,8 +13,7 @@ import com.simon.basic.core.platform.IDelegate
  * @desc
  */
 
-abstract class PresenterFragment<P : IPresenter> : BaseFragment(), IView<P>,
-    IDelegate {
+abstract class PresenterFragment<P : IPresenter> : BaseFragment(), IView<P>, IDelegate {
 
     lateinit var presenter: P
 
@@ -25,7 +24,7 @@ abstract class PresenterFragment<P : IPresenter> : BaseFragment(), IView<P>,
         val rootView = inflater.inflate(layoutId(), container, false)
         presenter = providerPresenter()
         presenter.attachView = this
-        initWidget()
+        processViewState()
         return rootView
     }
 

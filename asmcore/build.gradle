@@ -1,5 +1,5 @@
 apply plugin: 'groovy'
-apply plugin: 'maven'
+apply plugin: 'maven-publish'
 apply plugin: 'java'
 apply plugin: 'kotlin'
 
@@ -13,18 +13,31 @@ dependencies {
     implementation deps.asm.runtime
     implementation deps.asm.util
     implementation deps.asm.commons
+    implementation deps.apache.commons_io
 }
 
 repositories {
     addRepos(repositories)
 }
-
-
-uploadArchives {
-    repositories.mavenDeployer {
-        repository(url: uri('../repo'))
-        pom.groupId = 'com.simon.asm.core'
-        pom.artifactId = 'asm_plugin'
-        pom.version = '1.0.0'
+publishing {
+    repositories {
+        maven {
+            // change to point to your repo
+            url = layout.projectDirectory.dir('repo')
+        }
     }
+    publications {
+        maven(MavenPublication) {
+            groupId = 'com.simon.asm.core'
+            artifactId = 'asm_plugin'
+            version = '1.0.0'
+
+            from components.java
+        }
+    }
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
 }

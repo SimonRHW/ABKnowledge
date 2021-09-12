@@ -2,26 +2,19 @@
 
 buildscript {
     apply from: 'versions.gradle'
-    ext {
-        versions.kotlin = '1.5.21'
-    }
     addRepos(repositories)
     dependencies {
         classpath deps.android_gradle_plugin
         classpath deps.kotlin.plugin
         classpath deps.kotlin.allopen
         classpath deps.hilt.plugin
-        //代码质量扫描
         classpath deps.jacoco
         classpath deps.sonar
-//        //加载自定义插件
-//        classpath 'com.simon.asm.core:asm_plugin:1.0.0'
-        //Firebase Analytics & Crash reporting
         classpath 'com.google.gms:google-services:4.3.8'
         classpath 'com.google.firebase:firebase-crashlytics-gradle:2.7.1'
-        // NOTE: Do not place your application dependencies here; they belong
-        // in the individual module build.gradle files
         classpath "io.realm:realm-gradle-plugin:10.2.0"
+        //加载自定义插件
+        //classpath 'com.simon.asm.core:asm_plugin:1.0.0'
     }
 }
 apply plugin: "org.sonarqube"

@@ -27,9 +27,10 @@ ext.newsRunAlone = "${newsRunAlone}".toBoolean()
 ext.recycleviewRunAlone = "${recycleviewRunAlone}".toBoolean()
 
 def versions = [:]
-versions.android_gradle_plugin = '4.2.2'
+versions.android_gradle_plugin = '7.0.1'
 
 versions.asm = '8.0'
+versions.commons_io = "2.11.0"
 
 versions.activity = '1.2.3'
 versions.annotations = "1.2.0"
@@ -52,7 +53,7 @@ versions.constraint_layout = "2.0.4"
 versions.coordinator_layout = "1.1.0"
 versions.core = "1.5.0"
 versions.customview = "1.0.0"
-versions.coroutines = "1.4.2"
+versions.coroutines = "1.5.2"
 versions.chuckerteam="3.4.0"
 
 versions.datastore = "1.0.0-beta01"
@@ -75,7 +76,7 @@ versions.hilt = "2.37"
 versions.junit = "4.12"
 versions.jacoco = "0.8.5"
 
-versions.kotlin = "1.4.32"
+versions.kotlin = "1.5.30"
 
 versions.lifecycle = "2.3.1"
 
@@ -123,15 +124,20 @@ versions.zxing = "3.3.3"
 ext.versions = versions
 
 def build_versions = [:]
-build_versions.min_sdk = 21
-build_versions.compile_sdk = 29
-build_versions.target_sdk = 29
-build_versions.build_tools = "29.0.3"
+build_versions.min_sdk = 24
+build_versions.compile_sdk = 30
+build_versions.target_sdk = 30
+build_versions.build_tools = "30.0.3"
 ext.build_versions = build_versions
 
 ext.javaVersion = JavaVersion.VERSION_1_8
 
 def deps = [:]
+
+
+def apache = [:]
+apache.commons_io = "commons-io:commons-io:$versions.commons_io"
+deps.apache = apache
 
 //ASM依赖
 def asm = [:]
@@ -406,10 +412,10 @@ static def addRepos(RepositoryHandler handler) {
     handler.maven { url 'https://maven.aliyun.com/repository/gradle-plugin' }
     handler.maven { url 'https://mirrors.huaweicloud.com/repository/maven/' }
     handler.maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
-    handler.maven { url "../ABKnowledge/repo" }
+    handler.maven { url "../ABKnowledge/aptcore/repo" }
+    handler.maven { url "../ABKnowledge/asmcore/repo" }
     handler.google()
     handler.mavenCentral()
-    handler.jcenter()
 }
 
 ext.addRepos = this.&addRepos

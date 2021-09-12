@@ -236,15 +236,15 @@ dependencies {
     implementation project(':core')
     implementation project(':imageLib')
     implementation project(':logLib')
-    implementation project(':netcore')
-    implementation project(':modulemanager')
+    implementation project(':netLib')
+    implementation project(':manager')
 
     if (!rootProject.ext.newsRunAlone) {
-        implementation project(path: ':module-news')
+        implementation project(path: ':feature-news')
     }
 
     if (!rootProject.ext.animationRunAlone) {
-        implementation project(path: ':module-animation')
+        implementation project(path: ':feature-animation')
     }
 
     implementation deps.material

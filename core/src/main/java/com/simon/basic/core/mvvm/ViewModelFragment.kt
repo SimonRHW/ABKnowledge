@@ -26,7 +26,7 @@ abstract class ViewModelFragment<V : ViewDataBinding, VM : BaseViewModel> :
         super.onCreateView(inflater, container, savedInstanceState)
         mViewModel = obtainViewModel()
         bind(mBinding, mViewModel)
-        initWidget()
+        processViewState()
         return mBinding.root
     }
 }
