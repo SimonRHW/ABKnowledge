@@ -68,10 +68,9 @@ dependencies {
     implementation deps.hilt.runtime
     kapt deps.hilt.android_compile
 
-    api "androidx.core:core:1.7.0"
     implementation deps.app_compat
     implementation deps.material
-    implementation deps.core_ktx
+    implementation deps.core
     implementation deps.constraint_layout
     implementation deps.lifecycle.runtime
     implementation deps.lifecycle.viewmodel_ktx

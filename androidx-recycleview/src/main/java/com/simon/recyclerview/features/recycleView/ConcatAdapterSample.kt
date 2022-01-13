@@ -1,4 +1,4 @@
-package com.simon.recent.features.recycleView
+package com.simon.recyclerview.features.recycleView
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -9,10 +9,10 @@ import androidx.viewbinding.ViewBinding
 import com.bumptech.glide.Priority
 import com.bumptech.glide.request.RequestOptions
 import com.simon.imageload.GlideImageLoader
-import com.simon.recent.features.R
-import com.simon.recent.features.databinding.AnimalConcatRowBinding
-import com.simon.recent.features.databinding.AnimalsRowBinding
-import com.simon.recent.features.databinding.BreedsRowBinding
+import com.simon.recyclerview.features.R
+import com.simon.recyclerview.features.databinding.AnimalConcatRowBinding
+import com.simon.recyclerview.features.databinding.AnimalsRowBinding
+import com.simon.recyclerview.features.databinding.BreedsRowBinding
 
 data class Animal(val name: String, val image: String)
 

@@ -29,6 +29,15 @@ ext.recycleviewRunAlone = "${recycleviewRunAlone}".toBoolean()
 def versions = [:]
 versions.android_gradle_plugin = '7.0.1'
 
+def build_versions = [:]
+build_versions.min_sdk = 24
+build_versions.compile_sdk = 31
+build_versions.target_sdk = 30
+build_versions.build_tools = "30.0.3"
+ext.build_versions = build_versions
+
+ext.javaVersion = JavaVersion.VERSION_1_8
+
 versions.asm = '8.0'
 versions.commons_io = "2.11.0"
 
@@ -122,15 +131,6 @@ versions.xlog = "1.2.5"
 versions.zxing = "3.3.3"
 
 ext.versions = versions
-
-def build_versions = [:]
-build_versions.min_sdk = 24
-build_versions.compile_sdk = 30
-build_versions.target_sdk = 30
-build_versions.build_tools = "30.0.3"
-ext.build_versions = build_versions
-
-ext.javaVersion = JavaVersion.VERSION_1_8
 
 def deps = [:]
 

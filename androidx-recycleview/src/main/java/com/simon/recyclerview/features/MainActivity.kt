@@ -1,11 +1,11 @@
-package com.simon.recent.features
+package com.simon.recyclerview.features
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.simon.recent.features.databinding.ActivityMainBinding
-import com.simon.recent.features.recycleView.*
+import com.simon.recyclerview.features.databinding.ActivityMainBinding
+import com.simon.recyclerview.features.recycleView.*
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

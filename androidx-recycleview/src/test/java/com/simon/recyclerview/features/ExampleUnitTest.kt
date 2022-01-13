@@ -1,4 +1,4 @@
-package com.simon.recent.features
+package com.simon.recyclerview.features
 
 import org.junit.Test
 

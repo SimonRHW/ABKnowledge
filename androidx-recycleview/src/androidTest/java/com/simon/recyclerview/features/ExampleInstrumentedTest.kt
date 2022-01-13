@@ -1,4 +1,4 @@
-package com.simon.recent.features
+package com.simon.recyclerview.features
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
