@@ -41,39 +41,39 @@ ext.javaVersion = JavaVersion.VERSION_1_8
 versions.asm = '8.0'
 versions.commons_io = "2.11.0"
 
-versions.activity = '1.2.3'
-versions.annotation = "1.2.0"
-versions.appcompat = "1.3.0"
+versions.activity = '1.4.0'
+versions.annotation = "1.3.0"
+versions.appcompat = "1.4.1"
 versions.arch_core = "2.1.0"
-versions.asynclayoutinflater = "1.1.0"
+versions.asynclayoutinflater = "1.0.0"
 
-versions.atsl_core = "1.2.0"
-versions.atsl_junit = "1.1.1"
-versions.atsl_rules = "1.2.0"
-versions.atsl_runner = "1.2.0"
+versions.atsl_core = "1.4.0"
+versions.atsl_junit = "1.1.3"
+versions.atsl_rules = "1.4.0"
+versions.atsl_runner = "1.4.0"
 
 versions.benchmark = "1.0.0"
-versions.biometric = "1.0.1"
-versions.browser = "1.2.0"
+versions.biometric = "1.1.0"
+versions.browser = "1.4.0"
 
-versions.cameraX = "1.0.0"
+versions.cameraX = "1.0.2"
 versions.cardview = "1.0.0"
-versions.constraint_layout = "2.0.4"
-versions.coordinator_layout = "1.1.0"
+versions.constraint_layout = "2.1.3"
+versions.coordinator_layout = "1.2.0"
 versions.core = "1.7.0"
-versions.customview = "1.0.0"
+versions.customview = "1.1.0"
 versions.coroutines = "1.5.2"
-versions.chuckerteam="3.4.0"
+versions.chuckerteam="3.5.2"
 
-versions.datastore = "1.0.0-beta01"
+versions.datastore = "1.0.0"
 versions.drawerlayout = "1.1.1"
 versions.dagger = "2.37"
-versions.dexmaker = "2.2.0"
+versions.dexmaker = "2.28.1"
 versions.espresso = "3.2.0"
 versions.doraemonkit = "3.2.0"
 versions.dokit = "3.3.5"
 
-versions.fragment = "1.3.4"
+versions.fragment = "1.4.1"
 
 versions.gson = "2.8.6"
 versions.glide = "4.11.0"
@@ -87,7 +87,7 @@ versions.jacoco = "0.8.5"
 
 versions.kotlin = "1.5.30"
 
-versions.lifecycle = "2.3.1"
+versions.lifecycle = "2.4.1"
 
 versions.material = "1.2.1"
 
@@ -96,23 +96,23 @@ versions.mockito_all = "1.10.19"
 versions.mockito_android = "2.25.0"
 versions.mockwebserver = "3.8.1"
 
-versions.navigation = "2.3.5"
+versions.navigation = "2.4.1"
 
 versions.okhttp = "4.4.1"
 
-versions.paging = "3.0.0"
-versions.preference = "1.1.1"
+versions.paging = "3.1.0"
+versions.preference = "1.2.0"
 
 versions.recyclerview = "1.2.1"
 versions.retrofit = "2.7.2"
 versions.robolectric = "4.2"
-versions.room = "2.2.6"
+versions.room = "2.4.1"
 versions.rx_android = "2.1.1"
 versions.rxjava2 = "2.2.12"
 
 versions.sonar = "2.7.1"
 versions.slice = "1.0.0"
-versions.startup = ":1.0.0"
+versions.startup = ":1.1.0"
 versions.swagger = "1.5.15"
 versions.swiperefreshlayout = "1.1.0"
 
@@ -123,7 +123,7 @@ versions.truth = "1.0.1"
 
 versions.ViewPager2 = "1.0.0"
 
-versions.work = "2.5.0"
+versions.work = "2.7.1"
 versions.webkit = "1.4.0"
 
 versions.xlog = "1.2.5"
