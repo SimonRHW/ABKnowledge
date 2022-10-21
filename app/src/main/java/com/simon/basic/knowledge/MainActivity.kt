@@ -7,7 +7,6 @@ import androidx.navigation.NavController
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.simon.basic.core.platform.BaseActivity
-import com.simon.basic.knowledge.utils.setupWithNavController
 
 class MainActivity : BaseActivity() {
 

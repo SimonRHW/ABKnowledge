@@ -6,10 +6,7 @@ apply plugin: 'kotlin-parcelize'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'dagger.hilt.android.plugin'
 //apply plugin: 'simon.asm.plugin'
-apply plugin: 'com.google.gms.google-services'
-apply plugin: 'com.google.firebase.crashlytics'
 apply from: "$project.rootDir/jacoco.gradle"
-apply plugin: 'realm-android'
 
 kapt {
     arguments {
@@ -22,7 +19,7 @@ static def versionTime() {
 }
 
 static String getDate() {
-    return new SimpleDateFormat("MMddHHmm", Locale.CHINA).format( Date())
+    return new SimpleDateFormat("MMddHHmm", Locale.CHINA).format(Date())
 }
 
 static def getGitVersion() {
@@ -118,29 +115,9 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-
-    flavorDimensions('platform', 'environment', 'channel')
-
+    flavorDimensions('environment')
     // If you need to add more flavors, consider using flavor dimensions.
     productFlavors {
-
-        //普通版
-        general {
-            dimension "platform"
-            manifestPlaceholders = [
-                    APP_NAME: "@string/app_name",
-                    APP_ICON: "@mipmap/ic_launcher",
-            ]
-        }
-
-        //特殊版
-        special {
-            dimension "platform"
-            manifestPlaceholders = [
-                    APP_NAME: "@string/app_name",
-                    APP_ICON: "@mipmap/ic_launcher",
-            ]
-        }
 
         //联测、开发环境
         dev {
@@ -164,27 +141,6 @@ android {
         production {
             dimension "environment"
             buildConfigField("String", "host", "\"https://production.com/\"")
-        }
-
-        xiaomi {
-            dimension "channel"
-            manifestPlaceholders = [CHANNEL: "xiaomi"]
-        }
-        huawei {
-            dimension "channel"
-            manifestPlaceholders = [CHANNEL: "huawei"]
-        }
-        oppo {
-            dimension "channel"
-            manifestPlaceholders = [CHANNEL: "oppo"]
-        }
-        vivo {
-            dimension "channel"
-            manifestPlaceholders = [CHANNEL: "vivo"]
-        }
-        yingyongbao {
-            dimension "channel"
-            manifestPlaceholders = [CHANNEL: "yingyongbao"]
         }
     }
 
@@ -220,10 +176,6 @@ android {
 
 }
 
-realm {
-    syncEnabled = true
-}
-
 repositories {
     //与 implementation fileTree(dir: 'libs', include: ['*.jar']) 互斥 ，不同平台进行不同版本lib集成
     flatDir {
@@ -233,18 +185,17 @@ repositories {
 
 dependencies {
     implementation fileTree(include: ['*.jar', '*.aar'], dir: 'libs')
-    implementation project(':core')
-    implementation project(':imageLib')
-    implementation project(':logLib')
-    implementation project(':netLib')
-    implementation project(':manager')
+    implementation project(':common:core')
+    implementation project(':common:network')
+    implementation project(':common:routeManager')
+    implementation project(':library:logger')
 
     if (!rootProject.ext.newsRunAlone) {
-        implementation project(path: ':feature-news')
+        implementation project(path: ':feature:feature-news')
     }
 
     if (!rootProject.ext.animationRunAlone) {
-        implementation project(path: ':feature-animation')
+        implementation project(path: ':feature:feature-animation')
     }
 
     implementation deps.material
@@ -272,16 +223,12 @@ dependencies {
     implementation deps.hilt.runtime
     kapt deps.hilt.android_compile
 
-    // Firebase Analytics & Crash reporting
-    implementation 'com.google.firebase:firebase-core:19.0.0'
-    implementation 'com.google.firebase:firebase-crashlytics:18.2.0'
-    implementation 'com.google.firebase:firebase-analytics:19.0.0'
-
     testImplementation deps.junit
 
     androidTestImplementation deps.atsl.runner
     androidTestImplementation deps.atsl.rules
     androidTestImplementation deps.atsl.ext_junit
+
     androidTestImplementation deps.espresso.core
     androidTestImplementation deps.espresso.contrib
     androidTestImplementation deps.arch_core.testing

@@ -10,9 +10,6 @@ buildscript {
         classpath deps.hilt.plugin
         classpath deps.jacoco
         classpath deps.sonar
-        classpath 'com.google.gms:google-services:4.3.8'
-        classpath 'com.google.firebase:firebase-crashlytics-gradle:2.7.1'
-        classpath "io.realm:realm-gradle-plugin:10.2.0"
         //加载自定义插件
         //classpath 'com.simon.asm.core:asm_plugin:1.0.0'
     }
@@ -30,7 +27,7 @@ sonarqube {
     }
 }
 
-project(":core") {
+project(":common:core") {
     sonarqube {
         skipProject = true
     }

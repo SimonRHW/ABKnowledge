@@ -5,8 +5,6 @@ import com.simon.basic.core.LogicApplication
 import com.simon.basic.core.util.ProcessUtil
 import com.simon.news.NewsLogic
 import com.simon.animation.AnimationLogic
-import io.realm.Realm
-import io.realm.RealmConfiguration
 
 class ABKApplication : LogicApplication() {
 
@@ -16,11 +14,6 @@ class ABKApplication : LogicApplication() {
         InstantRun仅用于开发阶段，线上开启调试模式有安全风险，可以使用BuildConfig.DEBUG来区分环境 */
         ARouter.openDebug()
         ARouter.init(this)
-        Realm.init(this)
-        val realmConfig = RealmConfiguration.Builder()
-            .name("Abk.realm")
-            .build()
-        Realm.setDefaultConfiguration(realmConfig)
         registerApplicationLogic(
             ProcessUtil.getProcessName(this, ProcessUtil.getMyProcessId())!!,
             10,
@@ -28,7 +21,7 @@ class ABKApplication : LogicApplication() {
         )
         registerApplicationLogic(
             ProcessUtil.getProcessName(this, ProcessUtil.getMyProcessId())!!,
-            0,
+            1,
             NewsLogic(this)
         )
         registerApplicationLogic(

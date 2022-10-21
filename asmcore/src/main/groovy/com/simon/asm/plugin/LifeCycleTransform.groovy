@@ -9,7 +9,7 @@ import org.objectweb.asm.ClassReader
 import org.objectweb.asm.ClassVisitor
 import org.objectweb.asm.ClassWriter
 
-public class LifeCycleTransform extends Transform {
+class LifeCycleTransform extends Transform {
 
     @Override
     String getName() {
