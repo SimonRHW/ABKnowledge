@@ -17,91 +17,66 @@ class Logger private constructor() {
 
         @SuppressLint("StaticFieldLeak")
         @Volatile
-        private var instance: LoggerManager? = null
-
-        internal fun setLogManager(logManager: LoggerManager) {
-            instance = logManager
-        }
-
-        private fun checkLogManagerNotNull() {
-            if (instance == null) {
-                throw  ExceptionInInitializerError("请先在全局Application将LogManager初始化")
-            }
-        }
+        private var logProvider: LogProvider = LoggerManager.logProvider()
 
         override fun verbose(message: String?, vararg args: Any?) {
-            checkLogManagerNotNull()
-            instance!!.provideLogImpl().verbose(message, *args)
+            logProvider.provideLog().verbose(message, *args)
         }
 
         override fun verbose(t: Throwable?, message: String?, vararg args: Any?) {
-            checkLogManagerNotNull()
-            instance!!.provideLogImpl().verbose(t, message, *args)
+            logProvider.provideLog().verbose(t, message, *args)
         }
 
         override fun verbose(t: Throwable?) {
-            checkLogManagerNotNull()
-            instance!!.provideLogImpl().verbose(t)
+            logProvider.provideLog().verbose(t)
         }
 
         override fun debug(message: String?, vararg args: Any?) {
-            checkLogManagerNotNull()
-            instance!!.provideLogImpl().debug(message, *args)
+            logProvider.provideLog().debug(message, *args)
         }
 
         override fun debug(t: Throwable?, message: String?, vararg args: Any?) {
-            checkLogManagerNotNull()
-            instance!!.provideLogImpl().debug(t, message, *args)
+            logProvider.provideLog().debug(t, message, *args)
         }
 
         override fun debug(t: Throwable?) {
-            checkLogManagerNotNull()
-            instance!!.provideLogImpl().debug(t)
+            logProvider.provideLog().debug(t)
         }
 
         override fun info(message: String?, vararg args: Any?) {
-            checkLogManagerNotNull()
-            instance!!.provideLogImpl().info(message, *args)
+            logProvider.provideLog().info(message, *args)
         }
 
         override fun info(t: Throwable?, message: String?, vararg args: Any?) {
-            checkLogManagerNotNull()
-            instance!!.provideLogImpl().info(t, message, *args)
+            logProvider.provideLog().info(t, message, *args)
         }
 
         override fun info(t: Throwable?) {
-            checkLogManagerNotNull()
-            instance!!.provideLogImpl().info(t)
+            logProvider.provideLog().info(t)
         }
 
         override fun warning(message: String?, vararg args: Any?) {
-            checkLogManagerNotNull()
-            instance!!.provideLogImpl().warning(message, *args)
+            logProvider.provideLog().warning(message, *args)
         }
 
         override fun warning(t: Throwable?, message: String?, vararg args: Any?) {
-            checkLogManagerNotNull()
-            instance!!.provideLogImpl().warning(t, message, *args)
+            logProvider.provideLog().warning(t, message, *args)
         }
 
         override fun warning(t: Throwable?) {
-            checkLogManagerNotNull()
-            instance!!.provideLogImpl().warning(t)
+            logProvider.provideLog().warning(t)
         }
 
         override fun error(message: String?, vararg args: Any?) {
-            checkLogManagerNotNull()
-            instance!!.provideLogImpl().error(message, *args)
+            logProvider.provideLog().error(message, *args)
         }
 
         override fun error(t: Throwable?, message: String?, vararg args: Any?) {
-            checkLogManagerNotNull()
-            instance!!.provideLogImpl().error(t, message, *args)
+            logProvider.provideLog().error(t, message, *args)
         }
 
         override fun error(t: Throwable?) {
-            checkLogManagerNotNull()
-            instance!!.provideLogImpl().error(t)
+            logProvider.provideLog().error(t)
         }
     }
 

@@ -10,26 +10,25 @@ import timber.log.Timber
  * @desc
  */
 class LocalStorageLog private constructor(
-    isShowLog: Boolean,
+    consoleLog: Boolean,
     logLevel: Int
-) : BaseLog(isShowLog, logLevel) {
+) : BaseLog(consoleLog, logLevel) {
 
     companion object {
         @Volatile
         private var instance: LocalStorageLog? = null
 
         fun getInstance(
-            isShowLog: Boolean,
-            globalTag: String,
+            consoleLog: Boolean,
             logLevel: Int
         ) =
             instance ?: synchronized(this) {
                 instance ?: LocalStorageLog(
-                    isShowLog,
+                    consoleLog,
                     logLevel
                 ).also {
                     instance = it
-                    Timber.plant(LocalStorageTree(globalTag))
+                    Timber.plant(LocalStorageTree())
                 }
             }
     }

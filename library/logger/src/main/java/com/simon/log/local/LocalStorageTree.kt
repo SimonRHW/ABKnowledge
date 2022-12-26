@@ -16,9 +16,7 @@ import kotlin.math.min
  * @date 2020/5/1
  * @desc
  */
-open class LocalStorageTree constructor(
-    private var globalTag: String = ""
-) : Timber.Tree() {
+open class LocalStorageTree : Timber.Tree() {
 
     override fun log(priority: Int, tag: String?, message: String, t: Throwable?) {
         var i = 0
@@ -37,10 +35,12 @@ open class LocalStorageTree constructor(
                         Log.w(tag, part)
                         CollectionCrashLibrary.logWarning(t)
                     }
+
                     Log.LEVEL_ERROR -> {
                         Log.e(tag, part)
                         CollectionCrashLibrary.logError(t)
                     }
+
                     Log.LEVEL_FATAL, Log.LEVEL_NONE -> return
                 }
                 i = end
@@ -79,18 +79,9 @@ open class LocalStorageTree constructor(
         }
         // Tag length limit was removed in API 24.
         return if (tag.length <= MAX_TAG_LENGTH || Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            if (globalTag.isNullOrEmpty()) {
-                tag
-            } else {
-                "$globalTag: $tag"
-            }
-
+            tag
         } else {
-            if (globalTag.isNullOrEmpty()) {
-                tag.substring(0, MAX_TAG_LENGTH)
-            } else {
-                "$globalTag: ${tag.substring(0, MAX_TAG_LENGTH)}"
-            }
+            tag.substring(0, MAX_TAG_LENGTH)
         }
     }
 

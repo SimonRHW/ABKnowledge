@@ -1,62 +1,30 @@
 package com.simon.log
 
 import android.annotation.SuppressLint
-import android.content.Context
 import com.simon.log.console.ConsoleLog
-import com.simon.log.local.LocalStorageLog
-import com.simon.log.report.LogService
-import com.simon.log.report.ReportLog
-import com.tencent.mars.xlog.Log
-import com.tencent.mars.xlog.Xlog
-import java.io.File
 
 /**
  * @author Simon
  * @date 2020/5/1
  * @desc log配置管理
  */
-class LoggerManager private constructor(
-    private val context: Context,
-    private val isShowLog: Boolean
-) {
-    companion object {
-        @SuppressLint("StaticFieldLeak")
-        @Volatile
-        private var instance: LoggerManager? = null
+@SuppressLint("StaticFieldLeak")
+object LoggerManager {
 
-        fun getInstance(context: Context, isShowLog: Boolean = true) =
-            instance ?: synchronized(this) {
-                instance ?: LoggerManager(context.applicationContext, isShowLog).also {
-                    Logger.setLogManager(it)
-                    it.initLocalLogParam()
-                    instance = it
-                }
-            }
-    }
-
-    private var logStrategy = LogStrategy.CONSOLE
-    private var logLevel = 1
-    private var globalTag = ""
-    private var logFileDir = ""
-    private var cacheDir = ""
-    private var namePrefix = "Slog"
-    private var cacheDays = 7
-    private var logServerHost = ""
-    private var logService: LogService? = null
-
-    @Volatile
-    private var localStorageLogInit = false
+    var enableLog: Boolean = true
+    private var mLogProvider: LogProvider = DebugLogProvider()
+    var logLevel = BaseLog.LEVEL_INFO
 
     /**
-     * 设置log输出策略,本地存储策略需要设置logPath
+     * 是否开启日志输出
      */
-    fun setLogStrategy(strategy: LogStrategy): LoggerManager {
-        logStrategy = strategy
+    fun consoleLog(enable: Boolean): LoggerManager {
+        this.enableLog = enable
         return this
     }
 
     /**
-     * 设置输出日志级别
+     * 设置日志收集级别
      */
     fun setLogLevel(logLevel: Int): LoggerManager {
         this.logLevel = logLevel
@@ -64,99 +32,30 @@ class LoggerManager private constructor(
     }
 
     /**
-     * 只对LogStrategy.CONSOLE 生效
+     * 设置不同的Log输出模式
+     * @see com.simon.log.console.ConsoleLogProvider
+     * @see com.simon.log.local.LocalStorageLogProvider
+     * @see com.simon.log.report.ReportLogProvider
      */
-    fun setGlobalTag(globalTag: String): LoggerManager {
-        this.globalTag = globalTag
-        return this
+    fun setLogProvider(logProvider: LogProvider) {
+        this.mLogProvider = logProvider
+    }
+
+    internal fun logProvider(): LogProvider {
+        return mLogProvider
     }
 
     /**
-     * 设置上报日志的Server Host
+     * 直接输出到终端
      */
-    fun setLogServerHost(logServerHost: String): LoggerManager {
-        this.logServerHost = logServerHost
-        return this
-    }
-
-    internal fun provideLogImpl(): ILog {
-        return when (logStrategy) {
-            LogStrategy.CONSOLE -> {
-                ConsoleLog.getInstance(
-                    isShowLog = isShowLog,
-                    globalTag = globalTag,
-                    logLevel = logLevel
-                )
-            }
-            LogStrategy.LOCAL_STORAGE -> {
-                LocalStorageLog.getInstance(
-                    isShowLog = isShowLog,
-                    globalTag = globalTag,
-                    logLevel = logLevel
-                )
-            }
-            LogStrategy.UPLOAD -> {
-                ReportLog.getInstance(
-                    isShowLog = isShowLog,
-                    logLevel = logLevel,
-                    logService = logService
-                )
-            }
-        }
-    }
-
-    enum class LogStrategy {
-        /**
-         * 直接输出到终端，主要用于本地开发测试使用
-         */
-        CONSOLE,
-
-        /**
-         * 将日志进行本地存储，可按需上传文件到server端
-         */
-        LOCAL_STORAGE,
-
-        /**
-         * 实时发送message到server端，例如车机在整车测试中不能开启adb debug时，需要实时看数据交互
-         */
-        UPLOAD
-    }
-
-    private fun initLocalLogParam() {
-        if (localStorageLogInit) {
-            return
-        }
-        if (logFileDir.isEmpty()) {
-            logFileDir = context.filesDir.absolutePath + File.separator + "log"
-        }
-        if (cacheDir.isEmpty()) {
-            cacheDir = context.filesDir.absolutePath + File.separator + "cacheLog"
-        }
-        System.loadLibrary("c++_shared")
-        System.loadLibrary("marsxlog")
-        Log.setLogImp(Xlog())
-        if (isShowLog) {
-            Log.setConsoleLogOpen(true)
-            Log.appenderOpen(
-                BaseLog.LEVEL_ALL,
-                Xlog.AppednerModeAsync,
-                cacheDir,
-                logFileDir,
-                namePrefix,
-                cacheDays
-            )
-        } else {
-            Log.setConsoleLogOpen(false)
-            Log.appenderOpen(
-                BaseLog.LEVEL_INFO,
-                Xlog.AppednerModeAsync,
-                cacheDir,
-                logFileDir,
-                namePrefix,
-                cacheDays
+    internal class DebugLogProvider : LogProvider {
+        override fun provideLog(): ILog {
+            return ConsoleLog.getInstance(
+                consoleLog = true,
+                globalTag = "SLog",
+                logLevel = 0
             )
         }
-        localStorageLogInit = true
     }
 
 }

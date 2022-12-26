@@ -27,7 +27,7 @@ ext.newsRunAlone = "${newsRunAlone}".toBoolean()
 ext.recycleviewRunAlone = "${recycleviewRunAlone}".toBoolean()
 
 def versions = [:]
-versions.android_gradle_plugin = '7.0.1'
+versions.android_gradle_plugin = '7.3.1'
 
 def build_versions = [:]
 build_versions.min_sdk = 24
@@ -80,16 +80,16 @@ versions.glide = "4.11.0"
 versions.glide = "4.11.0"
 
 versions.hamcrest = "1.3"
-versions.hilt = "2.37"
+versions.hilt = '2.40.1'
 
 versions.junit = "4.12"
 versions.jacoco = "0.8.5"
 
-versions.kotlin = "1.5.30"
+versions.kotlin = '1.6.21'
 
 versions.lifecycle = "2.4.1"
 
-versions.material = "1.4.0-beta01"
+versions.material = "1.5.0"
 
 versions.mockito = "2.25.0"
 versions.mockito_all = "1.10.19"
@@ -110,7 +110,7 @@ versions.room = "2.4.1"
 versions.rx_android = "2.1.1"
 versions.rxjava2 = "2.2.12"
 
-versions.sonar = "2.7.1"
+versions.sonar = "3.2.0"
 versions.slice = "1.0.0"
 versions.startup = ":1.1.0"
 versions.swagger = "1.5.15"

@@ -10,14 +10,17 @@ import kotlin.math.min
  * @date 2020/5/1
  * @desc
  */
-open class ReportTree(private val logLevel: Int, private val logService: LogService?) : Timber.Tree() {
+open class ReportTree(
+    private val logLevel: Int,
+    private val logService: LogService?
+) :
+    Timber.Tree() {
 
     override fun log(priority: Int, tag: String?, message: String, t: Throwable?) {
         if (priority < logLevel) {
             return
         }
         logService?.uploadLog(message, priority)?.let {
-            //没有service,输出收集日常日志
             var i = 0
             val length = message.length
             while (i < length) {
@@ -34,10 +37,12 @@ open class ReportTree(private val logLevel: Int, private val logService: LogServ
                             Log.w(tag, part)
                             CollectionCrashLibrary.logWarning(t)
                         }
+
                         Log.ERROR -> {
                             Log.e(tag, part)
                             CollectionCrashLibrary.logError(t)
                         }
+
                         Log.ASSERT -> return
                     }
                     i = end

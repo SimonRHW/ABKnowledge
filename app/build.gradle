@@ -176,13 +176,6 @@ android {
 
 }
 
-repositories {
-    //与 implementation fileTree(dir: 'libs', include: ['*.jar']) 互斥 ，不同平台进行不同版本lib集成
-    flatDir {
-        dirs "libs"
-    }
-}
-
 dependencies {
     implementation fileTree(include: ['*.jar', '*.aar'], dir: 'libs')
     implementation project(':common:core')

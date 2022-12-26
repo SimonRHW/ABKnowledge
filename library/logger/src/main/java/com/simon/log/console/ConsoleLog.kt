@@ -9,22 +9,22 @@ import timber.log.Timber
  * @desc:
  */
 class ConsoleLog private constructor(
-    isShowLog: Boolean,
+    consoleLog: Boolean,
     logLevel: Int,
-) : BaseLog(isShowLog, logLevel) {
+) : BaseLog(consoleLog, logLevel) {
 
     companion object {
         @Volatile
         private var instance: ConsoleLog? = null
 
         fun getInstance(
-            isShowLog: Boolean,
+            consoleLog: Boolean,
             globalTag: String,
             logLevel: Int,
         ) =
             instance ?: synchronized(this) {
                 instance ?: ConsoleLog(
-                    isShowLog,
+                    consoleLog,
                     logLevel
                 ).also {
                     instance = it

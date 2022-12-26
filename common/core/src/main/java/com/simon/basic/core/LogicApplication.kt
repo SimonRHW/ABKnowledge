@@ -3,7 +3,6 @@ package com.simon.basic.core
 import android.content.res.Configuration
 import com.simon.basic.core.platform.AppStatusManager
 import com.simon.basic.core.util.ProcessUtil
-import com.simon.log.LoggerManager
 
 /**
  * @author Simon
@@ -37,10 +36,6 @@ abstract class LogicApplication : BaseApplication() {
      */
     private fun init() {
         mLogicClassMap = HashMap()
-        LoggerManager.getInstance(this)
-            .setLogStrategy(LoggerManager.LogStrategy.CONSOLE)
-            .setGlobalTag("ABK")
-            .setLogLevel(0)
         AppStatusManager.instance.init(this)
     }
 

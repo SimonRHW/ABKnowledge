@@ -7,6 +7,11 @@ import org.jetbrains.annotations.NonNls
  * @date 2020/5/1
  * @desc
  */
+
+interface LogProvider {
+    fun provideLog(): ILog
+}
+
 interface ILog {
 
     fun verbose(@NonNls message: String?, vararg args: Any?)

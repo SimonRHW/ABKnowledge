@@ -7,7 +7,7 @@ import timber.log.Timber
  * @date 2021/1/10
  */
 abstract class BaseLog internal constructor(
-    private var isShowLog: Boolean,
+    private var consoleLog: Boolean,
     private var logLevel: Int
 ) : ILog {
 
@@ -22,7 +22,7 @@ abstract class BaseLog internal constructor(
     }
 
     private fun checkPrintOut(level: Int): Boolean {
-        return isShowLog && logLevel <= level
+        return consoleLog && logLevel <= level
     }
 
     override fun verbose(message: String?, vararg args: Any?) {
