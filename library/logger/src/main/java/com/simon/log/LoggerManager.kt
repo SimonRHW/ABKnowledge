@@ -52,7 +52,7 @@ object LoggerManager {
         override fun provideLog(): ILog {
             return ConsoleLog.getInstance(
                 consoleLog = true,
-                globalTag = "SLog",
+                globalTag = "S_",
                 logLevel = 0
             )
         }

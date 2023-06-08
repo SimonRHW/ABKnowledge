@@ -1,34 +1,34 @@
 {
   "project_info": {
     "project_number": "496015347358",
-    "firebase_url": "https://fakeapp.firebaseio.com",
-    "project_id": "fake-android-app",
-    "storage_bucket": "fake-android-app.appspot.com"
+    "firebase_url": "https://fir-demo-1072f.firebaseio.com",
+    "project_id": "fir-demo-1072f",
+    "storage_bucket": "fir-demo-1072f.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "fake_id",
+        "mobilesdk_app_id": "1:496015347358:android:0d58b5fca60537690e758f",
         "android_client_info": {
           "package_name": "com.simon.basic.knowledge"
         }
       },
       "oauth_client": [
         {
-          "client_id": "fake_id",
+          "client_id": "496015347358-njoqt64vu0v20davdi3nc7rm6502enr2.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "fake_key"
+          "current_key": "AIzaSyA2CJHpu1wjK_cC2vM2Gfhd2_YLMjO5Ls8"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "fake_id",
+              "client_id": "496015347358-njoqt64vu0v20davdi3nc7rm6502enr2.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

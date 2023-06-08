@@ -33,6 +33,12 @@ project(":common:core") {
     }
 }
 
+project(":library:logger") {
+    sonarqube {
+        skipProject = true
+    }
+}
+
 subprojects {
     sonarqube {
         properties {

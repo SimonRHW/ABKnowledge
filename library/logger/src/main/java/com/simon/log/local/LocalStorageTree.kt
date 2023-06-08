@@ -1,11 +1,9 @@
 package com.simon.log.local
 
 
-import android.os.Build
 import com.simon.log.BaseLog
-import com.simon.log.Logger
 import com.simon.log.CollectionCrashLibrary
-
+import com.simon.log.Logger
 import com.tencent.mars.xlog.Log
 import timber.log.Timber
 import java.util.regex.Pattern
@@ -78,7 +76,7 @@ open class LocalStorageTree : Timber.Tree() {
             tag = m.replaceAll("")
         }
         // Tag length limit was removed in API 24.
-        return if (tag.length <= MAX_TAG_LENGTH || Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+        return if (true) {
             tag
         } else {
             tag.substring(0, MAX_TAG_LENGTH)

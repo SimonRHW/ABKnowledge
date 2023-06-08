@@ -15,17 +15,17 @@ class ABKApplication : LogicApplication() {
         ARouter.openDebug()
         ARouter.init(this)
         registerApplicationLogic(
-            ProcessUtil.getProcessName(this, ProcessUtil.getMyProcessId())!!,
+            ProcessUtil.getProcessName(this, ProcessUtil.getMyProcessId()),
             10,
             ABKLogic(this)
         )
         registerApplicationLogic(
-            ProcessUtil.getProcessName(this, ProcessUtil.getMyProcessId())!!,
+            ProcessUtil.getProcessName(this, ProcessUtil.getMyProcessId()),
             1,
             NewsLogic(this)
         )
         registerApplicationLogic(
-            ProcessUtil.getProcessName(this, ProcessUtil.getMyProcessId())!!,
+            ProcessUtil.getProcessName(this, ProcessUtil.getMyProcessId()),
             0,
             AnimationLogic(this)
         )

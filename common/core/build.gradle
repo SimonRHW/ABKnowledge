@@ -49,7 +49,7 @@ dependencies {
 
     api deps.gson
     api deps.zxing
-    api deps.rx_android
+    api deps.rx_android2
     api deps.rxjava2
 
     //DI
@@ -57,10 +57,10 @@ dependencies {
     implementation deps.dagger.android
     implementation deps.dagger.android_support
     kapt deps.dagger.compiler
-    kapt deps.dagger.android_support_compiler
+    kapt deps.dagger.android_compiler
 
     implementation deps.hilt.runtime
-    kapt deps.hilt.android_compile
+    kapt deps.hilt.android_compiler
 
     testImplementation deps.junit
     testImplementation deps.arch_core.testing

@@ -14,16 +14,16 @@ object ProcessUtil {
     /**
      * @return null may be returned if the specified process not found
      */
-    fun getProcessName(cxt: Context, pid: Int): String? {
+    fun getProcessName(cxt: Context, pid: Int): String {
         val am = cxt.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
         val runningApps =
-            am.runningAppProcesses ?: return null
-        for (procInfo in runningApps) {
-            if (procInfo.pid == pid) {
-                return procInfo.processName
+            am.runningAppProcesses ?: return ""
+        for (runningAppProcessInfo in runningApps) {
+            if (runningAppProcessInfo.pid == pid) {
+                return runningAppProcessInfo.processName
             }
         }
-        return null
+        return ""
     }
 
     fun getMyProcessId(): Int {

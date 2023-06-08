@@ -79,20 +79,22 @@ abstract class LogicApplication : BaseApplication() {
         priority: Int,
         logicClass: Logic,
     ): Boolean {
-        var tempList = mLogicClassMap[processName]
-        if (null == tempList) {
-            tempList = ArrayList()
-            mLogicClassMap[processName] = tempList
-        }
-        if (tempList.size > 0) {
-            for (priorityLogicWrapper in tempList) {
-                if (logicClass == priorityLogicWrapper.logicClass) {
-                    throw RuntimeException("$logicClass has registered.")
+        if (processName.isBlank()) {
+            var tempList = mLogicClassMap[processName]
+            if (null == tempList) {
+                tempList = ArrayList()
+                mLogicClassMap[processName] = tempList
+            }
+            if (tempList.size > 0) {
+                for (priorityLogicWrapper in tempList) {
+                    if (logicClass == priorityLogicWrapper.logicClass) {
+                        throw RuntimeException("$logicClass has registered.")
+                    }
                 }
             }
+            val priorityLogicWrapper = PriorityLogicWrapper(priority, logicClass)
+            tempList.add(priorityLogicWrapper)
         }
-        val priorityLogicWrapper = PriorityLogicWrapper(priority, logicClass)
-        tempList.add(priorityLogicWrapper)
         return true
     }
 

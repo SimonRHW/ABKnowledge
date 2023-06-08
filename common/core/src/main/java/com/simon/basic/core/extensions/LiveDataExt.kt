@@ -4,24 +4,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
-import androidx.lifecycle.Transformations
-
-fun <T : Any?> Fragment.subscribe(liveData: LiveData<T>, func: (T) -> Unit) {
-    liveData.observe(this.viewLifecycleOwner, {
-        func(it)
-    })
-}
-
-fun <T : Any?> AppCompatActivity.subscribe(liveData: LiveData<T>, func: (T) -> Unit) {
-    liveData.observe(this, {
-        func(it)
-    })
-}
-
-/** Uses `Transformations.map` on a LiveData */
-fun <X, Y> LiveData<X>.map(body: (X) -> Y): LiveData<Y> {
-    return Transformations.map(this, body)
-}
 
 /**
  * Combines this [LiveData] with another [LiveData] using the specified [combiner] and returns the

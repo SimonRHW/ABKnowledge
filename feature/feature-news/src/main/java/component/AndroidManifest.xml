@@ -3,6 +3,7 @@
 
     <application android:theme="@style/AppTheme">
         <activity
+            android:exported="true"
             android:name=".features.NewsActivity"
             android:launchMode="singleTop" />
     </application>

@@ -17,7 +17,6 @@ open class BaseApplication : Application(), ViewModelStoreOwner {
         mAppViewModelStore = ViewModelStore()
     }
 
-    override fun getViewModelStore(): ViewModelStore {
-        return mAppViewModelStore
-    }
+    override val viewModelStore: ViewModelStore
+        get() = mAppViewModelStore
 }
