@@ -1,9 +1,9 @@
 apply plugin: 'jacoco'
 
-jacoco {
-    toolVersion = "$versions.jacoco"
-    reportsDir = file("$buildDir/JacocoReport")
-}
+//jacoco {
+//    toolVersion = "$versions.jacoco"
+//    reportsDir = file("$buildDir/JacocoReport")
+//}
 
 tasks.withType(Test) {
     jacoco.includeNoLocationClasses = true

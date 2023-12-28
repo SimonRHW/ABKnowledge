@@ -1,5 +1,4 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.simon.log">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <!-- 网络链接 -->
     <uses-permission android:name="android.permission.INTERNET" />
     <!-- 获取网络状态 -->

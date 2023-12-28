@@ -27,9 +27,9 @@ static def getGitVersion() {
 }
 
 android {
-
     compileSdkVersion build_versions.compile_sdk
     buildToolsVersion build_versions.build_tools
+    namespace 'com.simon.basic.knowledge'
     defaultConfig {
         applicationId "com.simon.basic.knowledge"
         minSdkVersion build_versions.min_sdk
@@ -173,7 +173,6 @@ android {
         abortOnError false
         disable 'GoogleAppIndexingWarning'
     }
-
 }
 
 dependencies {

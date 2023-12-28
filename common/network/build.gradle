@@ -6,7 +6,7 @@ apply plugin: 'dagger.hilt.android.plugin'
 
 android {
     compileSdkVersion build_versions.compile_sdk
-
+    namespace 'com.simon.netcore'
     defaultConfig {
         minSdkVersion build_versions.min_sdk
         targetSdkVersion build_versions.target_sdk

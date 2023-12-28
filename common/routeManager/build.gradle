@@ -4,7 +4,7 @@ plugins {
 }
 android {
     compileSdkVersion build_versions.compile_sdk
-
+    namespace 'com.simon.module.manager'
     defaultConfig {
         minSdkVersion build_versions.min_sdk
         targetSdkVersion build_versions.target_sdk

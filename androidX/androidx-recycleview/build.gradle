@@ -16,7 +16,7 @@ kapt {
 android {
     compileSdkVersion build_versions.compile_sdk
     buildToolsVersion build_versions.build_tools
-
+    namespace 'androidx.recyclerview.widget'
     defaultConfig {
         minSdkVersion build_versions.min_sdk
         targetSdkVersion build_versions.target_sdk

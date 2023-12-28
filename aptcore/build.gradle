@@ -1,5 +1,5 @@
 apply plugin: 'groovy'
-apply plugin: 'maven-publish'
+//apply plugin: 'maven-publish'
 apply plugin: 'java'
 apply plugin: 'kotlin'
 
@@ -15,23 +15,23 @@ dependencies {
     implementation 'org.apache.commons:commons-collections4:4.4'
 }
 
-publishing {
-    repositories {
-        maven {
-            // change to point to your repo
-            url = layout.projectDirectory.dir('repo')
-        }
-    }
-    publications {
-        maven(MavenPublication) {
-            groupId = 'com.simon.apt.core'
-            artifactId = 'compiler'
-            version = '1.0.0'
-
-            from components.java
-        }
-    }
-}
+//publishing {
+//    repositories {
+//        maven {
+//            // change to point to your repo
+//            url = layout.projectDirectory.dir('repo')
+//        }
+//    }
+//    publications {
+//        maven(MavenPublication) {
+//            groupId = 'com.simon.apt.core'
+//            artifactId = 'compiler'
+//            version = '1.0.0'
+//
+//            from components.java
+//        }
+//    }
+//}
 
 java {
     sourceCompatibility = JavaVersion.VERSION_1_8

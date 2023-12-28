@@ -17,7 +17,7 @@ kapt {
 android {
     compileSdkVersion build_versions.compile_sdk
     buildToolsVersion build_versions.build_tools
-
+    namespace 'com.simon.animation'
     defaultConfig {
         minSdkVersion build_versions.min_sdk
         targetSdkVersion build_versions.target_sdk
